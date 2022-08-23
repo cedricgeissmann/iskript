@@ -1,0 +1,154 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+
+\usepackage{listings}
+\lstset{language=Python}
+
+\usepackage{longtable}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+\section{Computer Basics}
+
+\subsection{File Browser/Finder}
+
+Use \verb|win-e| or \verb|cmd-n| to open a new File Browser/Finder window.  These generally show the contents of your computer. Your main folder is called  \emph{Home} it usually contains (among many others) the subfolders \emph{Desktop, Documents} and \emph{Downloads}. Additionally, you will have a OneDrive folder and perhaps other cloud storage folders as well.
+
+\begin{multicols}{2}
+\centfig{0.9}{home-mac}
+
+\centfig{0.9}{home-win}
+\end{multicols}
+
+\subsection{Local vs. Cloud Storage}
+Generally, there are two places you can store and work with documents: locally and on the cloud. You need to figure out a good system for managing documents that works for you. 
+
+Make sure you can find all relevant documents when you need them.
+
+Option 1. Save everything to the cloud. Work on a local version that you then upload to the cloud folder. 
+
+Option 2. Work directly on documents in cloud folder (can cause issues with shared documents).
+
+Option 3. Only work locally, no cloud. 
+
+Option 4 \ldots
+
+\subsection{Naming Conventions}
+Try to avoid special characters and spaces in file and folder names. Modern systems can deal with many things but these can sometimes cause issues when transferring between different computers and/or operating systems.
+
+If you have files of a recurring nature where the date of writing may be important (for example class notes), you can add the date as a part of the filename: \verb|YYYY-MM-DD-filename| or \verb|YYYYMMDD-filename|. This will allow you to easily sort them by date.
+
+
+\subsection{Backups} 
+
+Don't make the mistake of thinking that cloud storage is the same thing as a backup. If your local file gets corrupted, the file on the cloud will be corrupted as well. It is generally a good idea to have an external hard drive for your backups. If you have sensitive data the accepted rule is "two plus one": two local copies and an external copy (e.g. a hard drive at your grandmothers house).
+
+
+\section{Shortcuts}
+\begin{longtable}{|p{0.4\textwidth}|p{0.6\textwidth}|}
+\hline
+{\bf Keyboard Shortcut} & {\bf Description}  \\
+\hline 
+\endhead
+\verb|win-e| or \verb|cmd-n| (when on Desktop) & Open a new File Browser/Finder Window \\
+\hline
+\verb|shift-ctrl-n| or \verb|shift-cmd-n| & Create a new folder\\
+\hline
+\verb|alt-tab| (Windows) & Cycle through open windows \\
+\hline
+\verb|cmd-tab| (Mac) & Cycle through open applications \\
+\hline
+\verb|ctrl-z| or \verb|cmd-z| & Undo the last action (depends on the current application)\\
+\hline
+\verb|ctrl-y| or \verb|cmd-y| & Redo the last action (depends on the current application)\\
+\hline
+\verb|ctrl-a| or \verb|cmd-a| & Select the entire text or all documents \\
+\hline
+\verb|ctrl-c| or \verb|cmd-c| & Copy the selected text (or file)\\
+\hline
+\verb|ctrl-x| or \verb|cmd-x| & Cut the selected text (or file)\\
+\hline
+\verb|ctrl-v| or \verb|cmd-v| & Paste the previously copied text (or file)\\
+\hline
+\verb|win-e| or \verb|cmd-n| (when using an application) & Open a new document \\
+\verb|ctrl-s| or \verb|cmd-s| & Save the current document\\
+\hline
+\verb|ctrl-p| or \verb|cmd-p| & Open the print dialogue of the current program\\
+\hline
+\verb|F2| (Windows) & Rename the selected file\\
+\hline
+\verb|Return| (Mac) & Rename the selected file\\
+\hline
+\verb|ctrl-w| (Windows) & Close current window or tab\\
+\hline
+\verb|alt-F4| (Windows) & Close current application\\
+\hline
+\verb|cmd-w| (Mac) & Close current window or tab\\
+\hline
+\verb|cmd-q| (Mac) & Close current application\\
+\hline
+
+
+
+\end{longtable}
+\end{document}
