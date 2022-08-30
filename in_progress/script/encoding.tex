@@ -1,0 +1,242 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+
+\section{Encoding Data}
+Everything that can be input into a computer can be considered \bfb{data}. We will give a brief overview of the different ways in which a computer will translate that data into the ones and zeros it needs to operate. Be aware that this is only a brief introduction and we will not be going into great detail. The finer points of all of these representations will be dealt with later in the curriculum.
+
+\subsection{Analog vs. Digital}
+In the natural world most processes are continuous; i.e. every measured value can be determined (in theory) with infinite precision. Obviously, there are some real world limits to this precision, but they only matter in very specific cases and are not really relevant in our everyday life.
+
+Computers on the other hand, by their basic nature, are finite machines: There are only so many bits at our disposal and we need to make them matter. \#EveryBitMatters
+
+This means that all the information inputted and stored in computers has to be modified to fit the way computers think. For example: A mercury thermometer is an analog device in theory if we had a fine enough scale, we could measure the temperature with infinte precision (well down to the size of a mercury atom at least). However, if we look a thermometer, we may simply say that is shows  $25\dg$ . For everyday purposes this is sufficiently precise and this is the value we would input into a computer. This process of discretization is typical for way computers work - think of it as rounding up or down. In this case both  $24.99876\dg$  and  $25.32298\dg$  would both be coded as  $25\dg$ .
+
+\section{Representing Numbers}
+
+Numbers in a computer are written using the binary number system. This is a system of numbers, that only uses ones and zeros. Due to the way computers are physically set up, this is the logical way for representing numbers. In the binary number system every position corresponds to a power of two:  $2^0, 2^1, 2^2, 2^3, \ldots$ etc. Just remember that we read the powers from right to left in ascending order. So the binary number
+\[
+10011
+\]
+translates to
+\[
+2^4+2^1+2^0=19
+\]
+ 
+This is pretty easy to understand for whole positive numbers. We will later see how computers deal with fractions and negative numbers (spoilers: there will be some math involved).
+
+Each one or zero is called a bit. You may have heard of 32-bit vs. 64-bit operating systems. This just means that each data point has 32 or 64 bits available to store information. Basically, the more bits you have the bigger the numbers you can store and the more precise your information will be.
+
+\subsection{The 1's and the 0's}
+Although some early computers were decimal machines, modern  computers are all binary. The reason for this is mainly engineering: It is relatively easy to make a switch with two positions \emph{on} and \emph{off}. Newer computers still apply this basic idea for their calculations -- just with electricity: low voltage is off (or zero) and high voltage is on (or one).
+
+A basic storage unit of a computer is a \bfb{bit}, which is short for \bfb{binary digit}. Eight bits are called a \bfb{byte}. $1024$ bytes are a \bfb{kilobyte}, because we are dealing with powers of $2$ and $2^{10}=1024$ is closest to $1000$. The same reasoning is applied for megabytes, gigabytes, terabytes etc. 
+
+Since one bit does not encode much information, modern computers use $64$ bits as a basic unit of storage. That means that each number, character and special symbol uses up $64$ bits of memory. This also means that a computer can not calculate with numbers that are too big -- this leads to \bfb{overflow}.
+
+Basic addition 
+
+\subsection{Exercises}
+
+\begin{ex}
+Convert the following binary numbers to decimal.
+\begin{multicols}{4}
+\begin{enumerate}
+\item $10101$
+\item $1110$
+\item $1000001$
+\item $1100110011$
+\end{enumerate}
+\end{multicols} 
+\end{ex}
+\sol{
+\begin{multicols}{4}
+\begin{enumerate}
+\item $21$
+\item $14$
+\item $65$
+\item $819$
+\end{enumerate}
+\end{multicols}
+}
+
+\begin{ex}
+Convert the following decimal numbers to binary.
+\begin{multicols}{4}
+\begin{enumerate}
+\item $42$
+\item $122$
+\item $2022$
+\item $15$
+\end{enumerate}
+\end{multicols} 
+\end{ex}
+\sol{
+\begin{multicols}{4}
+\begin{enumerate}
+\item $101010$
+\item $1111010$
+\item $11111100110$
+\item $1111$
+\end{enumerate}
+\end{multicols}
+}
+
+\begin{ex}
+Write the following numbers as 6-bit binary numbers.
+\begin{multicols}{4}
+\begin{enumerate}
+\item $13$
+\item $1$
+\item $25$
+\item $65$
+\end{enumerate}
+\end{multicols}
+\end{ex}
+\sol{
+\begin{multicols}{4}
+\begin{enumerate}
+\item $001101$
+\item $000001$
+\item $011001$
+\item not possible
+\end{enumerate}
+\end{multicols}
+}
+
+\begin{ex}
+How many bits are in a megabyte?
+\end{ex}
+\sol{$8'388'608$}
+
+\newpage
+\subsection{Solutions}
+\printcursols
+
+\newpage
+
+\section{Representing Text}
+
+In order to represent text in a computer every character and command option (e.g. space, tab, line break etc.) has to stored digitally. We do this by giving each letter, number, punctuation character, special character and command option a number and storing those numbers together with a translation table so the computer knows what to show on the screen. This translation table is called a character set.
+
+\subsection{ASCII vs. Unicode}
+
+There are two main character sets you should know of: ASCII which stands for American Standard Code for Information Interchage and Unicode which is an initernational extension of ASCII. ASCII uses an 7-bit encoding scheme which allows for 128 different characters, numbers and commands to be encoded. This is sufficient for plain English text but if we want to encode text in other languages where there may be accents on certain letters or completely different alphabets (think Russian or Chinese) these 256 characters get used up pretty quickly.
+
+Unicode is an extension of ASCII in the sense that the ASCII characters remain encoded with the same bits (with some leading zeros added). Currently, Unicode defines 143,859 different characters. The way this works is not trivial. The following video may give you a small insight:
+
+\url{https://youtu.be/MijmeoH9LT4}
+
+Below is the complete 7 bit ASCII character table and decimal equivalent.
+
+\centfig{0.9}{ASCII.png}
+\hfill source: {\url{https://en.m.wikipedia.org/wiki/File:ASCII-Table.svg}}
+
+The 7 bit ASCII table is no longer really viable, since we need many more symbols in modern computers. For a while there was an extended ASCII table with 8 bits. However, modern encoding uses the Unicode format which is backwards compatible with ASCII but allows for many, many more different characters.
+
+\begin{ex}
+Use the table to translate a short text into decimal numbers and hexcode.
+\end{ex}
+
+\begin{ex}
+Estimate how many bytes are needed to represent the text in a book.
+\end{ex}
+
+\newpage
+
+\section{Representing Images}
+
+Data in computers is stored and transmitted as a series of ones and zeros (also known as Binary). 
+
+To store an image on a computer, the image is broken down into tiny elements called pixels. A \bfb{pixel} (short for picture element) represents one colour. The number of pixels in an image is called its \bfb{resolution}. An image with a resolution of 1024 by 798 pixels has 1024 x 798 pixels (817,152 pixels). 
+
+For a monochrome image each pixel can be represented by one bit. For webpages and most standard applications we use a 16 bit colorspace. In  certain special situations, we may want more colors and perhaps an \bfb{alpha channel}. The alpha channel can encode transparency and other shading information.
+
+\subsection{Representing Colors}
+
+
+
+
+\section{Representing Video}
+
+Video information is one of the most complex types of information saved on a computer. It contains the equivalent of thousands of images and audio. 
+
+
+\section{Representing Audio}
+
+Computer audio is encoded by taking the waveforms of an audio input and transcoding that into a digital representation. 
+
+A sound wave, in red, represented digitally, in blue (after sampling and 4-bit quantization):
+\centfig{0.8}{audio}
+\hfill \emph{source: \url{https://www.wikiwand.com/en/Digital_audio}}
+
+
+
+
+\end{document}
