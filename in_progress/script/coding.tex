@@ -1,0 +1,236 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+\section{Some Remarks on Coding}
+\bfb{Coding} is a sort of blanket term for any written instructions that get interpreted or executed by a digital device. Coding can be writing HTML for a website, writing an app for your phone or even just programming your smart fridge to remind you to buy orange juice.
+
+Simply put, computer coding is the process of using a programming language to deliver instructions to a computer. The code tells the machine what tasks to perform and how to perform them. These detailed instructions are written in multiple lines of code, and a document full of code is called a script.
+
+The script directs the computer to carry out your desired actions. You have to ensure your code is correct otherwise the computer will not understand your commands. Every script is designed for a specific purpose. Anything from resizing an image to playing a particular sound or video.
+
+Any website you visit, application you use, or piece of technology you interact with, works by following code. In fact, even when you hit ‘Like’ on someone’s social media post, a script is triggered and shares your action with the world\footnote{https://www.thinkful.com/blog/coding-best-practices/}.
+
+The only things you really need to code are a text editor and your head. There are visual coding interfaces such as scratch, but they have the same functionalities as a text editor.
+
+\subsection{Which Text Editor?}
+
+Asking a coder which editor they use can be the start of a massive flame war -- tread carefully.  We have decided to use \bfb{Visual Studio Code} (VS Code) for its mix of ease of use and functionality. 
+
+\subsection{Which Head?}
+
+If you can use anything other than your own head then please see a doctor immediately. Remember: its ok to talk to your computer, but if your computer answers you should seek help.
+
+\subsection{Installing VS Code}
+Click on the following link and download and run the installer: 
+
+\url{https://code.visualstudio.com/}
+
+\subsection{Coding Best Practices}
+
+Here we will look at some general best practices for coding. Language specific best practices will be shown later.
+
+Here are four main things to be aware of and do when learning to code: 
+
+\begin{itemize}
+\item \bfb{Indentation and readability}: properly indented code is much easier to read than non-indented code. -- it is especially useful for finding where code chunks begin and end. Compare the two code chunks below and you will see that the first one is much easier to understand. Luckily most code editors automatically indent the code as you type.  In VS Code you can highlight a code chunk and press the tab key to indent it by four spaces. Press shift-tab to decrease the indent.
+
+Avoid long lines. It is easier for humans to read blocks of lines that are horizontally short and vertically long. 
+
+Keep code as short as possible without losing readability. A single function should do one task.
+
+\newpage
+\begin{multicols}{2}
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>My Title</title>
+  </head>
+  <body>
+      Main body here
+  </body>
+</html>
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+<title>My Title</title>
+</head>
+<body>
+Main body here
+</body>
+</html>
+\end{lstlisting}
+\end{multicols}
+
+\item \bfb{Meaningful naming}: Give your files, variables, classes etc intuitive names.: e.g.  name a function \verb|findMax()| instead of \verb|f2()|. The name should describe what the variable or function does or will be used for. There are different ways for writing multi-word names depending on the language you use. These will be mentioned in the corresponding sections.
+
+\item \bfb{Dont' repeat yourself}: Also known as the DRY principle, “Don’t repeat yourself” strives to reduce code duplication. The idea here is that if you have code that’s doing the same thing twice, it should be made into a function. By abstracting code into functions, you can reuse that code and make development more efficient. In addition, avoiding code duplication makes debugging easier, as you won’t have to fix a bug in every instance of repeated code throughout your program\footnote{https://www.educative.io/blog/coding-best-practices}.
+
+\item \bfb{Commenting}: Code is for the compiler, while comments are for coders.  In a perfect world good code would be self-explanatory, however in real life this is not always the case.  Your comments should give context and additional explanations. Do not simply describe what the code does.
+
+\item \bfb{Organizing Files}: You should create a new folder for each project. If you use multiple additional resources or images add a subfolder \verb|res| or \verb|img|.  Use lower case for naming files and don't use spaces. 
+
+\end{itemize}
+
+\subsection{HTML Best Practices}
+\begin{itemize}
+\item \bfb{Use proper document structure\footnote{https://blog.tbhcreative.com/2015/08/10-best-practices-in-html.html}}: HTML documents will still work without elements such as \verb|<html>|, \verb|<head>|, and \verb|<body>|. However, the pages will not render correctly in every browser so it's important to be consistent using the proper document structure. 
+
+\item \bfb{Declare the correct doctype\footnote{https://www.w3schools.com/html/html5\_syntax.asp}}: When creating an HTML document, the first thing to declare is the doctype. This will tell the browser the standards you are using to render your markup correctly. 
+
+\item \bfb{Meta Data}: To ensure proper interpretation and correct search engine indexing, both the language and the character encoding \verb|<meta charset="charset">| should be defined as early as possible in an HTML document.
+
+\item \bfb{Use lowercase element names}: Your HTML code can be written in lowercase or uppercase and the web page will render correctly. However, it is best practice to keep tag names in lowercase because it is easier to read and maintain.
+
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Title</title>
+  </head>
+  <body>
+      Main body here
+  </body>
+</html>
+\end{lstlisting}
+
+\item \bfb{Close all HTML tags}: In HTML, you do not have to close all elements (for example the \verb|<p>| element).
+
+However, we strongly recommend closing all HTML elements, like this:
+\begin{lstlisting}[language=html]
+<section>
+  <p>This is a paragraph.</p>
+  <p>This is a paragraph.</p>
+</section>
+\end{lstlisting}
+
+
+
+\item \bfb{Always Specify alt, width, and height for Images}: Always specify the \verb|alt| attribute for images. This attribute is important if the image for some reason cannot be displayed.
+
+Also, always define the \verb|width| and \verb|height| of images. This reduces flickering, because the browser can reserve space for the image before loading.
+\begin{lstlisting}[language=html]
+<img src="html5.gif" alt="HTML5" style="width:128px;height:128px">
+\end{lstlisting}
+
+\item \bfb{Spaces and Equal Signs}: HTML allows spaces around equal signs. But space-less is easier to read and groups entities better together.
+
+\begin{lstlisting}[language=html]
+<link rel="stylesheet" href="styles.css">
+\end{lstlisting}
+
+\item \bfb{Place external style sheets within the} \verb|<head>| \bfb{tag}: Although external style sheets can be placed anywhere in the HTML document, it is best practice to place them within the <head> tag. This will allow your page to load faster.
+
+\begin{lstlisting}[language=html]
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+\end{lstlisting}
+
+
+\end{itemize}
+
+
+\subsection{CSS Best Practices}
+
+\begin{itemize}
+\item \bfb{Use proper spacing and indentation}: A CSS block should look like this:
+\begin{lstlisting}[language=html]
+selector {
+    property: value;
+}
+\end{lstlisting}
+
+
+\item \bfb{Use Hyphen Delimited Strings}: Use hyphens to separate two words: \verb|red-box| instead of \verb|redBox|. 
+
+\item \bfb{Organize from general to specific}: Generally you should start with the most general selectors at the top and work your way down to the more specific selectors.  
+
+\item \bfb{Avoid inline styles}: If at all possible write the CSS in the CSS-file. Try to keep HTML and CSS separate.
+\end{itemize}
+
+\subsection{JavaScript Best Practices}
+
+As we learn JavaScript we will learn more about best practices and style guides. 
+
+\begin{itemize}
+\item \bfb{Use camelCase}: Multiple word variables should be written in camelCase.  This means that the first word is lower case and further words are capitalized: e.g. firstName, fullPrice, listOfValues
+
+\item \bfb{Spaces Around Operators}: There should be a space around operators in JavaScript: e.g. i = 0.
+\end{itemize}
+
+
+
+\end{document}
