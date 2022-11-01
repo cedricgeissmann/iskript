@@ -15,40 +15,158 @@
 
 \usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
 
+\makeatletter
 
 \usepackage{listings}
-\lstset{language=Python}
 
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.9,0.9,0.9}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-%	morekeywords={forward,turn},
-    backgroundcolor=\color{codegray},
-    commentstyle=\color{codegreen},
-%    keywordstyle=\color{codegreen},
-    numberstyle=\tiny\color{gray},
-    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    identifierstyle=\color{blue},
-    stringstyle=\color{orange},
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+\usepackage{listings}
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
 }
 
-\lstset{style=mystyle}
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
 
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,	
+  alsoletter={<>=-},	
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	% body
+	</body, <body,
+	% Divs
+	</div, <div, </div>, 
+	% Paragraphs
+	</p, <p, </p>,
+	% scripts
+	</script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+	% CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,	
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},	
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+\lstdefinestyle{py} {%
+language=python,
+literate=%
+*{0}{{{\color{lightred}0}}}1
+{1}{{{\color{lightred}1}}}1
+{2}{{{\color{lightred}2}}}1
+{3}{{{\color{lightred}3}}}1
+{4}{{{\color{lightred}4}}}1
+{5}{{{\color{lightred}5}}}1
+{6}{{{\color{lightred}6}}}1
+{7}{{{\color{lightred}7}}}1
+{8}{{{\color{lightred}8}}}1
+{9}{{{\color{lightred}9}}}1,
+basicstyle=\footnotesize\ttfamily, % Standardschrift
+numbers=left,               % Ort der Zeilennummern
+%numberstyle=\tiny,          % Stil der Zeilennummern
+%stepnumber=2,               % Abstand zwischen den Zeilennummern
+numbersep=5pt,              % Abstand der Nummern zum Text
+tabsize=4,                  % Groesse von Tabs
+extendedchars=true,         %
+breaklines=true,            % Zeilen werden Umgebrochen
+keywordstyle=\color{blue}\bfseries,
+frame=b,
+commentstyle=\color{brown}\itshape,
+stringstyle=\color{editorOcher}\ttfamily, % Farbe der String
+showspaces=false,           % Leerzeichen anzeigen ?
+showtabs=false,             % Tabs anzeigen ?
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+}%
+%
+\makeatother
 
 
 
@@ -106,7 +224,7 @@ Keep code as short as possible without losing readability. A single function sho
 
 \newpage
 \begin{multicols}{2}
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <!DOCTYPE html>
 <html>
   <head>
@@ -119,7 +237,7 @@ Keep code as short as possible without losing readability. A single function sho
 </html>
 \end{lstlisting}
 
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,7 +272,7 @@ Main body here
 
 \item \bfb{Use lowercase element names}: Your HTML code can be written in lowercase or uppercase and the web page will render correctly. However, it is best practice to keep tag names in lowercase because it is easier to read and maintain.
 
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <!DOCTYPE html>
 <html>
   <head>
@@ -170,7 +288,7 @@ Main body here
 \item \bfb{Close all HTML tags}: In HTML, you do not have to close all elements (for example the \verb|<p>| element).
 
 However, we strongly recommend closing all HTML elements, like this:
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <section>
   <p>This is a paragraph.</p>
   <p>This is a paragraph.</p>
@@ -182,19 +300,19 @@ However, we strongly recommend closing all HTML elements, like this:
 \item \bfb{Always Specify alt, width, and height for Images}: Always specify the \verb|alt| attribute for images. This attribute is important if the image for some reason cannot be displayed.
 
 Also, always define the \verb|width| and \verb|height| of images. This reduces flickering, because the browser can reserve space for the image before loading.
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <img src="html5.gif" alt="HTML5" style="width:128px;height:128px">
 \end{lstlisting}
 
 \item \bfb{Spaces and Equal Signs}: HTML allows spaces around equal signs. But space-less is easier to read and groups entities better together.
 
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <link rel="stylesheet" href="styles.css">
 \end{lstlisting}
 
 \item \bfb{Place external style sheets within the} \verb|<head>| \bfb{tag}: Although external style sheets can be placed anywhere in the HTML document, it is best practice to place them within the <head> tag. This will allow your page to load faster.
 
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -208,7 +326,7 @@ Also, always define the \verb|width| and \verb|height| of images. This reduces f
 
 \begin{itemize}
 \item \bfb{Use proper spacing and indentation}: A CSS block should look like this:
-\begin{lstlisting}[language=html]
+\begin{lstlisting}[style=htmlcssjs]
 selector {
     property: value;
 }
@@ -233,5 +351,201 @@ As we learn JavaScript we will learn more about best practices and style guides.
 \end{itemize}
 
 
+\newpage
+
+\section{HTML and CSS - A Short Repetition}
+
+To get you back up to speed on HTML and CSS, please work through the following exercises.
+
+Please take care to use proper syntax and formatting (indentation, spacing etc.)
+
+\begin{ex}
+\begin{enumerate}
+\item Download and unzip the file \emph{personal-webpage.zip} (OneNote). 
+\item Change the heading of the webpage and name to something personal.
+\item Add a title to the webpage in the \verb|head|.
+\item Change the picture of the website.
+\item Give your picture an \verb|id| and use that id to style the border using CSS.
+\item Add a link to your favorite website.
+\item Add an image that is also a link to another website.
+\item Make all \verb|h1| tags have text color red.
+\item Change the background color to your favorite color. You can use \url{https://color.adobe.com/create/color-wheel} as a reference for creating a color scheme for your website.
+\item Add a list of hobbies to the website.  Give the list the class \verb|hobbies|.
+\item In the CSS file style the hobbies list to your liking.
+\end{enumerate}
+ 
+\end{ex}
+
+\newpage
+
+\section{Designing a Website -- from Layout to Final Product}
+
+A key aspect of creating a website is planning the layout and design. In this chapter we look at how to select a color scheme for a website, design the large scale layout of the website and how to make nice backgrounds.
+
+\subsection{Select a Color Scheme}
+For finding colors that work well together we can use the Adobe color palette. -- or something similar (\#notanad): \url{https://color.adobe.com/create/color-wheel}.  In This example I selected a variety of complementary colors:
+\centfig{0.5}{color-palette2}
+We will note the corresponding RGB values to use later: 
+
+\centfig{0.8}{rgb}
+
+
+This does not mean that we need to use these colors exclusively in our website, but generallly these are colors that may work well together.
+
+\subsection{Backgrounds}
+There are two main ideas for backgrounds: We can use colors or an image. 
+
+In CSS there are the following controls for the backgrounds: 
+\begin{itemize}
+\item \verb|background-color|
+\item \verb|background-image|
+\item \verb|background-repeat|
+\item \verb|background-attachment|
+\item \verb|background-position|
+\end{itemize}
+For in depth details you can see the reference guide at \url{https://www.w3schools.com/css/css_background.asp}. 
+
+The \verb|background-color| property does pretty much what you would expect: 
+\begin{lstlisting}[style=htmlcssjs]
+body { 
+	background-color: rgb(34,163,154);
+}
+\end{lstlisting}
+Will create a solid background with the selcted color (one from our color wheel). In some instances this may produce a color that is too intense. We can 'dampen' the color by setting an alpha value: 
+\begin{lstlisting}[style=htmlcssjs]
+body {
+    background-color: rgba(34, 163, 154,0.4);
+}
+\end{lstlisting}
+You can also create gradients. Gradients are classified as images in CSS, so the correct way is as follows:
+\begin{lstlisting}[style=htmlcssjs]
+body {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: linear-gradient(#4AF0E4, #F0A883);
+}
+\end{lstlisting} 
+For more details visit: \url{https://www.w3schools.com/css/css3_gradients.asp}
+
+To insert an image, as we saw, we can use the \verb|background-image| property. This also often requires us to define whether the image should be repeated or where the image should be placed on the webpage.
+
+For full details visit: \url{https://www.w3schools.com/css/css_background_image.asp}
+
+cool backgrounds: \url{https://coolbackgrounds.io/}
+
+\subsection{Layout}
+
+There are different ways to achieve desired layouts. We will look at the one that I find most intuitive. Shown below are some examples of possible layouts:
+
+\begin{multicols}{3}
+\centfig{0.9}{page-example-1}
+
+\centfig{0.9}{page-example-2}
+
+\centfig{0.9}{page-example-3}
+
+\end{multicols}
+
+All of them can be created with the \verb|grid| property in CSS.  We start by placing the individual sections in a "container" \verb|div|: 
+\begin{lstlisting}[style=htmlcssjs]
+<div class="container">
+            <header>
+                <h3>Header</h1>
+            </header>
+            <article>
+                my Blog...
+            </article>
+            <nav>
+                <ul>
+                    <li>nav</li>
+                    <li>nav</li>
+                    <li>nav</li>
+                    <li>nav</li>
+                </ul>
+            </nav>
+            <footer>
+                contact info etc.
+            </footer>
+        </div>
+\end{lstlisting}
+
+\verb|header|, \verb|article|, \verb|nav| and \verb|footer| are predefined in HTML. They are standard divisions of webpages and have the same functionality as \verb|divs|.
+
+We start by naming the grid areas: 
+\begin{lstlisting}
+header {
+    grid-area: header;
+}
+
+article {
+    grid-area: article;
+}
+
+nav {
+    grid-area: nav;
+}
+
+footer {
+    grid-area: footer;
+}
+\end{lstlisting}
+This just tells the grid what we want to call each element. Here the names of the grid areas are the same as the \verb|div| names, but they could be anything as long as you're consistent.
+
+We then define the grid and layout of the container: 
+\begin{lstlisting}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-areas: 
+    'header header'
+    'nav article'
+    'nav footer';
+    gap: 1em;
+    min-height: 100vh;
+}
+\end{lstlisting}
+With the following functionalities: 
+\begin{center}
+\begin{tabular}{p{0.5\textwidth}|p{0.5\textwidth}}
+\verb|display: grid;| & creates a grid layout \\
+\hline
+\verb|grid-template-columns: 1fr 5fr;| & splits the columns in a $1:5$ ratio \\
+\hline
+\verb|grid-template-rows: 1fr 8fr 1fr;| & splits the rows in a $1:8:1$ ratio \\
+\hline
+\begin{verbatim}
+grid-template-areas: 
+    'header header'
+    'nav article'
+    'nav footer';
+\end{verbatim} & header spans both columns,  
+nav spans the two lower rows 
+and article and footer both span one row and one column.  \\
+\hline
+\verb|gap: 1em;| & places a gap of 1em (space for a letter m) around each grid element\\
+\hline
+\verb|min-height: 100vh;| & makes the page fill the full view height.
+\end{tabular}
+\end{center}
+
+\subsection{Exercises}
+\begin{ex}
+Copy the code to your personal workspace. 
+\end{ex}
+\begin{ex}
+Use the color wheel to select an assortment of colors for your website. Cope the RGB values so you can use them.
+\end{ex}
+\begin{ex}
+Make the background of your webpage a single color, a gradient and an image.
+\end{ex}
+\begin{ex}
+Change the layout options in the \verb|container| selector to create the other two example layouts. You will have to figure out how to add the 'logo'.
+\end{ex}
+
+\begin{ex}
+Use all of these ideas to create your dream website\ldots
+\end{ex}
 
 \end{document}
