@@ -548,4 +548,84 @@ Change the layout options in the \verb|container| selector to create the other t
 Use all of these ideas to create your dream website\ldots
 \end{ex}
 
+
+\newpage
+\section{SVG -- Scalable Vector Graphics}
+
+Most of the images  and graphics you use and find online are based on pixels. The downside to these graphics are that they do not scale nicely -- i.e. if you zoom in enough, you will always see the individual pixels eventually. Vector graphics are based on an entirely different idea: instead of telling the computer which pixels to turn on and off, we tell the computer what shape we want and allow it to fill in the pixels as necessary. This means that no matter how zoomed in or out we are, the computer always knows what the image should look like and can draw it with the appropriate resolution.
+
+\subsection{SVG in HTML}
+Scalable Vector Graphics (SVG) can be thought of as a series of commands that tell your computer what do draw on your screen. They are easily embedded into HTML code, but can also be used as separate image files (.svg).
+
+
+
+We start with a very simple example: 
+\begin{lstlisting}[language=html]
+<svg height="100" width="100">
+    <circle cx="50" cy="50" r="50" fill="red" />
+</svg>
+\end{lstlisting}
+As you can see the code looks a lot like HTML: We  have a \verb|svg| tag together with an assortment of attributes. We will now look at some basic shapes that we can draw using svg. We can write the \verb|svg| tag directly inside an html file. The width and height attribute of the svg tag denote how much space on the webpage should be reserved for that image.
+
+{\bf Remark.} Note that the tags for the basic shapes are unpaired, so we finish them with \verb|/>|.
+
+
+\newpage
+
+\subsubsection{Circles}
+The \verb|<circle>| element draws a circle on the screen. It takes 3 basic parameters to determine the shape and size of the element:
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|r| & The radius of the circle. \\
+\verb|cx| & The x position of the center of the circle. \\
+\verb|cy| & The y position of the center of the circle. 
+\end{tabular}
+\end{center}
+Apart from that there are also a number of other attributes that can be set. These attributes can be set for any svg shape.
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|fill| & The fill color. \\
+\verb|stroke| & The stroke color. \\
+\verb|stroke-width| & The width of the stroke. \\
+\verb|opacity| & The opacity of the shape. 
+\end{tabular}
+\end{center}
+
+So the code on the left will produce the image on the right:
+\begin{multicols}{2}
+\begin{lstlisting}[language=html]
+<circle
+        cx="50"
+        cy="50"
+        r="40"
+        stroke="green"
+        stroke-width="4"
+        fill="yellow"
+        opacity="0.5"
+        />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.7}{circle1.png}
+\end{multicols}
+
+\begin{ex}
+Draw three circles in a row, that touch each other and get smaller from left to right. The circles should all have different fill colors.
+\end{ex}
+
+\subsubsection{Rectangles} 
+ 
+ The \verb|<rect>| element draws a rectangle on the screen. There are 6 basic attributes that control the position and shape of the rectangles on screen. 
+ \begin{center}
+ \begin{tabular}{l|p{15cm}}
+\verb|x| & The x-position of the top left corner. \\
+\verb|y| & The y-position of the top left corner. \\
+\verb|width| & The width of the rectangle. \\
+\verb|height| & The height of the rectangle.  \\
+\verb|rx| & The x-radius for rounded corners (if this is not set it defaults to 0). \\
+\verb|ry| & The y-radius for rounded corners (if this is not set it defaults to 0).
+\end{tabular}
+\end{center}
+
+
 \end{document}
