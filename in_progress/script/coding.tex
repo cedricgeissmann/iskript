@@ -627,5 +627,246 @@ Draw three circles in a row, that touch each other and get smaller from left to 
 \end{tabular}
 \end{center}
 
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+      <rect
+        x="30"
+        y="80"
+        width="200"
+        height="50"
+        fill="blue"
+        stroke="red"
+        opacity="0.5"
+        stroke-width="4px"
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.8}{rect1.png}
+\end{multicols}
+
+
+\newpage
+\subsubsection{Ellipses}
+
+An \verb|<ellipse>| is a more general form of the <circle> element, where you can scale the x and y radius (commonly referred to as the semimajor and semiminor axes in maths) of the circle separately.
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|rx| & The x-radius of the circle. \\
+\verb|ry| & The y-radius of the circle. \\
+\verb|cx| & The x position of the center of the circle. \\
+\verb|cy| & The y position of the center of the circle. 
+\end{tabular}
+\end{center}
+
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+<ellipse 
+      cx="30"
+      cy="60"
+      rx="20"
+      ry="50"
+      fill="purple"
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.3}{ellipse1.png}
+\end{multicols}
+
+
+\newpage
+\subsubsection{Lines}
+The \verb|<line>| element takes the positions of two points as parameters and draws a straight line between them.
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|x1| & The x position of  point 1. \\
+\verb|y1| & The y position of  point 1. \\
+\verb|x2| & The x position of  point 2. \\
+\verb|x2| & The y position of  point 2. 
+\end{tabular}
+\end{center}
+
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+<line 
+      x1="10" 
+      x2="50" 
+      y1="110" 
+      y2="150" 
+      stroke="black" 
+      stroke-width="5"
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.3}{line1.png}
+\end{multicols}
+
+\newpage
+\subsubsection{Polylines}
+A \verb|<polyline>| is a group of connected straight lines. Since the list of points can get quite long, all the points are included in one attribute.
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|points| & List of points
+\end{tabular}
+\end{center}
+
+Each number must be separated by a space, comma, EOL ("end of line"), or a line feed character. Each point must contain two numbers: an x coordinate and a y coordinate. So, the list \verb|(0,0)|, \verb|(1,1)|, and \verb|(2,2)| could be written as \verb|0, 0 1, 1 2, 2|. You can also write each point on a new line for clarity:
+
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+<polyline 
+      points="
+      60, 110 
+      65, 120 
+      70, 115 
+      75, 130 
+      80, 125 
+      85, 140 
+      90, 135 
+      "
+      fill="none"
+      stroke="red"
+      stroke-width="2"
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.8}{polyline1.png}
+\end{multicols}
+
+Note that by deafult the line has a fill color, which may not be desired. \verb|fill="none"| eliminates this. Also take note that the points are enclosed by quotation marks.
+
+\newpage
+\subsubsection{Polygons}
+A \verb|<polygon>| is similar to a \verb|<polyline>|, in that it is composed of straight line segments connecting a list of points. For polygons though, the path automatically connects the last point with the first, creating a closed shape.
+
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+<polygon 
+      points="
+      200,10 
+      250,190 
+      160,210
+      " 
+      fill="lime"
+      stroke="purple"
+      stroke-width="1" 
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.5}{polygon1.png}
+\end{multicols}
+
+\begin{ex}
+Draw a five-sided star.
+\end{ex}
+
+\begin{ex}
+Draw a regular octagon.
+\end{ex}
+
+\newpage
+
+
+
+\subsubsection{Paths}
+A \verb|<path>| is the most general shape that can be used in SVG. Using a path element, you can draw rectangles (with or without rounded corners), circles, ellipses, polylines, and polygons. Basically any of the other types of shapes, bezier curves, quadratic curves, and many more.
+
+To full understand paths requires a lot of additional knowledge. If you want to find out more about paths, you can follow the tutorial at
+
+\url{https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths}
+
+For now just know that a path is defined by a single attribute:
+\begin{center}
+\begin{tabular}{l|p{15cm}}
+\verb|d| & A list of points and other information about how to draw the path.
+\end{tabular}
+\end{center}
+
+{\bf An example:}
+\begin{multicols}{2}
+\begin{lstlisting}
+<path 
+      d="
+      M20,230 
+      Q40,205 
+      50,230 
+      T90,230
+      " 
+      fill="none" 
+      stroke="blue" 
+      stroke-width="5"
+      />
+\end{lstlisting}
+\columnbreak
+
+\centfig{0.5}{path1.png}
+\end{multicols}
+
+\newpage
+\subsection{Animations}
+The modern internet loves animation. With SVG these can be created relatively easily. We will not look at the deep theory of animation, however that wont stop us from playing around with it a little:
+
+\begin{lstlisting}
+<svg height="100" width="100">
+    <ellipse cx="50" cy="50" rx="50" ry="50" fill="red">
+        <animate attributeName="ry"
+            values="50;25;50"
+            dur="2s"
+            repeatCount="indefinite" />
+    </ellipse>
+</svg>
+\end{lstlisting}
+
+{\bf Remark.} Note that \verb|<animate>| is one of the few tags that can exist inside another tag.
+
+\begin{ex}
+Create a smiley face "emoji", that winks one of its eyes.
+
+Hint: A curved path for the smile could have the following code:
+\begin{lstlisting}
+    <path 
+    d="M 0 100 Q 50 150 100 100" 
+    stroke="black" 
+    stroke-width="2" 
+    fill="none"
+    />
+\end{lstlisting}
+\verb|(0,100)| ist the left corner, \verb|(100,100)| is the right corner and \verb|Q 50 150| determines how big (how far down) the smile is.
+\end{ex}
+
+\begin{ex}
+In groups of two, draw your own animation. We will show them at the end of the lesson.
+\end{ex}
+
+\newpage
+\subsection{Bonus: Animate Motion}
+
+The SVG \verb|<animateMotion>| element provides a way to define how an element moves along a motion path.
+
+\begin{lstlisting}
+<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <path
+    fill="none"
+    stroke="lightgrey"
+    d="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+
+  <circle r="5" fill="red">
+    <animateMotion
+      dur="10s"
+      repeatCount="indefinite"
+      path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+  </circle>
+</svg>
+\end{lstlisting}
+
 
 \end{document}
