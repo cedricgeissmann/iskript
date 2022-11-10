@@ -868,5 +868,127 @@ The SVG \verb|<animateMotion>| element provides a way to define how an element m
 </svg>
 \end{lstlisting}
 
+\newpage
+\section{HTML Inputs}
+
+In this section we will be looking at how we can read and process user inputs from a website. I'm pretty sure you have all had to fill in  a webform at some point. We will be looking at the building blocks we need to interact with the user of a website.
+
+\subsection{A First Example}
+\begin{ex}
+Navigate to the page \url{https://olidec.github.io/html-input/} and select \verb|A Short Game|. Together with a partner fill in the requested words in the fields (One person asks and types the replies) then click \verb|Submit|. 
+\end{ex}
+
+
+\subsection{Getting Started}
+
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\begin{enumerate}
+\item Downoad the code of the website.
+\begin{itemize}
+\item Option 1: Download the zip file from OneNote (HTML Inputs -> Zip File....)
+\item Option 2: Navigate to \url{https://github.com/olidec/html-input} and click \verb|Code -> Download ZIP|.
+\end{itemize}
+\item Move the zip file to your Computer Science folder and unzip (\verb|right-click -> extract|. You should now have a new subfolder in your CS folder called \verb|html-input-master|.
+\item Open Visual Studio Code select \verb|file -> Open Folder...| and navigate to the previously created folder and select. You should now have a workspace that looks roughly like this:
+\centfig{0.4}{workspace1.png} 
+\item If you have not yet done so, select the extensions panel on the left hand side and search for 'live server'. Install the version by \emph{Ritwick Dey}. This will allow us to immediately see the changes we make in our html code.
+\end{enumerate}
+
+\begin{ex}
+Open the file \verb|madlib1.html| and together with a partner try to replace the text with a different one (you can find some examples at \url{https://www.madtakes.com/index.php} or by searching for 'madlibs'.  Make sure to adapt the 'names' of the input fields to what you are looking for. Try to add additional input fields and access them via the script.
+
+Find someone who does not know your text and play through the game with them. Have fun.
+\end{ex}
+
+
+\subsection{The Basics}
+
+In HTML an input field is defined by the \verb|<input>| tag. There are a whole range of different types of inputs. The entire list of options together with some examples can be found at
+\begin{center}
+\url{https://www.w3schools.com/html/html_form_input_types.asp}
+\end{center}
+
+Click on the small \verb|file +| button in the explorer pane and create a new file called \verb|input-test.html|. In the new file write \verb|html:5| and push the enter key. This will give you a basic html5 template.
+
+We will start with a text input field: 
+\begin{verbatim}
+<input type="text" id="my-text-input">
+\end{verbatim}
+The \emph{type} tells the website what type of input to expect and the \emph{id} will allow us to access that input later on. This already creates an input field on our website. If we want some instructions next to or below the input field we can just add the text after the \verb|<input>| tag:
+\begin{verbatim}
+<input type="text" id="my-text-input"> Type your input here.
+\end{verbatim}
+
+The input field will not be able to do anything unless we have some sort of submit-button. This is added via the \verb|<button>| tag (We add the \verb|<br>| to put the button under the input field): 
+\begin{verbatim}
+<input type="text" id="my-text-input"> Type your input here. <br>
+<button type="button">Submit</button>
+\end{verbatim}
+
+An submit button is pretty useless, if it doesn't do anything so in the next section we will look at how to make the button actually do something.
+
+\subsection{A First Interaction}
+
+Interactions on websites are done via so-called \emph{scripts}. There are different languages in which these can be written; ours will be written in \emph{JavaScript} or \emph{JS} for short.  We will be doing a full introduction to JavaScript as well but for now we will only look at the code we actually need to create some interactivity on our website.
+
+The main idea is the following: When we click on a button, the webpage will access a \emph{function} that is written in the script.  We do this by adding an \verb|onclick| attribute to the button: 
+\begin{verbatim}
+<input type="text" id="my-text-input"> Type your input here. <br>
+<button type="button" onclick="myFunction()">Submit</button>
+\end{verbatim}
+Note that functions need input brackets \verb|()| even if there are no arguments and that we write the names in camelCase (JS convention).
+
+We now have to write a function that does \emph{something} (i.e. whatever we tell it to do). In order to do this we will add a new file called \verb|my-script.js|.  In order for the website to know where to look for the script we have to add the following line to the \verb|<head>| of our document:
+\begin{verbatim}
+<script src="my-script.js"></script>
+\end{verbatim}
+This tells the website to look for a file called \verb|my-script.js| and access any code that is in there.
+
+\subsection{Accessing the Input}
+
+To access the input we need what are known as \emph{selectors}. They all have a similar structure and we will not go into too much detail on how they work. We just need to be able to use them in our application.
+
+A commonly used selector selects an HTML element by its \verb|id|: 
+\begin{verbatim}
+document.getElementById("my-text-input").value;
+\end{verbatim}
+Let's break this down: This selector goes through the (HTML-) document and looks for an element with \verb|id="my-text-input"| it then selects the \emph{value} of that element. In this case the value is whatever we have typed in that input field.
+
+We now have to do something with that input value. We can have some text below the input field and  add in the input value. To do this we will write:
+\begin{verbatim}
+<h2 id="my-input-value">Your Text will go Here</h2>
+\end{verbatim}
+We can select this element as follows:
+\begin{verbatim}
+document.getElementById("my-input-value").innerHTML;
+\end{verbatim}
+This accesses the \emph{inner HTML} part i.e. the part that is between the opening and closing tags.
+
+Using all of this we can now write our function: In the my-script.js file write the following code:
+\begin{verbatim}
+function myFunction() {
+    const myinput = document.getElementById("my-text-input").value;
+    document.getElementById("my-input-value").innerHTML = myinput;
+}
+\end{verbatim}
+
+This assigns the input value to the variable called \verb|myinput| and the replaces the inner HTML of the target (a \verb|<h2>| header) with that input.
+
+You have now created your first interactive website.
+
+\begin{ex}
+Open the site \url{https://olidec.github.io/html-input/} and click on \verb|HTML Inputs|. Play around with the different input types and look at  and try to understand the code. 
+\end{ex}
+
+\begin{ex}
+Have a look at the website \url{https://www.w3schools.com/html/html_form_input_types.asp}
+
+In your \verb|input-test.html| file try to add two new input fields with types that we have not yet used. Try to adapt the script so that it can work with these new inputs.
+\end{ex}
+
+\begin{ex}
+Use CSS to style your \verb|input-test.html| page. Remember to add a link to your external stylesheet in the \verb|<head>| of your document.
+\end{ex}
+
 
 \end{document}
