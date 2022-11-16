@@ -991,4 +991,234 @@ Use CSS to style your \verb|input-test.html| page. Remember to add a link to you
 \end{ex}
 
 
+\newpage
+
+\section{Introduction to JavaScript}
+
+JavaScript (JS) is the world's most popular programming language. It is one of the three main components of modern web design:
+\begin{itemize}
+\item HTML for the \emph{content} of a website,
+\item CSS for the \emph{styling} and \emph{layout},
+\item and JavaScript for \emph{interactivity} and \emph{responsiveness}.
+\end{itemize}
+
+We will be using a graphical "turtle" environment to get started. Later on we will create responsive websites and even games.
+
+\subsection{Getting Started}
+
+\begin{enumerate}
+\item Download the necessary files to your personal CS folder. Either via OneNote or \url{https://github.com/olidec/turtles-svg-js}.
+\item Create a new file called \verb|moves.js|. We will write all of our code in here to begin with.
+\item For your first piece of code, write the following in to \verb|moves.js|:
+\begin{verbatim}
+moveForward(200);
+turn(90);
+moveForward(200);
+turn(90);
+moveForward(200);
+turn(90);
+moveForward(200);
+\end{verbatim}
+and save.
+\item Open \verb|index.html| with Live Server -- either by clicking on the bottom menu in VS Code or by right-clicking on the file and selecting "Open with Live Server".
+\item Click the button "Draw Your Moves".
+\end{enumerate}
+
+Congratulations you have written your first program. A program is a set of instructions that get executed by a computer or processor. In this case we are writing in JavaScript (although the instructions are not standard) and the code gets executed by our webbrowser.
+
+\subsection{Turtle Basics}
+
+The turtle graphics we use have a set of instructions that are built in. These can also be combined with regular JavaScript. Note that all of these instructions are functions -- so they are always written with brackets even if there is no input.
+\renewcommand{\arraystretch}{1.5}
+\begin{center}
+\begin{tabular}{p{3cm}|p{8cm}}
+\verb|penDown()| & Places the "pen" on the drawing ares. Any movements made from now on will be connected by a line. \\
+\hline
+\verb|penUp()| & The "pen" is lifted from the drawing area. Movements will not be connected by a line.  \\
+\hline
+\verb|moveForward(d)| & Move the "turtle" forward by \verb|d| units (think \emph{distance}).  \\
+\hline
+\verb|moveTo(x,y)| & Moves the "turtle" to an exact set of coordinates \verb|(x,y)|. \\
+\hline
+\verb|turn(a)| & Rotates the "turtle" by \verb|a| degrees (think \emph{angle}). Note that angles are measured counter-clockwise from the direction the turtle is facing.
+\end{tabular}
+\end{center}
+The graphing window has a width and height of \verb|1000| units and the coordinates go from \verb|-500| to \verb|500| in both  the \verb|x|- and \verb|y|-direction. The turtle starts at \verb|(0,0)| and faces to the right.
+
+\begin{ex}\label{ex17}
+\begin{multicols}{2}
+Write code that draws a regular hexagon.
+
+\centfig{0.4}{hexagon.png}
+\end{multicols}
+\end{ex}
+
+\begin{ex}\label{ex18}
+\begin{multicols}{2}
+Write code that draws a five-sided star. 
+
+\centfig{0.4}{5-star.png}
+\end{multicols}
+\end{ex}
+
+\begin{ex}\label{ex19}
+What image does the following code produce. Make a guess before copying the code to your \verb|moves.js| file.
+\begin{verbatim}
+moveForward(100);
+turn(90);
+moveForward(100);
+turn(-90);
+moveForward(100);
+turn(90);
+moveForward(100);
+turn(-90);
+moveForward(100);
+\end{verbatim}
+\end{ex}
+
+
+
+
+\subsection{Repetition (Loops)}
+
+As we saw in the previous examples, we often have to reuse the same code or multiple steps again and again.  Because coders are lazy and do not want to write more than absolute necessary, they invented a cool thing called a \emph{loop}: We give a set of instructions and tell the computer how often to repeat them. 
+
+The syntax for a \emph{for loop} in JavaScript is as follows:
+\begin{verbatim}
+for (initial-expression; condition; second-expression) {
+	a set of instructions
+}
+\end{verbatim}
+The \verb|initial-expression| tells the computer where to start, the \verb|second-expression| instructs the computer what to do after it has completed one execution of the instructions and the \verb|condition| tells the computer when to stop. If only Mickey had set a proper exit condition, he would not have had so much trouble:
+\centfig{0.6}{mickey}
+
+The code for the square from our first example can now be written as a loop:
+\begin{verbatim}
+for (let i = 0; i <= 3; i++) {
+    moveForward(200);
+    turn(90);
+}
+\end{verbatim}
+Copy this code to your moves and verify that it draws the square properly.
+
+\newpage
+Breakdown:
+\begin{center}
+\begin{tabular}{p{3cm}|p{8cm}}
+\verb|for| & Initialises a \emph{for loop}. The computer will be expecting certain kinds of instructions.\\
+\hline
+\verb|let i = 1| & We set a \emph{variable} to have the value 0. Computer scientists like to start counting at 0.  This variable is often called the \emph{counter}.\\
+\hline
+\verb|i < 4| & As long as \verb|i| is less than 4 the instructions will be executed. \\
+\hline
+\verb|i++| & After one set of instructions is executed, the counter is increased by 1. 
+\end{tabular}
+\end{center}
+
+\coloredbox{
+{\bf Best Practice:} It is not necessary to indent the code chunk inside of a for loop, but it makes the code easier to read.
+}
+
+\begin{ex}
+Rewrite exercises \ref{ex17} and \ref{ex18} using the for loop as shown above.
+\end{ex}
+
+\begin{ex}
+(*optional challenge) Rewrite exercise \ref{ex19} using a for loop as shown above. 
+\end{ex}
+
+\subsection{Variables}
+A variable in computer science is a placeholder for a specific value. If we want a variable to changed during the running of our code, we use \verb|let| or \verb|var| to give it a name. If the value should always be the same we should use \verb|const|.  
+
+\coloredbox{
+{\bf Best Practice:} If possible use \texttt{let} to define your variables, if they can change. Use \texttt{const} if they stay the same.
+}
+
+Let's look at the following code chunk:
+\begin{verbatim}
+let d = 100;
+
+for (let i = 0; i < 5; i++) {
+	moveForward(d);
+	turn(72);
+}
+\end{verbatim}
+
+Here we have set a variable \verb|d| to the value 100. If we now want to change the length of the sides, we can just change it at the beginning of the document. This is especially useful if the same value is used in multiple places -- we can just change it once and all the instances will be changed.
+
+\coloredbox{
+{\bf Best Practice:} Use camelCase to name your variables and use variable names that describe what they represent.
+}
+
+So a "better" version of the code above might be:
+\begin{verbatim}
+let sideLength = 100;
+let angle = 72;
+
+for (let i = 0; i < 5; i++) {
+	moveForward(sideLength);
+	turn(angle);
+}
+\end{verbatim}
+
+
+Using loops and variables we can now write code that produces a "random walk": 
+\begin{verbatim}
+let d = 10;
+for (let i = 0; i < 1000; i++) {
+    moveForward(d);
+    let a = Math.floor(Math.random()*3)*90-90;
+    turn(a);
+}
+\end{verbatim}
+The command \verb|Math.random()| creates a random number between 0 and 1. The other bits are some math to give us an angle of either -90$\dg$, 0$\dg$ or 90$\dg$.  In each step the turtle turns to a random one of these values and then moves forward by 10 units. 
+
+\subsubsection{The Math Bits}
+Random numbers from the \verb|Math.random()| function give an output between 0 and 1. So for example if we want a value between 0 and 10 , we can just multiply that output by 10: \verb|Math.random()*10|. Now if we want values between 10 and 20, we can just add 10 to every output: \verb|Math.random()*10+10|. In general, if we want values between $a$ and $b$, then we can use \verb|Math.random()*(b-a)+a|.
+
+If we only want integer values, then we use the \verb|Math.floor()| function. This always rounds down to the next lower integer. So to get whole numbers between 0 and 2, we multiply the random output by 3 and then round down: \verb|Math.floor(Math.random()*3)|. If we then multiply this result by 90 and subtract 90, will get a random value of -90$\dg$, 0$\dg$ or 90$\dg$.
+
+\subsection{Functions}
+
+Continuing with the idea that programmers are lazy, we also need the concept of a \emph{function}. A function is a specific set of instructions that we may want to execeute multiple times in our program. It is also possible to pass different parameters or arguments to the function.
+
+Let's say we want to draw multiple squares, but each one slightly larger than the previous one. We can do this by first defining a function that draws a square with the length of the side as a parameter: 
+\begin{verbatim}
+function drawSquare(s) {
+    for (let i = 0; i < 4; i++) {
+        moveForward(s);
+       turn(90);
+    }
+}
+\end{verbatim}
+We can see the parameter \verb|s| gets plugged in to the \verb|moveForward()| function. We can now call this function mulitple times: 
+\begin{verbatim}
+drawSquare(50);
+drawSquare(100);
+drawSquare(150);
+drawSquare(200);
+\end{verbatim}
+
+\begin{ex}
+Copy the code above and regard the output.
+\end{ex}
+
+\begin{ex}
+\begin{multicols}{2}
+Write code that produces the image to the right.
+
+\centfig{0.4}{hexagons}
+\end{multicols}
+\end{ex}
+
+
+
+\subsection{Decisions (Conditions)}
+
+Often times in programming we need to make a decision and proceed depending on the previous result. 
+
+
+
+
+
 \end{document}
