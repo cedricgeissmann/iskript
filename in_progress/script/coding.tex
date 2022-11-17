@@ -1040,10 +1040,12 @@ The turtle graphics we use have a set of instructions that are built in. These c
 \hline
 \verb|moveTo(x,y)| & Moves the "turtle" to an exact set of coordinates \verb|(x,y)|. \\
 \hline
-\verb|turn(a)| & Rotates the "turtle" by \verb|a| degrees (think \emph{angle}). Note that angles are measured counter-clockwise from the direction the turtle is facing.
+\verb|turn(a)| & Rotates the "turtle" by \verb|a| degrees (think \emph{angle}). Note that angles are measured counter-clockwise from the direction the turtle is facing. 
 \end{tabular}
 \end{center}
 The graphing window has a width and height of \verb|1000| units and the coordinates go from \verb|-500| to \verb|500| in both  the \verb|x|- and \verb|y|-direction. The turtle starts at \verb|(0,0)| and faces to the right.
+
+{\bf Remark.} Note that the turning angles are defined couter-clockwise (to the left). If we want our turtle to turn to the right, we need to set a negative angle.
 
 \begin{ex}\label{ex17}
 \begin{multicols}{2}
@@ -1101,7 +1103,6 @@ for (let i = 0; i <= 3; i++) {
 \end{verbatim}
 Copy this code to your moves and verify that it draws the square properly.
 
-\newpage
 Breakdown:
 \begin{center}
 \begin{tabular}{p{3cm}|p{8cm}}
@@ -1134,6 +1135,7 @@ A variable in computer science is a placeholder for a specific value. If we want
 {\bf Best Practice:} If possible use \texttt{let} to define your variables, if they can change. Use \texttt{const} if they stay the same.
 }
 
+\newpage
 Let's look at the following code chunk:
 \begin{verbatim}
 let d = 100;
@@ -1161,7 +1163,7 @@ for (let i = 0; i < 5; i++) {
 }
 \end{verbatim}
 
-
+\newpage
 Using loops and variables we can now write code that produces a "random walk": 
 \begin{verbatim}
 let d = 10;
@@ -1183,6 +1185,7 @@ If we only want integer values, then we use the \verb|Math.floor()| function. Th
 Continuing with the idea that programmers are lazy, we also need the concept of a \emph{function}. A function is a specific set of instructions that we may want to execeute multiple times in our program. It is also possible to pass different parameters or arguments to the function.
 
 Let's say we want to draw multiple squares, but each one slightly larger than the previous one. We can do this by first defining a function that draws a square with the length of the side as a parameter: 
+
 \begin{verbatim}
 function drawSquare(s) {
     for (let i = 0; i < 4; i++) {
@@ -1199,6 +1202,14 @@ drawSquare(150);
 drawSquare(200);
 \end{verbatim}
 
+{\bf Remark. } We can even simplify those lines above with a \verb|for|-loop:
+\begin{verbatim}
+for (let i = 0; i < 4; i++) {
+    drawSquare(50*(i+1));
+}
+\end{verbatim}
+
+As we can see, the counter \verb|i| can also be used within the loop as part of a formula.
 \begin{ex}
 Copy the code above and regard the output.
 \end{ex}
@@ -1213,9 +1224,52 @@ Write code that produces the image to the right.
 
 
 
+
+
 \subsection{Decisions (Conditions)}
 
-Often times in programming we need to make a decision and proceed depending on the previous result. 
+Often times in programming we need to make a decision and proceed depending on the previous result.  The standard way to do this is via an \verb|if-else| statement.  The syntax for a conditional statement is as follows:
+\begin{verbatim}
+if (condition) {
+    do this
+}
+\end{verbatim}
+Sometimes we also want to tell the computer what to do if the condition is not met:
+\begin{verbatim}
+if (condition) {
+    do this
+}
+else {
+    do that
+}
+\end{verbatim}
+For example, the following code draws a random walk and decides, whether the path will leave a circle of radius 200. If if does it stops with the command \verb|break| otherwise it continues to draw the path:
+\begin{verbatim}
+let d = 10;
+let n = 500;
+for (let i = 0; i < n; i++) {
+    moveForward(d);
+    if (position.x**2 + position.y**2 > 200**2) {
+        document.getElementById("turtle").setAttribute("fill","red");
+        break
+    }
+        else {
+            let a = Math.floor(Math.random()*3)*90-90;
+            turn(a);
+        }
+}
+\end{verbatim}
+
+\begin{ex}
+Read and understand the code above. 
+\begin{enumerate}
+\item What is \verb|d|?
+\item What is \verb|n|?
+\item What are \verb|position.x| and \verb|position.y|?
+\item Copy it to your moves file and run it. Does your turtle turn red?
+\end{enumerate}
+\end{ex}
+
 
 
 
