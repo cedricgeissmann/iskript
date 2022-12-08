@@ -1054,6 +1054,20 @@ Write code that draws a regular hexagon.
 \centfig{0.4}{hexagon.png}
 \end{multicols}
 \end{ex}
+\sol{
+
+moveForward(100)\\
+turn(60)\\
+moveForward(100) \\
+turn(60)\\
+moveForward(100)\\
+turn(60)\\
+moveForward(100)\\
+turn(60)\\
+moveForward(100)\\
+turn(60)\\
+moveForward(100)
+}
 
 \begin{ex}\label{ex18}
 \begin{multicols}{2}
@@ -1062,6 +1076,18 @@ Write code that draws a five-sided star.
 \centfig{0.4}{5-star.png}
 \end{multicols}
 \end{ex}
+\sol{
+
+moveForward(100) \\
+turn(144) \\
+moveForward(100)\\
+turn(144)\\
+moveForward(100)\\
+turn(144)\\
+moveForward(100)\\
+turn(144)\\
+moveForward(100)
+}
 
 \begin{ex}\label{ex19}
 What image does the following code produce. Make a guess before copying the code to your \verb|moves.js| file.
@@ -1077,6 +1103,9 @@ turn(-90);
 moveForward(100);
 \end{verbatim}
 \end{ex}
+\sol{
+A 'staircase' with three 'steps'.
+}
 
 
 
@@ -1123,10 +1152,32 @@ Breakdown:
 \begin{ex}
 Rewrite exercises \ref{ex17} and \ref{ex18} using the for loop as shown above.
 \end{ex}
+\sol{
+
+for (let i = 0; i < 6; i++) \{ \\
+\quad moveForward(100) \\
+\quad turn(60) \\
+\}
+
+and 
+
+for (let i = 0; i < 5; i++) \{ \\
+\quad moveForward(100) \\
+\quad turn(144) \\
+\}
+}
+
 
 \begin{ex}
 (*optional challenge) Rewrite exercise \ref{ex19} using a for loop as shown above. 
 \end{ex}
+\sol{
+
+for (let i = 0; i < 5; i++) \{ \\
+ moveForward(100) \\
+ turn(90*(-1)**i) \\
+\}
+}
 
 \subsection{Variables}
 A variable in computer science is a placeholder for a specific value. If we want a variable to changed during the running of our code, we use \verb|let| or \verb|var| to give it a name. If the value should always be the same we should use \verb|const|.  
@@ -1221,6 +1272,28 @@ Write code that produces the image to the right.
 \centfig{0.4}{hexagons}
 \end{multicols}
 \end{ex}
+\sol{
+
+function drawHexagon(s) \{
+
+    for (let i = 0; i < 6; i++) \{
+    
+        moveForward(s)
+        
+        turn(60)
+        
+    \}
+    
+\}
+
+drawHexagon(50)
+
+drawHexagon(100)
+
+drawHexagon(150)
+
+drawHexagon(200)
+}
 
 
 
@@ -1269,7 +1342,348 @@ Read and understand the code above.
 \item Copy it to your moves file and run it. Does your turtle turn red?
 \end{enumerate}
 \end{ex}
+\sol{
+\begin{enumerate}
+\item The distance travelled by the turtle in each step.
+\item The number of steps taken by the turtle.
+\item The $x$- and $y$-coordinates of the turtle.
+\end{enumerate}
+}
 
+\newpage
+
+\subsection*{Solutions}
+\printcursols
+
+
+
+\newpage
+\section{A Small Quiz}
+In this section we look at a small quiz that we can write using HTML inputs and JavaScript. We first need some new bits and pieces:
+\subsection{JSON}
+JSON Stands for "JavaScript Object Notation". An Object in Computer Science is a very important concept, but we will delve into that later. The important thing to know is that a \emph{JSON Object} consists of "key-value" pairs:
+\begin{verbatim}
+const person = '{"name":"Oliver De Capitani", "age":41, "job":"teacher"}';
+\end{verbatim}
+In order for JavaScript to be able to read a JSON object, we need to parse it (\emph{parsing} is generally what we call translating something for someone else -- in this case for JavaScript).
+\begin{verbatim}
+const parsedPerson = JSON.parse(person);
+\end{verbatim}
+We can now access the values by using the keys: \verb|parsedPerson.age| returns 41 etc.
+
+\subsection{Template Literals}
+Template literals or template strings are literals delimited with backtick (`) characters. We can use these to pass variables into text (and many other things). To do this we enclose our variable in curly brackets preceded by a dollar sign: \verb|${...}|.
+
+{\bf Example.} Add a \verb|div| with the id \verb|input| into our html document:
+\begin{verbatim}
+<div id="input"></div>
+\end{verbatim}
+\newpage
+We can now write our JSON input directly to this \verb|div|:
+\begin{verbatim}
+document.getElementById("input").innerHTML = 
+`
+${parsedPerson.name} is ${parsedPerson.age} years old 
+and is a ${parsedPerson.job}
+`;
+\end{verbatim}
+
+\subsection{Arrays}
+Arrays are collections of objects or values. In JavaScript arrays are delimited by square brackets \verb|[...]|. Array values can be accessed via their \emph{index} that starts at zero:
+\begin{verbatim}
+data = [a,b,c,d]
+\end{verbatim}
+To get the first entry we use \verb|data[0]|, to get the second one \verb|data[1]| etc. If we go too far, we will get an error message: e.g. \verb|data[4]| will not be able to return a value.
+
+We can also find the length of an array with \verb|data.length|, this is a built in method and, in this case, will return 4.
+
+\subsection{The HTML}
+The HTML sets up the basics blocks needed to show the quiz. The individual elements are distinguished via ids. The code is available on OneNote.
+
+\subsection{The JavaScript}
+The JavaScript contains the questions and the means for displaying them and also for checking the answers. The code is available on OneNote.
+
+
+\begin{ex}
+Copy the HTML and JS files to your folder and play through the quiz.
+\end{ex}
+
+\begin{ex}
+Add at least three questions of your own.
+\end{ex}
+
+\begin{ex}
+Use CSS to style your quiz.
+\end{ex}
+
+\newpage
+
+\section{A First Game}
+
+\begin{ex}
+\begin{enumerate}
+\item Navigate to your CS folder and create a new subfolder called 'games'.
+\item Within the 'games' folder create a new subfolder called 'res'.
+\item Download and unzip the Resources from OneNote.
+\item Move the unzipped images (only the resources) to your newly created folder 'img'.
+\item Open Visual Studio Code and open the 'games' folder (navigate inside the 'games' folder so you see the 'res' folder.
+\item Create files called \verb|pop.html|, \verb|pop.js| and \verb|pop.css|.
+\item Copy the code from OneNote into the appropriate files. 
+\item Open \verb|pop.html| with LiveServer and play the game.
+\end{enumerate}
+\end{ex}
+
+\begin{ex} Look through the three files, answer the following questions and try to solve the extra exercises.
+\begin{enumerate}
+\item In \verb|pop.html| on line 12: Why is the \verb|<h1>| tag empty? Where is its content generated?
+\item Which lines of code do you have to change to make the balloon larger or smaller? Try it and see if everything works.
+\item What does the function \verb|clickedIt| do?
+\item Change the message at the end of the game.
+\item What happens if you change the value 1000 to 2000 in \verb|pop.js|?
+\item What happens if you change the 0.2s to 6s in \verb|pop.css|? Does the game get easier or harder?
+\item How long does the game last? Can you make the game go longer?
+\item How does the balloon move around the webpage? Can you make the balloon move over more of the area? Can you restrict the balloon to the bottom right corner of the webpage?
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item The contents are generated in the pop.js file on line 7.
+\item Line 5 of pop.css and line 12 of pop.js.
+\item Increases the score by one, shows the updated score and sets the balloon size to 1px (very small).
+\item Change line 17.
+\item The balloons change position every 2s instead of 1s.
+\item The animation takes 6s -- much easier.
+\item The game stops when the balloon has changed position 20 times. We can adjust by changing line 16 in pop.js
+\item Restricted to bottom right corner: \\
+    balloon.style.left = (Math.random()*400 + 400) + 'px'; \\
+    balloon.style.top = (Math.random()*300 + 300) + 'px';
+\end{enumerate}
+}
+
+\begin{ex}
+\begin{enumerate}
+\item Look at the code in the file \verb|tennis.pdf| on OneNote (or printout) and try to understand what it does.
+\item In your 'games' folder create the files \verb|tennis.html|, \verb|tennis.js| and \verb|tennis.css|.
+\item Copy the code from \verb|tennis.pdf| into the appropriate files. Make sure to use  the proper styling for your code (best practices). 
+\item When you are finished, play the game (open \verb|tennis.html| with LiveServer).
+\item Change the colors of the board, the ball and the bat.
+\item What is the initial position of the ball?
+\item Where does the bat start?
+\item Change the \verb|border-radius| value to a smaller value. What happens?
+\item Can you make the ball move more quickly?
+\item Can you make the game board larger? (Remember to change when the ball bounces.)
+\item Add a score variable to the game. 
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item ok
+\item ok
+\item Make sure you include the files in the header with link:css and script:src. write 'defer' after  src="..." but before >.
+\item ok
+\item Change the css.
+\item At (100,100)
+\item At (0,420)
+\item It no longer looks like a ball.
+\item Change speedY (dropping speed). speedX changes the speed in the horizontal direction.
+\item In the css. Remember to also change the lines with all the 'if' statements.
+\item You can pretty much copy this from the previous example. You just have to add a <h1> tag with id="scoreBox" to the html-file.
+\end{enumerate}
+}
+
+
+\begin{ex}
+\begin{enumerate}
+\item Look at the code in the file \verb|catch.pdf| on OneNote (or printout) and try to understand what it does.
+\item Read the documentation of the \verb|canvas| at \url{https://www.w3schools.com/html/html5_canvas.asp}.
+\item What does the function \verb|keyPressed| do? Which keys need to be pressed (Use the image on your OneNote)?.
+\item In your 'games' folder create the files \verb|catch.html|, \verb|catch.js| and \verb|catch.css|.
+\item Copy the code from \verb|catch.pdf| into the appropriate files. Make sure to use  the proper styling for your code (best practices). 
+\item When you are finished, play the game (open \verb|catch.html| with LiveServer).
+\item Change \verb|dodgerblue| to another color value.
+\item Make the apple move faster.
+\item Can you make the monster move more quickly?
+\item Change the code so that each apple is worth 5 points.
+\item Make the game work with different keys on the keyboard.
+\item Make the game run for 1 minute instead of 30 seconds.
+\end{enumerate}
+\end{ex}
+
+
+\newpage
+
+\subsection*{Solutions}
+\printcursols
+\newpage
+\section{Some More Turtle Exercises}
+
+\begin{ex}
+\begin{multicols}{2}
+Can you write code that draws this shape in one single path? Hint: the square root of a distance \verb|d| can be calculated with \verb|Math.sqrt(d)|.
+
+\centfig{0.5}{house}
+\end{multicols}
+\end{ex}
+\sol{
+
+moveForward(100)
+
+turn(90)
+
+moveForward(100)
+
+turn(45)
+
+moveForward(Math.sqrt(2)*50)
+
+turn(90)
+
+moveForward(Math.sqrt(2)*50)
+
+turn(45)
+
+moveForward(100)
+
+turn(135)
+
+moveForward(Math.sqrt(2)*100)
+
+turn(135)
+
+moveForward(100)
+
+turn(135)
+
+moveForward(Math.sqrt(2)*100)
+}
+
+\begin{ex}
+Write code in the \verb|moves.js| file that changes the stroke color. Hint: \verb|document.getElementById(...)|.
+\end{ex}
+\sol{
+document.getElementById("turtle").setAttribute("stroke","blue")
+}
+
+\begin{ex}
+Use a loop to draw an equilateral triangle with sides of length 200.
+\end{ex}
+\sol{
+
+for (let i = 0; i < 3; i++) \{
+
+    moveForward(200)
+    
+    turn(120)
+    
+\}
+}
+
+\begin{ex}
+Use a loop to draw a square with sides of length 300.
+\end{ex}
+\sol{
+
+for (let i = 0; i < 4; i++) \{
+
+    moveForward(300)
+    
+    turn(90)
+    
+\}
+}
+
+\begin{ex}
+Use a loop to draw a regular pentagon with sides of length 300.
+\end{ex}
+\sol{
+
+for (let i = 0; i < 5; i++) \{
+
+    moveForward(300)
+
+    turn(360/5)
+
+\}
+}
+
+\begin{ex}
+Use a loop to draw a regular \emph{dodecagon} (12-sided polygon) with sides of length 100.
+\end{ex}
+\sol{
+
+for (let i = 0; i < 12; i++) \{
+
+    moveForward(100)
+
+    turn(360/12)
+
+\}
+}
+
+\begin{ex}
+Use a loop to draw a regular  17-gon with sides of length 50.
+\end{ex}
+\sol{
+
+for (let i = 0; i < 17; i++) \{
+
+    moveForward(50)
+
+    turn(360/17)
+
+\}
+}
+
+\begin{ex}
+Write a function \verb|drawPolygon(n,d)| that draws a polygon with \verb|n| sides and side length \verb|d|.
+\end{ex}
+\sol{
+
+function drawPolygon(n,d) \{
+
+    for (let i = 0; i < n; i++) \{
+
+        moveForward(d);
+
+        turn(360/n);
+
+    \}
+\}
+}
+
+\begin{ex}
+\begin{multicols}{2}
+Write functions \verb|drawSquare(d)| and \verb|drawTriangle(d)| to make the shown image.
+\centfig{0.5}{houses}
+\end{multicols}
+\end{ex}
+
+%\begin{ex}
+%Use an if statement to 
+%\end{ex}
+
+
+\newpage
+\subsection*{Solutions}
+\printcursols
+\newpage
+
+\section{More Games}
+
+\begin{ex}
+\begin{enumerate}
+\item Look at the code in the file \verb|donuts.pdf| on OneNote (or printout) and try to understand what it does.
+\item In your 'games' folder create the files \verb|donuts.html|, \verb|donuts.js| and \verb|donuts.css|.
+\item Copy the code from \verb|donuts.pdf| into the appropriate files. Make sure to use  the proper styling for your code (best practices). 
+\item When you are finished, play the game (open \verb|donuts.html| with LiveServer).
+\item Show a different message at the end of the game.
+\item Change the speed of the falling donuts and how fast the dog moves around.
+\item Experiment with different key combinations to find a layout you like best. You can find the keybindings (number codes for the keys) in the file \verb|keycodes.png|.
+\item Can you make the game work with 5 donuts? (You will have to add some more values to the arrays in lines 13, 14 and 15, and change a number on line 23.)
+\item See if you can find some other sound effects and use them instead.
+\item Create a function that is activated, when a key is released (use \verb|document.onkeyup|).  The function should stop the dog, when you release the arrow key (that means the speed of the dog is set to zero).
+\end{enumerate}
+\end{ex}
 
 
 
