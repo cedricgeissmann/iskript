@@ -1686,6 +1686,190 @@ Write functions \verb|drawSquare(d)| and \verb|drawTriangle(d)| to make the show
 \end{ex}
 
 
+\newpage
+
+\section{More JavaScript}
+In this section we will look at some more Javascript tools and techniques.
+
+\subsection{Accessing the DOM}
+
+The DOM or "Document Object Model" is how Javascript communicates with a webpage.  You can access all elements of a webpage and edit their properties and values. This allows us to make truly interactive websites.
+
+\begin{ex}
+Read the documentation on the DOM (w3schools) and/or work through the corresponding section on khanacademy (Links are on OneNote).
+\end{ex}
+
+\begin{ex}
+Create a website with the examples shown during the lesson: Clock, list of favorite things.
+\end{ex}
+
+\begin{ex}
+Add a button to your website that changes a CSS property of your choosing.
+\end{ex}
+
+\begin{ex}
+Add a button and an input field to your website that lets you select the bckground color.
+\end{ex}
+
+
+\newpage
+
+\subsection{Arrays}
+
+An array is a special variable in Javascript that can contain more than one entry. I t can be used as a collection or a list of objects or values:
+
+{\bf Example.}
+\begin{verbatim}
+let beatles = ['John', 'Paul', 'George', 'Ringo']
+\end{verbatim}
+
+We can access individual elements of an array using square brackets and the position number (starting at $0$): 
+
+{\bf Example.}\verb|beatles[2]| results in the output \verb|'George'|.
+
+If you add values that lie outside of the original array,  Javascript will add empty entries to fill up:
+
+{\bf Example.} \verb|beatles[10]='hello'| results in 
+\verb|John,Paul,George,Ringo,,,,,,,Hello|
+
+\subsection{Array Methods and Properties}
+
+Functions that modify objects are called \emph{methods}.  \emph{Properties} are Information about the array (mainly length). These are added to the variable itself with a point:
+
+{\bf Example.} \verb|beatles.length| returns the value $4$.
+
+The complete rundown of array methods can be found here:
+\url{https://www.w3schools.com/js/js_array_methods.asp}.
+
+The most important ones may be \verb|sort()|, \verb|concat()| and \verb|slice()|. 
+
+\begin{itemize}
+\item \verb|sort()| does pretty much what it says on the box. It sorts an array in ascending order. There are of course some technical issues, if the array does not contain numbers, but mostly it works the way, you would expect. (If you want to sort in descendeing order you can use \verb|reverse()| after sorting.
+\item \verb|concat()| joins two (or more) arrays together. This does not change the original array -- it creates a new one.
+\item \verb|slice()| takes a certain part of the array and places it into a new array.
+\end{itemize}
+
+
+
+\subsection{Exercises}
+
+\begin{ex}
+Change the array to only include the members of the Beatles who are still alive.
+\end{ex}
+
+\begin{ex}
+Change the array to add your own name somewhere.
+\end{ex}
+\sol{
+beatles[3] = 'Harry Potter'\\
+document.getElementById('array-ex2').innerHTML = beatles}
+
+\begin{ex}
+Add a value at the fourth position by writing 'beatles[4] = ...' . What happens and why?
+\end{ex}
+\sol{
+beatles[4] = 'Yoko' \\
+document.getElementById('array-ex3').innerHTML = beatles}
+
+\begin{ex}
+Do the same thing as above, but add the new value at the 10th position.
+\end{ex}
+\sol{
+beatles[10] = 'The new Beatle' \\
+document.getElementById('array-ex4').innerHTML = beatles
+}
+
+\begin{ex}
+Use a string literal to write the following output below: ``The array has length $\_\_\_$'', where Javascript automatically fills in the length.
+\end{ex}
+\sol{
+document.getElementById('array-ex5').innerHTML = `The array has length \$\{ beatles.length \}.`
+}
+
+\begin{ex}
+Sort the array and show your output. Use this to find the first and last entries alphabetically.
+\end{ex}
+\sol{
+beatles.sort() \\
+document.getElementById('array-ex6').innerHTML = beatles \\
+console.log(beatles[0]) \\
+console.log(beatles[beatles.length-1])
+}
+
+
+\subsection{Solutions}
+
+\printcursols
+
+
+\newpage
+
+
+\subsection{Objects}
+
+
+
+\newpage
+
+\section{Git and Github}
+
+Git is a version control system.  A version control system allows you to track the changes of your project over time and makes it easier to collaborate with other people on a project.
+
+We have already installed git and created a github account. Github is not directly linked to git: Git is a software that you install on your computer. Github is a website that allows you to store your coding files in so-called online repositories.
+
+Our main interaction with git will be via Visual Studio Code. Once we have linked our copy of VSCode with github, we then have the functionalities of git.
+
+\subsection{The Git Worlflow}
+In order to use git, we need to let our software know which folder it should look at. There are two main options:
+\begin{itemize}
+\item Clone a folder we own from github.
+\centfig{0.5}{clone}
+\item Publish a folder we created locally to github.
+\centfig{0.6}{publish}
+\end{itemize}
+
+\newpage
+
+After that our workflow in VSCode uses four main steps: {\bf Edit}, {\bf stage}, {\bf commit} and {\bf publish}.
+\begin{itemize}
+\item When we edit a document that is linked to github. VSCode will show us in the source control panel.
+\centfig{0.4}{source}
+\item We then need to stage this edit by clicking the little plus next to it.
+\centfig{0.4}{stage}
+\item Add a message for your changes.
+\centfig{0.4}{message}
+\newpage
+\item Commit your changes.
+\centfig{0.4}{commit}
+\item Push your current version to github.
+\centfig{0.4}{push}
+\end{itemize}
+
+\subsection{Branching}
+
+If we want to work on part of a project without breaking any working parts, we use what are called \emph{branches}. A branch splits off from the main branch and can then be merged back in. Any work on the branch can be saved separately.
+
+\newpage
+
+The easiest way to work with branches is by using the \emph{Git Graph} extension:
+\begin{enumerate}
+\item Click on the Git Graph button on the bottom left.
+\centfig{0.4}{gitgraph}
+\item Make sure the master branch is checked out.
+\item Right click on the small circle next to the main branch label. and create a new branch. 
+\centfig{0.4}{master}
+Make sure to select the check out option.
+\centfig{0.4}{checkout}
+\item Edit your file.
+\item Stage, commit and push your edits.
+\item Change back to your main branch by double clicking the label of the main branch.
+\centfig{0.4}{main}
+\item Right click on the label of your edited branch and select the merge option.
+\centfig{0.4}{merge}
+\end{enumerate}
+
+
+
 
 
 
