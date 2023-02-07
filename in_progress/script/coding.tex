@@ -1688,6 +1688,46 @@ Write functions \verb|drawSquare(d)| and \verb|drawTriangle(d)| to make the show
 
 \newpage
 
+\begin{ex}
+\begin{enumerate}
+\item Fork the repository \url{https://github.com/olidec/donuts}.
+\item Clone the files to your personal workspace.
+\item Read through the code and try to understand what is going on. Play a game or two.
+\item Create a new branch called 'index'
+\item Create a file called \verb|index.html| with a short description of the game and a link to the actual game page (\verb|donuts.html|).
+\item Merge the new branch back in to your master branch.
+\item Create a pull request to my original repository.
+\item Create a new branch and give it a sensible name.
+\item Change the speed of the falling donuts and how fast the dog moves around.
+\item (optional) Create a function that is activated, when a key is released (use \verb|document.onkeyup|).  The function should stop the dog, when you release the arrow key (that means the speed of the dog is set to zero).
+\item (optional) Change the ending conditions for the game. How could the game end? Win after score reaches 20? Lose after you miss 3? Be creative.
+\item Merge back into the master branch.
+\item Create a new branch called 'more-donuts'.
+\item Assign a hotkey to add a new donut to the screen, when it is pushed. Use the \verb|.push| method to add to the x, y and speed arrays. (Hint: you will also have to use the length of an array instead of the number $3$ in your code.)
+\item Merge back into the master branch.
+\item (optional challenge) Rewrite the code so the donuts are objects and x, y and speed are properties of that object.
+\item Create a new html file called \verb|arrays.html| and write the answers to the following questions in it as an ordered list. For all of these questions use \verb|a = [2,4,6,8,11]|.
+\begin{enumerate}
+\item What is the result of \verb|a.length|?
+\item What are the entries of \verb|a| after the command \verb|a.push('hello')|?
+\item What are the entries of \verb|a| after the command \verb|a.pop()|?
+\item What is the output of \verb|a.join(' ** ')| ?
+\item What is the output of \verb|a.join()|?
+\item What is the output of \verb|a.slice(1,3)|?
+\item Use the \verb|forEach()| method to write all the of the array entries into an unordered list.
+\end{enumerate}
+\item Create a new file called \verb|dom.html| and add a \verb|div| with \verb|id| 'mydiv'.
+\begin{enumerate}
+\item Write code that will add some text to that div (be creative).
+\item Write code that changes the style of the div (again - be creative).
+\end{enumerate}
+\item Create a pull request to my original repository.
+\end{enumerate}
+\end{ex}
+
+\newpage
+
+
 \section{More JavaScript}
 In this section we will look at some more Javascript tools and techniques.
 
@@ -1804,8 +1844,102 @@ console.log(beatles[beatles.length-1])
 
 \newpage
 
+\subsection{More Array Exercises}
+\begin{ex}
+Regard the following code chunk:
+\begin{verbatim}
+let myArray = ['Apples', 'Bananas', 'Coconuts', 'Dates']
 
-\subsection{Objects}
+myArray[2] = 'Cheese'
+myArray.push('Crackers')
+\end{verbatim}
+What are the entries of \verb|myArray| after this code has run?
+\end{ex}
+\sol{[Apples, Bananas, Cheese, Dates, Crackers]}
+
+\begin{ex}
+We now run the code \verb|myArray.sort()|. What are the values of \verb|myArray| now?
+\end{ex}
+\sol{[Apples, Bananas, Cheese, Crackers, Dates]}
+
+\begin{ex}
+What does the following code do (assume that myArray is the same as above)?
+\begin{verbatim}
+let text = `<ul>`
+myArray.forEach(mysteryFunction) 
+text += `</ul>`
+document.getElementById('solutions').innerHTML = text
+
+function mysteryFunction(string) {
+    text += `<li> ${string} </li> `
+}
+\end{verbatim}
+\end{ex}
+\sol{
+creates a html list with the array entries.
+}
+
+\begin{ex}
+Given the two arrays
+\begin{verbatim}
+myFirstArray = [1,2,3]
+mySecondArray = ['hat','cat','bat']
+\end{verbatim}
+What is the difference between \verb|myFirstArray.concat(mySecondArray)| and \verb|mySecondArray.concat(myFirstArray)|?
+\end{ex}
+\sol{
+1,2,3,hat,cat,bat
+vs.
+hat,cat,bat,1,2,3
+}
+
+\begin{ex}
+Given the array 
+
+\verb|arrayToJoin = ['Hello','my','name','is','Inigo','Montoya']|
+
+Use the \verb|join| method to get the following output
+
+\verb|Hello ! my ! name ! is ! Inigo ! Montoya|\\
+and \\
+\verb|Hello /*/ my /*/ name /*/ is /*/ Inigo /*/ Montoya|
+\end{ex}
+\sol{
+arrayToJoin.join(' ! ') \\
+arrayToJoin.join(' /*/ ')
+}
+
+\begin{ex}
+\begin{enumerate}
+\item Create a new folder in your workspace.
+\item Add files \verb|index.html|, \verb|style.css| and \verb|script.js|
+\item Use the basic html template from Visual Studio Code to start your project and save.
+\item From your \emph{source control} panel in VSCode, publish your folder to github in a public repository.
+\item In your html create a div and give it an id.
+\item In your script create an array of your four favorite books. Use the code above to write the titles in a list.
+\item Add HTML code with additional information about your 'library'.
+\item Style the page using CSS to your liking.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}
+\item Fork the repository \verb|https://github.com/olidec/array-animation| to your own account.
+\item Create a local copy via \verb|Clone|
+\item Look at the code and determine what it does.
+\item Change the number of images in the animation. Add your own images.
+\end{enumerate}
+\end{ex}
+
+
+
+\newpage
+
+
+\subsection{Solutions}
+\printcursols
+
+\newpage
 
 
 
@@ -1867,6 +2001,122 @@ Make sure to select the check out option.
 \item Right click on the label of your edited branch and select the merge option.
 \centfig{0.4}{merge}
 \end{enumerate}
+
+
+\newpage
+
+
+\section{Objects and JSON}
+
+\begin{verbatim}
+"In JavaScript, objects are king. If you understand objects, 
+you understand JavaScript."
+\end{verbatim}
+
+A standard variable can have one value: \verb|x=42|.
+
+Objects are variables that can have many values. We use {\bf name: value} pairs to represent the individual values of an object.  The pairs are then collected in curly brackets and separated by commas. It is common practice to declare objects with the \verb|const| keyword:
+
+\verb|const person = {firstName: 'Arthur', lastName: 'Dent', age: 42}|
+
+You can also define objects over multiple lines. This is sometimes useful to keep a better overview:
+\begin{verbatim}
+const person = {
+	firstName: 'Arthur', 
+	lastName: 'Dent', 
+	age: 42
+	}
+\end{verbatim}
+
+\subsection{Object Properties}
+
+All these named values are called \emph{properties}. We can access the individual values with the so-called {\bf dot-notation}: 
+\begin{itemize}
+\item \verb|person.firstName| returns \emph{Arthur}
+\item \verb|person.lasttName| returns \emph{Dent}
+\item \verb|person.age| returns \emph{42}
+\end{itemize}
+
+\subsection{Object Methods}
+
+\emph{Methods} are actions that can be performed on an object. Methods are properties that contain functions. We can add a \verb|fullName| method to our object:
+\begin{verbatim}
+const person = {
+    firstName: 'Arthur', 
+    lastName: 'Dent', 
+    age: 42,
+    fullName: function() {
+        return `${ this.firstName } ${ this.lastName }`
+    }
+}
+\end{verbatim}
+
+This allows us to get the full name of the person saved in the object. Note that if we want to refer to the object itself (or properties of it), we use the keyword \verb|this|. 
+
+When we call a method on an object we always have to call it as a function -- so with brackets, even if it has no arguments: \verb|person.fullName()| will return \emph{Arthur Dent}.
+
+You can even chain methods. So \verb|person.fullName().toUpperCase()| will evaluate to \emph{ARTHUR DENT} (Note: \verb|toUpperCase()| is a predefined method in JavaScript and can be applied to any \emph{string}).
+
+\subsection{JSON} 
+JSON stands for {\bf J}ava{\bf S}cript {\bf O}bject {\bf N}otation
+
+JSON is a text format for storing and transporting data
+
+The JSON format is syntactically similar to the code for creating JavaScript objects. Because of this, a JavaScript program can easily convert JSON data into JavaScript objects.
+
+Since the format is text only, JSON data can easily be sent between computers, and used by any programming language.
+
+JavaScript has a built in function for converting JSON strings into JavaScript objects:
+
+\verb|JSON.parse()|
+
+JavaScript also has a built in function for converting an object into a JSON string:
+
+\verb|JSON.stringify()|
+
+So if we want to output our entire object to the DOM, we can use: \verb|JSON.stringify(person)| and we will get the output \emph{\{"firstName":"Arthur","lastName":"Dent","age":42\}}.
+
+\subsection{Important Objects in JavaScript}
+
+\begin{itemize}
+\item When an HTML document is loaded into a frame of a browser window, a {\bf Document object} instance — named document — is created for that frame. This document object, like most objects, has a collection of properties and methods. We have often used \verb|document.getElementById(...)|
+\item {\bf Strings} are also objects we have some built in methods at our disposal. e.g. \verb|toUpperCase()| etc.
+\item The {\bf Math object} provides a number of useful methods and properties for mathematical processing. For example, Math provides the following property: \verb|Math.PI|
+\end{itemize}
+
+\subsection{Exercises}
+\begin{ex}
+Solve the three exercises from w3schools.org
+
+\url{https://www.w3schools.com/js/exercise_js.asp?filename=exercise_js_objects1}
+
+
+\end{ex}
+
+\begin{ex}
+Create an object to hold information on your favorite recipe. It should have properties for title (a string), servings (a number), and ingredients (an array of strings).
+On separate lines (use \verb|divs| and/or html lists), log the recipe information so it looks like:
+\begin{itemize}
+\item Mole
+\item Serves: 2
+\item Ingredients:
+\item cinnamon
+\item cumin
+\item cocoa
+\end{itemize}
+
+\end{ex}
+
+\begin{ex}
+Create an array of objects, where each object describes a book and has properties for the title (a string), author (a string), and alreadyRead (a boolean indicating if you read it yet).
+
+Iterate through the array of books. For each book, write the book title and book author to an output \verb|div| like so: "The Hobbit by J.R.R. Tolkien".
+
+Now use an if/else statement to change the output depending on whether you read it yet or not. If you read it, log a string like 'You already read "The Hobbit" by J.R.R. Tolkien', and if not, log a string like 'You still need to read "The Lord of the Rings" by J.R.R. Tolkien.'
+\end{ex}
+
+
+
 
 
 
