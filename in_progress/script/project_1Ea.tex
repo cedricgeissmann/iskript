@@ -1,0 +1,142 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\title{Computer Science Group Project 2023 1Ea}
+\date{Spring 2023}
+
+
+
+\begin{document}
+\maketitle
+
+\newpage
+\section{First Steps}
+In the next few weeks you will be working in groups on programming an interactive game. The idea is to learn a new environment \verb|kaboomjs| and apply your new and old knowledge to achieving a creative and fun result.
+
+Your objectives for this four week time frame are
+\begin{itemize}
+\item Use the documentation,  intructional videos and online examples to learn how to program a simple web game in javascript.
+\item Write a documentation/intructions for the game.
+\item Give a short (10') presentation on your process and final result.
+\item Have fun.
+\end{itemize}
+
+\subsection{Groups}
+Step one is to organize yourselves into groups of three to four people. 
+\subsection{Tools and Resources}
+For this project we will be using a \verb|coding framework| called \verb|kaboomjs|. This will give us a wide variety of commands and functions for designing web games.
+
+Unfortunately, the main website is blocked by the SBLMobile network {\color{blue} [citation needed]}. I have placed a downloaded copy of the site on your OneNote. You can download the zip file and extract it; then you can access the site locally by opening \verb|index.html|.
+
+I have placed an empty project with all the necessary code in a github repository. You can clone those files to your local workspace. I will show you how to add collaborators to your github project, so you only need one project repository.
+
+In order to test your project use LiveServer in Visual Studio Code.
+
+
+
+
+
+
+\section{Project Description}
+
+\subsection{Goals} 
+Your Goal is to write an interactive game using the game engine \verb|kaboomjs|. It can be singleplayer or multiplayer; however, multiplayer should only be implemented on the same computer (either turn-based or using separate sets of keys).
+
+Some ideas for inspiration:
+\begin{itemize}
+\item Jump \& Run
+\item Top-Down RPG
+\item Turn-based card or board game
+\item Capture the Flag
+\item Worms
+\item Lemmings
+\item etc.
+\end{itemize}
+\subsection{Timeline}
+The project will last from week 10 to week 13. Final presentations of the projects will be on Thursday 20.4.2023 (This lesson may not take place due to an external event -- however, your projects must be finished by that date). The first week should be spent setting up a plan and learning about the \verb|kaboomjs| module. Roughly around the middle of the project you should have a bare-bones version of the game that may only have a few basic features. The final version should be a playable game.
+
+
+\subsubsection{Milestones}
+\begin{enumerate}
+\item {\bf around 16.3.2023} In a personal meeting with me you will show a bare-bones version of your game and I will give some feedback on how to progress.
+\item {\bf on 20.4.2023} Final version (including documentation) must be handed in (via github). In a short presentation (<10 mins) you will present your final version to the class and repsond to questions that may arise.
+\end{enumerate}
+
+\subsection{Format}
+Your game should be on a public github repository and should contain the following scenes (scenes are explained in the documentation):
+\begin{enumerate}
+\item A start scene with a game description and a link to the main game.
+\item A game scene containing the main game.
+\item A "gameover" or "game won" scene with the score or other relevant information.
+\item A "credits" scene (accessible from the starting scene and the ending scene, where you write the names of the people in your project.
+\end{enumerate}
+
+Additionaly, you will give a short presentation on your process and your final result. The slides from this presentation should also be on your github repository.
+
+
+
+\subsection{Grading}
+You will receive a group grade at the end of the project. Factors for grading include: Are you using your time wisely? Is everyone in the group contributing? Are you making progress? How did you implement my feedback from the first milestone? Does your game work? Are there any bugs or incomplete features? Is the documentation complete and understandable? \ldots
+
+In general the grade is the same for all members in a group. If we notice large discrepancies in the contributions (git commits) of certain members of a group we reserve the right to give individual grades.
+
+\subsection{Resources}
+The main resource you can use is the \verb|kaboomjs| website (either locally or via \url{https://kaboomjs.com/}
+
+You can find example games on \url{https://docs.replit.com/category/kaboomjs}. Note \verb|replit| is an online coding platform. However, you should be able to use the game code as it is shown.
+
+If you google "kaboomjs tutorial" or "kaboomjs example" you will of course find many resources. However, it is also very easy to lost in that rabbit hole -- so be careful.
+
+I will also always be around to assist as much as possible.
+
+
+\end{document}
