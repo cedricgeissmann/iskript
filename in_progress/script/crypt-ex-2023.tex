@@ -1,0 +1,365 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{verbatim}
+
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+\makeatletter
+
+\usepackage{listings}
+
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+\usepackage{listings}
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,	
+  alsoletter={<>=-},	
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	% body
+	</body, <body,
+	% Divs
+	</div, <div, </div>, 
+	% Paragraphs
+	</p, <p, </p>,
+	% scripts
+	</script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+	% CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,	
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},	
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+\lstdefinestyle{py} {%
+language=python,
+literate=%
+*{0}{{{\color{lightred}0}}}1
+{1}{{{\color{lightred}1}}}1
+{2}{{{\color{lightred}2}}}1
+{3}{{{\color{lightred}3}}}1
+{4}{{{\color{lightred}4}}}1
+{5}{{{\color{lightred}5}}}1
+{6}{{{\color{lightred}6}}}1
+{7}{{{\color{lightred}7}}}1
+{8}{{{\color{lightred}8}}}1
+{9}{{{\color{lightred}9}}}1,
+basicstyle=\footnotesize\ttfamily, % Standardschrift
+numbers=left,               % Ort der Zeilennummern
+%numberstyle=\tiny,          % Stil der Zeilennummern
+%stepnumber=2,               % Abstand zwischen den Zeilennummern
+numbersep=5pt,              % Abstand der Nummern zum Text
+tabsize=4,                  % Groesse von Tabs
+extendedchars=true,         %
+breaklines=true,            % Zeilen werden Umgebrochen
+keywordstyle=\color{blue}\bfseries,
+frame=b,
+commentstyle=\color{brown}\itshape,
+stringstyle=\color{editorOcher}\ttfamily, % Farbe der String
+showspaces=false,           % Leerzeichen anzeigen ?
+showtabs=false,             % Tabs anzeigen ?
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+}%
+%
+\makeatother
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+
+
+\begin{ex}
+Encrypt \verb|THE QUICK BROWN FOX| using a Caesar shift of 17.
+\end{ex}
+\sol{
+\texttt{KYV HLZTB SIFNE WFO}
+}
+
+
+\begin{ex}
+Eve intercepted this message: \verb|N QNPJ HNUMJWX.| Figure out how to break it to get Alice’s message.
+\end{ex}
+\sol{
+Shift: 5 \\
+Plaintext: \texttt{I LIKE CIPHERS.}
+}
+
+
+\begin{ex}
+Use the website \url{https://cryptii.com/} to decode the following message:
+\begin{verbatim}
+Pyebc mybok xncof oxiok bckqy yebpk drobc lbyeq rdpyb drezy xdrsc
+myxds xoxd, kxogx kdsyx, myxm osfon sxVsl obdi, kxnno nsmkd ondyd
+rozby zycsd syxdr kdkvv woxkb ombok donoa ekv.
+\end{verbatim}
+\end{ex}
+\sol{
+Shift: 10 \\
+\texttt{Fours corea ndsev enyea rsago ourfa thers broug htfor thupo nthis
+conti nent, anewn ation, conc eived inLib erty, andde dicat edtot
+hepro posit ionth atall menar ecrea tedeq ual.}  \\
+or with the proper spacing:  \\
+\texttt{Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.}
+}
+
+\begin{ex}
+Alice tries to make the Caesar code better by using multiple Caesar shifts. Her argument is: "If I use 50 Caesar shifts,  then the keyspace will be $26^{50}$ -- which is much larger than the standard keyspace of 26 for the Caesar code.  This means the code will be harder to crack." 
+
+Is her argument sound?
+\end{ex}
+\sol{
+No, two Caesar shifts can always be combined to a single shift. e.g. a shift of $7$ followed by a shift of $17$ is identical to a shift of $24$. Also a shift greater than $26$ is identical to the same shift modulo $26$. e.g. a shift of $37$ is identical to a shift of $11$.
+}
+
+
+
+
+\begin{ex}
+Given the following One Time Pad: 
+\begin{verbatim}
+74288, 12127, 11380, 68612, 71750, 80865, 45593, 84621, 37271,
+22781, 46647, 18730, 62697, 23437, 36413, 51216, 65713, 74749,
+44834, 89655
+\end{verbatim}
+encrypt the message \verb|TOP SECRET| using a standard alphabet replacement (a = 1, b = 2, etc.) e.g. the T corresponds to the value $20$. So we take the first entry in the OTP \verb|74288| and add 20: \verb|74308|. This is now the encryption for our first letter etc.
+\end{ex}
+\sol{
+\texttt{74308, 12142, 11396, 68631, 71755, 80868, 45611, 84626, 37291}
+}
+
+
+\begin{ex}
+Given the following One Time Pad: 
+\begin{verbatim}
+74288, 12127, 11380, 68612, 71750, 80865, 45593, 84621, 37271,
+22781, 46647, 18730, 62697, 23437, 36413, 51216, 65713, 74749,
+44834, 89655
+\end{verbatim}
+encrypt the message \verb|TOP SECRET| using the ASCII table. e.g. the T corresponds to the value $84$. So we take the first entry in the OTP \verb|74288| and add 84: \verb|74372|. This is now the encryption for our first letter etc.
+\end{ex}
+\sol{
+\texttt{74372, 12206, 11460, 68695, 71819, 80932, 45675, 84653, 37355}
+}
+
+\begin{ex}
+blank
+\end{ex}
+
+
+\begin{ex}
+Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN|:
+\begin{verbatim}
+I LOVE MATH
+\end{verbatim}
+
+\end{ex}
+\sol{
+\texttt{Q RZRN AAGP}
+}
+
+\begin{ex}
+Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN| using the online tool \url{https://cryptii.com/}:
+\begin{verbatim}
+To be, or not to be, that is the question:
+Whether 'tis nobler in the mind to suffer
+The slings and arrows of outrageous fortune,
+Or to take arms against a sea of troubles
+And by opposing end them. To die - to sleep,
+No more; and by a sleep to say we end
+The heart-ache and the thousand natural shocks
+That flesh is heir to: 'tis a consummation
+Devoutly to be wish'd. To die, to sleep;
+\end{verbatim}
+\end{ex}
+
+
+\begin{ex}
+Use the online tool \url{https://www.101computing.net/frequency-analysis/} to run a frequency analysis on the ciphertext. Then decrypt the hidden message.
+\end{ex}
+
+
+
+\begin{ex}
+Write out the message
+\verb|BEWARE THE IDES OF MARCH.|
+in rows of length 5 and read out the columns. Give the ciphertext.
+\end{ex}
+\sol{
+\texttt{BEDM ETEA WHSR AEOC RIFH}
+}
+
+\begin{ex}
+Decrypt the following message using length 4: \verb|INLRREINVCFIIAOA|.
+\end{ex}
+\sol{
+\texttt{Irvine, California}
+}
+
+\begin{ex}
+Eve intercepted the following message. Help her break it: \verb|HYDAMAPOYPNZ|.
+\end{ex}
+\sol{
+Rows of three: \texttt{HAPPY MONDAY} with a filler character, that can be ignored.
+}
+
+
+
+
+
+
+
+\begin{ex}
+Clone the code from the repository \url{https://github.com/olidec/caesar}. Read and try to understand the code that encrypts a text with the Caesar cipher. We will talk through the code together.
+\end{ex}
+
+\begin{ex}
+Write a new function \verb|decryptCaesar()| that takes a ciphertext as input and returns the plaintext.
+\end{ex}
+\sol{
+We can replace the \texttt{+s} with \texttt{-s}, however we must ensure that the character lies within the range of the standard alphabet. We do this by adding 26 to our result before calculating the modulo -- this will ensure that we always decrypt a letter with a letter.
+}
+
+\begin{ex}
+Write code that encrypts plaintext with the atbash cipher. 
+\end{ex}
+\sol{
+Here we replace the caesar-shift with \texttt{j = 25-j}. Since the original character codes are between 0 and 25 after the 'shift' back, we do not have to worry about exiting the letters.
+}
+
+\begin{ex}
+(For Specialists) \\
+Use the code from the \verb|encryptCaesar| function to encode a text using a Vigenère cipher. 
+
+Option 1: use a fixed key \\
+Option 2: add an input field for the key
+\end{ex}
+
+\newpage
+
+\subsection*{Solutions}
+\printcursols
+
+
+\end{document}

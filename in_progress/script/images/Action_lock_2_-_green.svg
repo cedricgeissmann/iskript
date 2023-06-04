@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="480"
+   height="480"
+   viewBox="0 0 480 480"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="Action lock 2 - green.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     showguides="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.5"
+     inkscape:cx="138"
+     inkscape:cy="241"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath7176">
+      <path
+         id="lpe_path-effect7180"
+         style="fill:#ffffff;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+         class="powerclip"
+         d="M 25.238364,6.7175531 H 100.70331 V 92.765807 H 25.238364 Z m 6.099375,50.9616199 c -2.996347,0 -5.408568,2.412221 -5.408568,5.408568 v 42.099529 c 0,2.99635 2.412221,5.40857 5.408568,5.40857 h 63.266199 c 2.996347,0 5.408572,-2.41222 5.408572,-5.40857 V 63.087741 c 0,-2.996347 -2.412225,-5.408568 -5.408572,-5.408568 z" />
+    </clipPath>
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect7180"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="クリップをパスに変換した後に残らない場合には&lt;b&gt;フィル/ストローク&lt;/b&gt;ダイアログのフィルルールで evenodd を使用します。" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect846"
+       clip-path="none"
+       mask="none"
+       style="opacity:1;fill:#00e020;stroke-width:0"
+       d="m 60,0 h 360 c 33.24,0 60,26.76 60,60 v 360 c 0,33.24 -26.76,60 -60,60 H 60 C 26.76,480 0,453.24 0,420 V 60 C 0,26.76 26.76,0 60,0 Z" />
+    <g
+       id="g10483">
+      <path
+         id="rect1290"
+         style="fill:#ffffff;stroke-width:0"
+         inkscape:label="rect1290"
+         d="m 133.27048,223.78381 h 213.45904 c 10.12184,0 18.27048,8.14864 18.27048,18.27049 v 142.21487 c 0,10.12185 -8.14864,18.27049 -18.27048,18.27049 H 133.27048 C 123.14864,402.53966 115,394.39102 115,384.26917 V 242.0543 c 0,-10.12185 8.14864,-18.27049 18.27048,-18.27049 z" />
+      <path
+         id="rect5900"
+         transform="matrix(3.2395949,0,0,3.3780632,35.999999,37.877711)"
+         clip-path="url(#clipPath7176)"
+         d="m 56.296019,20.786203 h 13.349636 c 9.411908,0 16.989004,7.548604 16.989004,16.92512 v 24.060715 c 0,9.376516 -7.577096,16.925119 -16.989004,16.925119 H 56.296019 c -9.411909,0 -16.989005,-7.548603 -16.989005,-16.925119 V 37.711323 c 0,-9.376516 7.577096,-16.92512 16.989005,-16.92512 z"
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:18.1373;stroke-miterlimit:4;stroke-dasharray:none;paint-order:normal" />
+    </g>
+  </g>
+  <metadata
+     id="metadata1515">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>本日晴天</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:date>2021-11-10</dc:date>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

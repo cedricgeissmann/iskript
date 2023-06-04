@@ -1,0 +1,829 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{verbatim}
+
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+\makeatletter
+
+\usepackage{listings}
+
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+\usepackage{listings}
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,	
+  alsoletter={<>=-},	
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	% body
+	</body, <body,
+	% Divs
+	</div, <div, </div>, 
+	% Paragraphs
+	</p, <p, </p>,
+	% scripts
+	</script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+	% CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,	
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},	
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+\lstdefinestyle{py} {%
+language=python,
+literate=%
+*{0}{{{\color{lightred}0}}}1
+{1}{{{\color{lightred}1}}}1
+{2}{{{\color{lightred}2}}}1
+{3}{{{\color{lightred}3}}}1
+{4}{{{\color{lightred}4}}}1
+{5}{{{\color{lightred}5}}}1
+{6}{{{\color{lightred}6}}}1
+{7}{{{\color{lightred}7}}}1
+{8}{{{\color{lightred}8}}}1
+{9}{{{\color{lightred}9}}}1,
+basicstyle=\footnotesize\ttfamily, % Standardschrift
+numbers=left,               % Ort der Zeilennummern
+%numberstyle=\tiny,          % Stil der Zeilennummern
+%stepnumber=2,               % Abstand zwischen den Zeilennummern
+numbersep=5pt,              % Abstand der Nummern zum Text
+tabsize=4,                  % Groesse von Tabs
+extendedchars=true,         %
+breaklines=true,            % Zeilen werden Umgebrochen
+keywordstyle=\color{blue}\bfseries,
+frame=b,
+commentstyle=\color{brown}\itshape,
+stringstyle=\color{editorOcher}\ttfamily, % Farbe der String
+showspaces=false,           % Leerzeichen anzeigen ?
+showtabs=false,             % Tabs anzeigen ?
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+}%
+%
+\makeatother
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+\section{Cryptography}
+Cryptography is the process of {\bf encrypting} and {\bf decrypting} data. Most commonly it is used to protect your private data when you use the internet. Historically, cryptography was used during warfare to transfer messages between troops and commanders without the enemy being able to read them.
+
+In the last CS Lab we saw a variety of different "secret codes". For obvious reasons none of these are actually used in modern cryptography. For modern security complex, multi-level cryptosystems are required. We will look at some examples and ideas, but this cannot be a complete treatise.
+
+\subsubsection{Reminder: Cryptography does not solve everything}
+
+\begin{figure}[h]
+\centfig{0.5}{voting_software_2x}
+\caption{\url{https://xkcd.com/2030/}}
+\end{figure}
+
+
+\newpage
+\section{The Basics}
+\subsection{Basic Vocabulary and Terms}
+In order to properly discuss ancient and modern cryptography, we first need some definitions: 
+\begin{description}
+\item[Cryptography] The study of techniques for secure communication.
+\item[Cipher] The rules or methods used for encrypting a message.
+\item[Key] The special information needed to encrypt or decrypt a message.
+\item[Keyspace] All possible keys. Generally, the larger the keyspace, the more secure the encryption.
+\item[Encryption] The process of hiding or \emph{encrypting} the message.
+\item[Decryption] The process of solving or \emph{decrypting} a message back to its original text.
+\item[Plaintext] The original or decrypted text.
+\item[Ciphertext] The \emph{encrypted} text.
+\item[Symmetric Ciphers] The same key is used for encryption and decryption.
+\item[Asymmetric Ciphers] A different key is used for encrypting and decrypting.
+\item[Cryptanalysis] The process of trying to decrypt a message with an unknown key.
+\end{description}
+
+\newpage
+%\subsection{Alice and Bob}
+%Meet Alice and Bob. Alice and Bob are the standard two people who want to exchange secret messages in cryptography.
+%
+%\centfig{0.8}{alice-bob-1}
+%
+%Unfortuntely, evil Eve is trying to intercept and read their messages to each other. Alternatively, Eve may try to change the messages between Alice and Bob or even pretend to be Alice to Bob and Bob to Alice.
+%
+%\centfig{0.8}{alice-bob-2}
+%
+%Alice and Bob need to somehow prevent Eve from reading their messages. Such attacks on communication are called "man (or woman) in the middle" attacks.
+%
+%\centfig{0.8}{alice-bob-3}
+%
+%
+%\newpage
+
+\section{Classical Cryptography: Substitution and Transposition}
+
+\subsection{Definition and History}
+
+Classical cryptography refers to the use of secret codes and ciphers to protect information, dating back to ancient civilizations such as Egypt, Greece, and Rome. The goal of classical cryptography was to hide the meaning of a message from anyone who intercepted it. This chapter will introduce you to some of the basic concepts and techniques of classical cryptography.
+
+\subsection{Steganography: Hiding Messages in Plain  Sight}
+Steganography is a way of hiding a secret message inside of or on top of a message that is not secret. Possible examples include:
+\begin{itemize}
+\item Writing with hidden ink on an otherwise harmless letter,
+\item Sentences, where certain letters may convey a different message,
+\item Using microdots to send messages,
+\item Hiding digital information in text or image files, where you won't see it unless you specifically look for it,
+\item ...
+\end{itemize}
+
+Steganography is not a \emph{secure} method of transmitting messages, it simply tries to hide the fact that a secret message is being sent. If someone knows what they are looking for, they will find the secret message.
+
+%\begin{ex}
+%Can you find the hidden message?
+%\begin{verbatim}
+%Since everyone can read, encoding text in neutral sentences is
+%doubtfully effective.
+%\end{verbatim}
+%\end{ex}
+%\sol{
+%\textbf{S}ince \textbf{e}veryone \textbf{c}an \textbf{r}ead, \textbf{e}ncoding \textbf{t}ext \textbf{i}n \textbf{n}eutral \textbf{s}entences \textbf{i}s \textbf{d}oubtfully \textbf{e}ffective.
+%}
+
+\subsection{Substitution Ciphers}
+
+A substitution cipher is a type of encryption in which each letter in the plaintext is replaced by another letter or symbol according to a predetermined rule. There are several types of substitution ciphers, including the Caesar Cipher, Atbash Cipher, and Polybius Square Cipher. These ciphers were widely used in ancient times, and some are still used today in puzzle games and other forms of entertainment.
+
+\subsubsection{Caesar Cipher}
+The Caesar Cipher is one of the simplest and most widely known encryption techniques in classical cryptography. Named after Julius Caesar, who is said to have used the cipher to communicate with his generals, the Caesar Cipher is a type of substitution cipher in which each letter in the plaintext is shifted a certain number of places down the alphabet. The resulting ciphertext appears to be a jumble of letters, but can be easily deciphered by someone who knows the shift value used to encrypt the message.  
+
+\begin{figure}[h]
+\centfig{0.9}{caesar}
+\caption{An alphabet shifted with the key $k=23$}
+\end{figure}
+
+\begin{ex}
+Encrypt \verb|THE QUICK BROWN FOX| using a Caesar shift of 17.
+\end{ex}
+\sol{
+\texttt{KYV HLZTB SIFNE WFO}
+}
+
+
+\begin{ex}
+Eve intercepted this message: \verb|N QNPJ HNUMJWX.| Figure out how to break it to get Alice’s message.
+\end{ex}
+\sol{
+Shift: 5 \\
+Plaintext: \texttt{I LIKE CIPHERS.}
+}
+
+
+\begin{ex}
+Use the website \url{https://cryptii.com/} to decode the following message:
+\begin{verbatim}
+Pyebc mybok xncof oxiok bckqy yebpk drobc lbyeq rdpyb drezy xdrsc
+myxds xoxd, kxogx kdsyx, myxm osfon sxVsl obdi, kxnno nsmkd ondyd
+rozby zycsd syxdr kdkvv woxkb ombok donoa ekv.
+\end{verbatim}
+\end{ex}
+\sol{
+Shift: 10 \\
+\texttt{Fours corea ndsev enyea rsago ourfa thers broug htfor thupo nthis
+conti nent, anewn ation, conc eived inLib erty, andde dicat edtot
+hepro posit ionth atall menar ecrea tedeq ual.}  \\
+or with the proper spacing:  \\
+\texttt{Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.}
+}
+
+\begin{ex}
+Alice tries to make the Caesar code better by using multiple Caesar shifts. Her argument is: "If I use 50 Caesar shifts,  then the keyspace will be $26^{50}$ -- which is much larger than the standard keyspace of 26 for the Caesar code.  This means the code will be harder to crack." 
+
+Is her argument sound?
+\end{ex}
+\sol{
+No, two Caesar shifts can always be combined to a single shift. e.g. a shift of $7$ followed by a shift of $17$ is identical to a shift of $24$. Also a shift greater than $26$ is identical to the same shift modulo $26$. e.g. a shift of $37$ is identical to a shift of $11$.
+}
+
+\subsubsection{Atbash Cipher}
+
+The Atbash cipher is a particular type of monoalphabetic cipher formed by taking the alphabet (or abjad, syllabary, etc.) and mapping it to its reverse, so that the first letter becomes the last letter, the second letter becomes the second to last letter, and so on. For example, the Latin alphabet would work like this:
+
+\begin{figure}[h]
+\centfig{0.9}{atbash}
+\caption{An alphabet for the atbash cipher}
+\end{figure}
+
+
+
+\subsection{Transposition Ciphers}
+
+A transposition cipher is a type of encryption in which the letters of the plaintext are rearranged according to a predetermined rule. There are several types of transposition ciphers, including the Rail Fence Cipher, Columnar Transposition Cipher, and Scytale Cipher. Transposition ciphers were also widely used in ancient times, and they were often used in combination with substitution ciphers to create more complex cryptographic systems.
+
+\subsubsection{Rail Fence Cipher}
+
+In the rail fence cipher, the plaintext is written downwards diagonally on successive "rails" of an imaginary fence, then moving up when the bottom rail is reached, down again when the top rail is reached, and so on until the whole plaintext is written out. The ciphertext is then read off in rows.
+
+For example, to encrypt the message \verb|WE ARE DISCOVERED. RUN AT ONCE| with 3 "rails", write the text as:
+\centfig{0.8}{rail}
+Then read off the text horizontally to get the ciphertext:
+
+\verb|WECRUO ERDSOEERNTNE AIVDAC|
+
+\subsubsection{Columnar Transposition Cipher}
+
+In a columnar transposition, the message is written out in rows of a fixed length, and then read out again column by column, and the columns are chosen in some scrambled order. Both the width of the rows and the permutation of the columns are usually defined by a keyword. For example, the keyword \verb|ZEBRAS| is of length 6 (so the rows are of length 6), and the permutation is defined by the alphabetical order of the letters in the keyword. In this case, the order would be "6 3 2 4 1 5".
+
+In a regular columnar transposition cipher, any spare spaces are filled with nulls; in an irregular columnar transposition cipher, the spaces are left blank. Finally, the message is read off in columns, in the order specified by the keyword. For example, suppose we use the keyword ZEBRAS and the message \verb|WE ARE DISCOVERED. FLEE AT ONCE|. In a regular columnar transposition, we write this into the grid as follows:
+\centfig{0.2}{column}
+
+providing five nulls (\verb|QKJEU|), these letters can be randomly selected as they just fill out the incomplete columns and are not part of the message. The ciphertext is then read off as:
+
+\verb|EVLNE ACDTK ESEAQ ROFOJ DEECU WIREE|
+
+Note that  we group the ciphertext in groups of five. This is standard practice in cryptography.
+
+
+\begin{ex}
+Write out the message
+\verb|BEWARE THE IDES OF MARCH.|
+in rows of length 5 and read out the columns. Give the ciphertext.
+\end{ex}
+\sol{
+\texttt{BEDM ETEA WHSR AEOC RIFH}
+}
+
+\begin{ex}
+Decrypt the following message using length 4: \verb|INLRREINVCFIIAOA|.
+\end{ex}
+\sol{
+\texttt{Irvine, California}
+}
+
+\begin{ex}
+Eve intercepted the following message. Help her break it: \verb|HYDAMAPOYPNZ|.
+\end{ex}
+\sol{
+Rows of three: \texttt{HAPPY MONDAY} with a filler character, that can be ignored.
+}
+
+
+
+
+\subsection{Cryptanalysis of Classical Ciphers: Frequency Analysis and Brute Force Attacks}
+
+Cryptanalysis is the process of analyzing a cryptographic system in order to break it and reveal the underlying plaintext. In classical cryptography, one of the most common cryptanalysis techniques is frequency analysis, which involves analyzing the frequency of letters or symbols in the ciphertext to determine the underlying substitution or transposition rule. Brute force attacks, which involve trying all possible keys until the correct one is found, are another common cryptanalysis technique.
+
+Frequency analysis uses the fact that not all letters are used with the same frequency. In many languages the letter \verb|E| is the most commonly used letter. In a monoalphabetic cipher this can be exploited to crack the code. 
+\begin{figure}[h]
+\centfig{0.5}{freq}
+\caption{Letter Frequencies in the English Language}
+\end{figure}
+
+\begin{ex}
+Use the online tool \url{https://www.101computing.net/frequency-analysis/} to run a frequency analysis on the ciphertext. Then decrypt the hidden message.
+\end{ex}
+
+
+\subsection{Advanced Classical Cryptography Techniques}
+
+While substitution and transposition ciphers are the most basic forms of classical cryptography, there are more advanced techniques that were developed over time. The Vigenère Cipher, for example, is a type of polyalphabetic substitution cipher that uses a keyword to determine the substitution rule. The Playfair Cipher is another polygraphic substitution cipher that uses pairs of letters instead of single letters. 
+
+\subsubsection{The Vigenère Cipher}
+
+In a Caesar cipher, each letter of the alphabet is shifted along some number of places.  The Vigenère cipher has several Caesar ciphers in sequence with different shift values.
+
+To encrypt, a table of alphabets can be used. It has the alphabet written out 26 times in different rows, each alphabet shifted cyclically to the left compared to the previous alphabet, corresponding to the 26 possible Caesar ciphers:
+\begin{figure}[h]
+\centfig{0.5}{vigenere}
+\caption{A Vigenère Table}
+\end{figure}
+
+For example, suppose that the plaintext to be encrypted is
+
+\verb|attackatdawn|
+
+The person sending the message chooses a keyword and repeats it until it matches the length of the plaintext, for example, the keyword \verb|LEMON|:
+
+
+\verb|LEMONLEMONLE|
+
+
+
+Now the first letter of the plaintext, a, is paired with L, the first letter of the key. Therefore, row \verb|A| and column \verb|L| of the Vigenère square are used, namely \verb|L|. Similarly, for the second letter of the plaintext, the second letter of the key is used. The letter at row \verb|T| and column \verb|E| is \verb|X|. The rest of the plaintext is enciphered in a similar fashion:
+\begin{center}
+\begin{tabular}{ll}
+Plaintext: & 	\verb|attackatdawn| \\
+Key: & 	\verb|LEMONLEMONLE| \\
+Ciphertext:	 & \verb|LXFOPVEFRNHR|
+\end{tabular}
+\end{center}
+
+
+
+Decryption is performed by going to the row in the table corresponding to the key, finding the position of the ciphertext letter in that row and then using the column's label as the plaintext. For example, in row L (from LEMON), the ciphertext L appears in column A, so a is the first plaintext letter. Next, in row E (from LEMON), the ciphertext X is located in column T. Thus t is the second plaintext letter.
+
+\begin{ex}
+Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN|:
+\begin{verbatim}
+I LOVE MATH
+\end{verbatim}
+
+\end{ex}
+\sol{
+\texttt{Q RZRN AAGP}
+}
+
+\begin{ex}
+Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN| using the online tool \url{https://cryptii.com/}:
+\begin{verbatim}
+To be, or not to be, that is the question:
+Whether 'tis nobler in the mind to suffer
+The slings and arrows of outrageous fortune,
+Or to take arms against a sea of troubles
+And by opposing end them. To die - to sleep,
+No more; and by a sleep to say we end
+The heart-ache and the thousand natural shocks
+That flesh is heir to: 'tis a consummation
+Devoutly to be wish'd. To die, to sleep;
+\end{verbatim}
+\end{ex}
+
+
+\subsection{One Time Pads and Perfect Secrecy}
+
+
+In cryptography, the one-time pad (OTP) is an encryption technique that cannot be cracked, but requires the use of a single-use pre-shared key that is not smaller than the message being sent. In this technique, a plaintext is paired with a random secret key (also referred to as a one-time pad). Then, each bit or character of the plaintext is encrypted by combining it with the corresponding bit or character from the pad using modular addition.
+
+The resulting ciphertext will be impossible to decrypt or break if the following four conditions are met:
+\begin{itemize}
+\item The key must be at least as long as the plaintext.
+\item The key must be random (this is a really difficult concept, which we will not get into here).
+\item The key must never be reused in whole or in part.
+\item The key must be kept completely secret by the communicating parties.
+\end{itemize}
+
+\begin{ex}
+Given the following One Time Pad: 
+\begin{verbatim}
+74288, 12127, 11380, 68612, 71750, 80865, 45593, 84621, 37271,
+22781, 46647, 18730, 62697, 23437, 36413, 51216, 65713, 74749,
+44834, 89655
+\end{verbatim}
+encrypt the message \verb|TOP SECRET| using a standard alphabet replacement (a = 1, b = 2, etc.) e.g. the T corresponds to the value $20$. So we take the first entry in the OTP \verb|74288| and add 20: \verb|74308|. This is now the encryption for our first letter etc.
+\end{ex}
+\sol{
+\texttt{74308, 12142, 11396, 68631, 71755, 80868, 45611, 84626, 37291}
+}
+
+
+\begin{ex}
+Given the following One Time Pad: 
+\begin{verbatim}
+74288, 12127, 11380, 68612, 71750, 80865, 45593, 84621, 37271,
+22781, 46647, 18730, 62697, 23437, 36413, 51216, 65713, 74749,
+44834, 89655
+\end{verbatim}
+encrypt the message \verb|TOP SECRET| using the ASCII table. e.g. the T corresponds to the value $84$. So we take the first entry in the OTP \verb|74288| and add 84: \verb|74372|. This is now the encryption for our first letter etc.
+\end{ex}
+\sol{
+\texttt{74372, 12206, 11460, 68695, 71819, 80932, 45675, 84653, 37355}
+}
+
+\section{Some Simple Coding}
+
+\begin{ex}
+Clone the code from the repository \url{https://github.com/olidec/caesar}. Read and try to understand the code that encrypts a text with the Caesar cipher. We will talk through the code together.
+\end{ex}
+
+\begin{ex}
+Write a new function \verb|decryptCaesar()| that takes a ciphertext as input and returns the plaintext.
+\end{ex}
+\sol{
+We can replace the \texttt{+s} with \texttt{-s}, however we must ensure that the character lies within the range of the standard alphabet. We do this by adding 26 to our result before calculating the modulo -- this will ensure that we always decrypt a letter with a letter.
+}
+
+\begin{ex}
+Write code that encrypts plaintext with the atbash cipher. 
+\end{ex}
+\sol{
+Here we replace the caesar-shift with \texttt{j = 25-j}. Since the original character codes are between 0 and 25 after the 'shift' back, we do not have to worry about exiting the letters.
+}
+
+\begin{ex}
+(For Specialists) \\
+Use the code from the \verb|encryptCaesar| function to encode a text using a Vigenère cipher. 
+
+Option 1: use a fixed key \\
+Option 2: add an input field for the key
+\end{ex}
+
+
+
+%\subsection{Cryptography During Wartime: Enigma Machine and Cryptanalysis in World War II}
+%
+%One of the most famous examples of classical cryptography in wartime was the German Enigma Machine used during World War II. The Enigma Machine used a combination of substitution and transposition ciphers to encrypt messages, and it was considered unbreakable by the Germans. However, thanks to the work of cryptanalysts such as Alan Turing, the British were able to break the Enigma code and gain valuable intelligence that helped them win the war.
+
+%\subsection{The Legacy of Classical Cryptography: Influence on Modern Cryptography}
+%
+%While classical cryptography may seem outdated, many of the concepts and techniques developed in ancient times continue to be used in modern cryptography. For example, the use of substitution and transposition ciphers forms the basis of many modern cryptographic algorithms. In addition, the challenges of cryptanalysis have led to the development of more complex and secure cryptographic systems.
+
+%\subsection{Ethical and Legal Issues in Classical Cryptography}
+%
+%The use of cryptography has always been closely tied to issues of privacy and security, and the use of classical cryptography has raised a number of ethical and legal questions throughout history. From the use of ciphers by spies and military organizations to the use of encryption by criminals and terrorists, classical cryptography has been associated with both positive and negative uses. This section will explore some of the historical and contemporary cases that have raised ethical and legal issues related to classical cryptography.
+
+%\subsection{Cryptography in Literature and Pop Culture: From Edgar Allan Poe to Dan Brown}
+%
+%Cryptography has always been a fascinating subject for authors and filmmakers, and classical cryptography has been featured in many works of literature and pop culture. From the works of Edgar Allan Poe to the novels of Dan Brown, classical cryptography has been used to create suspenseful plots and mysterious characters. This section will explore some of the most famous examples of cryptography in literature and pop culture.
+
+%\subsection{Challenges in Modernizing Classical Cryptography: Opportunities and Risks}
+%
+%While classical cryptography has provided a solid foundation for modern cryptographic systems, there are also challenges in modernizing classical techniques for use in a digital world. One of the main challenges is the need to balance security with usability, as many modern users demand fast and convenient access to their encrypted data. In addition, there are risks associated with the use of classical cryptographic techniques, including the potential for attacks based on advances in technology or the discovery of vulnerabilities in cryptographic systems. This section will explore some of the opportunities and risks associated with modernizing classical cryptography.
+
+
+
+\section{Solutions}
+
+\printcursols
+
+\newpage
+
+\section{Modern Cryptography}
+
+Modern Cryptography needs to be exceedlingly secure in order to protect our data and communication. This is achieved with two main Processes: \emph{Symmetric Encryption} and \emph{Asymmentric Encryption}. 
+
+
+
+\newpage
+\section{Hash Functions and Cryptographic Hashing}
+
+A hash function is an algorithm that maps data to a numerical value (generally with a fixed length). Hash functions are used in many applications. They are very useful for organizing large volumes of data. The main application of hash functions we are going to look at is their use in cryptography.
+
+As we noted, keeping a database of plaintext passwords is a bad idea. The solution is to hash the passwords using a "one-way-function" that is easy to compute, but hard to reverse. 
+
+Shown below are some sample inputs and their corresponding SHA1 outputs (SHA stands for "Secure Hashing Algorithm" - I think we've reached SHA512 so far).
+
+\centfig{0.7}{Cryptographic_Hash_Function.svg.png}
+
+\subsection{What Should a Hashing Algorithm do?}
+
+A hashing algorithm should have the following properties:
+\begin{itemize}
+\item quick to compute (but not too quick)
+\item all possible results should be equally likely
+\item impossible	 to reverse
+\item very hard to find two inputs with the same ouptut (these are called collisions)
+\item small changes in the input should result in large changes in the output
+\end{itemize}
+
+Additionaly, most hash functions are set up in such a way that all output hashes have the same length.
+
+
+The actual algorithms used in modern cryptography are much too complicated for us to delve into here. We will instead look at some of the ideas that led to modern hashing algorithms and why the historical algorithms are not used anymore.
+
+\subsection{Using Hash Functions}
+
+Hash functions can be used in databases to quickly organise and search through the different entries. The hash generally provides a unique identifier for each entry and makes searching very efficient. Another use of hash functions is for providing a checksum for a downloaded file or application: If you want to be certain that the flie you downloaded has not been tampered with you can compare its hash with the checksum value given on the download page and if they match, then the file you downloaded is the same file that was uploaded to that server.
+
+The main application we will be looking at is the hashing of passwords for storing values in a login database. Passwords should never be stored in plaintext form. Databases can be leaked or hacked, employees may abuse their permissions etc. The way to protect your passwords is by running them through a one-way-function (hash). The result of that hash is then stored in the database.
+
+When a user wants to log in to their account, they send their password to the server. The password is then hashed and the hash is compared to the database. If the username and hashed password match, then the user is allowed to access their account.
+
+\begin{ex}
+What is the two main problem with this type of password storage?
+\end{ex}
+\sol{
+Two people with the same password will have the same hash. This leads to decreased security.
+}
+
+\subsection{Salting Hashes}
+
+In order to make attacks on password databases harder and in order to make collisions less likely, modern (good) websites will add a \textbf{salt} to your password before hashing it. A salt is a random string of characters that is placed in front of or after your password before it is hashed. The salt ensures that two people with the same password do not have the same hash value in the database. Also, the salting makes it very hard for someone to set up a hash table with all possible passwords.
+
+\textbf{Example}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+password & salt & hash input & md5 hashed value \\
+\hline
+qwerty & 001 & qwerty001 & CB35A6121CD458E811CA895FE93B9359 \\
+123456 & 002 & 123456002 & 1AF65A8D875258C0F03FC2C40BB58269 \\
+password & 003 & password003 & C838AADE3D08F3A27B903CAD39D6FA5B \\
+Password & 004 & Password004 & 5D59F67F5270937A04373E32435DF6EE \\
+\hline
+\end{tabular}
+\caption{Hash Table with a Sequential Salt}
+\end{table}
+
+
+As you can see, this website simply used the order in which people registered as their salt. Is this a good idea? How could such a system be attacked?
+
+Secure systems give each user a long, random sequence as their salt:
+
+\begin{table}[h]
+\scriptsize
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+password & salt & hash input & md5 hashed value \\
+\hline
+qwerty & GJFXCOAD2H2I & qwertyGJFXCOAD2H2I & E060A807B976C5377535493CEE1F8EC7 \\
+123456 & 2II348P2IQ5H & 1234562II348P2IQ5H & 81906B7FC960BAED4997E8C2B5B760B0 \\
+password & 6VC8ODIX67TU & password6VC8ODIX67TU & 2DA5E01DE9DB60B845B52DD7575E381E \\
+Password & A4WQKW5GMRLT & PasswordA4WQKW5GMRLT & B85D82A57176F52BC1D429B828A1FAE1 \\
+\hline
+\end{tabular}
+\caption{Hash Table with a Random Salt}
+\end{table}
+
+
+\textbf{Warning:} md5 is not secure and should never be used in a password storing application. I used it here for illustration purposes because the hashes are shorter than the ones generated by SHA-1 or higher.
+
+
+\subsection{A Very Simple Hashing Function}
+
+One possibility for a hashing algorithm is to take the numerical value of your data and calculate the remainder when dividing by a prime number. So, for example, we could define the hash function as
+\[
+\texttt{hash(data)} = \texttt{number\_from\_data} \mod 11
+\]
+
+The question of how to translate the data into a number is a very standard one in computer science. We can just use the ASCII encoding of each letter and write them one after the other (This is not how it is actually done, but sufficient for our purposes). So 'abc' would become the number '979899', and 'Hello' would be '72101108108111'. After applying our "hash function", we would get the following results:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+input & 'number' & 'hash' \\
+\hline
+abc & 979899 & 8 \\
+Hello & 72101108108111 & 5 \\
+\hline
+\end{tabular}
+\caption{Some Sample Hashes}
+\end{table}
+
+
+Obviously, this is not a very good hashing algorithm: At the latest after 12 entries, there will be collisions.
+
+On the github repository \url{https://github.com/olidec/hashing} you can find a website that calculates this hash for a given input.
+
+%The code below calculates the hash for a given input. The method for translating text to a number can just be copied if you need it elsewhere. The fine points of that code are too much for the moment.
+\subsection{Exercises}
+{\bf Reminder: }
+
+A hashing algorithm should have the following properties:
+\begin{enumerate}
+\item  reasonably quick to compute (but not too quick)
+\item  all possible results should be equally likely
+\item  impossible to reverse
+\item  very hard to find two inputs with the same ouptut (these are called \emph{collisions})
+\item  small changes in the input should result in large changes in the output
+\end{enumerate}
+
+
+\begin{ex}
+Regard the following hashing algorithm: 
+\[
+\texttt{hash(input)} = \texttt{number-from-input} \mod 127
+\]
+\begin{enumerate}
+\item Is this a good hashing algorithm? Which conditions above are satisfied, which ones cannot be satisfied?
+\item Change the code on the example website to calculate the hash described above. 
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item This algorithm is quick to compute, however there are only 127 possible hashes which makes it very easy to create hash collisions. Also small changes do not automatically create vastly different hashes.
+\item simply change the $11$ to $127$
+\end{enumerate}
+}
+
+\begin{ex}
+We regard the following hashing algorithm: 
+\begin{itemize}
+\item Convert input to lowercase.
+\item Ignore special characters.
+\item Arrange all letters of the input in alphabetical order.
+\item Count how often each letter occurs.
+\item Write down  each letter together with its corresponding frequency.
+\end{itemize}
+Example: "Hello" becomes \texttt{e1 h1 l2 o1}
+\begin{enumerate}
+\item Is this a good hashing algorithm? Which conditions above are satisfied, which ones cannot be satisfied?
+\item Find the hash for the input "The Answer to Life, the Universe and Everything is 42."
+\item Can you find {\bf any} input that has the following hash:
+\[
+\texttt{a1 e1 g1 i1 m3 n2 s1 t2 u2 y1 z1}
+\]
+\item Can you find a {\bf sensible} input that has the following hash:
+\[
+\texttt{a1 e1 g1 i1 m3 n2 s1 t2 u2 y1 z1}
+\]
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item Very easy to create collisions as the input does not have to actually 'make sense'. Small changes to the input will only have small effects on the hash.
+\item \texttt{a2 d1 e8 f1 g1 h3 i3 l1 n4 o1 r3 s2 t4 u1 v2 w1 y1}
+\item \texttt{aegimmmnnsttuuyz}
+\item \texttt{Gymnasium Muttenz}
+\end{enumerate}
+}
+
+\begin{ex}
+We regard the hashing algorithm JHA ("Josh's Hash Algorithm" -- invented by Joshua Holden from the Rose-Hulman Institute of Technology in Indiana): 
+\[
+\texttt{hash(input)} = (7\ \cdot\ \texttt{\#-of-vowels}\  -\  3\ \cdot \ \texttt{\#-of-consonants}\  +\  \texttt{\#-of-spaces}^2) \mod 17
+\]
+Example: For the input "Hello my name is Alice" we get
+\[
+(7\cdot 8 - 3\cdot 10 + 4^2) \mod 17 = 8
+\] 
+\begin{enumerate}
+\item Is this a good hashing algorithm? Which conditions above are satisfied, which ones cannot be satisfied?
+\item What is the hash to "A long time ago in a galaxy far far away"?
+\item (optional) Can you find a sensible input that has the hash value $0$?
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item You can create collisions by playing around with input -- especially if it does not have to make sense..  Small changes do not necessarily lead to large changes in the hash.
+\item $7\cdot 14 -3\cdot 17 + 9^2 \mod 17 = 9$
+\end{enumerate}
+}
+
+
+\newpage
+
+\begin{ex}
+Given the following excerpt from a hash table encoded with  SHA1:
+
+\begin{tabular}{rl}
+\texttt{input} & \texttt{SHA1 hash} \\
+abc000 & 4368A4330198860D6A8CF4C5E7619193594A52F4 \\
+abc001 & A3325CF1C081DB0CB9992F1716A66A7F44B4F522 \\
+abc002 & C12DD1CBBC17362579A617FDE0E287A1BEA09504 \\
+abc003 & 24C0219A84B5B8585256A7E9D66468C40FDC10FF \\ 
+abc004 & 9154095B37BA24E2B1F38BDFC815DA25C60F045C \\
+abc005 & 9EEEC88BFC50376C49DA4DC2165C84D228BD5BAD \\
+abc006 & 4EAE2D8134D7ECB0FACA5B0B95BA6F31FB87A215 
+\end{tabular}
+
+\begin{enumerate}
+\item Assume that each entry in the table consists of three letters and three numbers in lexicographical order. What are the next three inputs in the table? What are the three inputs that come before the excerpt?
+\item Can you say what the hash value for abc007 will be?
+\item Rudy Ridiculous has the password "abc" and the salt $003$. What is his hashed password in this database?
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item after: \texttt{abc007, abc008, abc009} \\
+before: \texttt{abb999, abb998,abb997}
+\item Using an online SHA1 calculator: \texttt{2dff70403a3fc319c09402afac07aed9e322bc9e}
+\item \texttt{24C0219A84B5B8585256A7E9D66468C40FDC10FF}
+\end{enumerate}
+}
+
+%\begin{ex}
+%Can you use the code for md5 on the juyter notebook and the concatenate function (place one string after the other)  '+' to hash a salted password? Does it make a difference if you add the salt to the beginning or the end of your string?
+%
+%The code block might look something like this:
+%
+%\begin{lstlisting}
+%import hashlib
+%
+%string_to_hash = "Please enter your text to hash"
+%salt = "Please select a salt: "
+%
+%def hash_md5(text):
+%    return hashlib.md5(text.encode()).hexdigest()
+%
+%
+%print("The md5 hashed output is: " + hash_md5(string_to_hash))
+%
+%\end{lstlisting}
+%
+%
+%\end{ex}
+
+\subsection{Solutions}
+\printcursols
+
+
+\end{document}

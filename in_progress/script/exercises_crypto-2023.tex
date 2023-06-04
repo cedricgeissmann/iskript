@@ -1,4 +1,4 @@
-	\documentclass[11pt,a4paper]{report}
+\documentclass[11pt,a4paper]{report}
 
 \usepackage{xcolor}
 \def\farbe{cyan}
@@ -71,10 +71,10 @@ Eve intercepted this message: \verb|N QNPJ HNUMJWX.| Figure out how to break it 
 
 
 \begin{ex}
-Use the Caesar Decryption tool on the Jupyter notebook to decode the following message:
+Use the website \url{https://cryptii.com/} to decode the following message:
 \begin{verbatim}
 Pyebc mybok xncof oxiok bckqy yebpk drobc lbyeq rdpyb drezy xdrsc
-myxds xoxd, kxogx kdsyx ,myxm osfon sxVsl obdi, kxnno nsmkd ondyd
+myxds xoxd, kxogx kdsyx, myxm osfon sxVsl obdi, kxnno nsmkd ondyd
 rozby zycsd syxdr kdkvv woxkb ombok donoa ekv.
 \end{verbatim}
 \end{ex}
@@ -105,9 +105,9 @@ Given the following One Time Pad:
 encrypt the message \verb|TOP SECRET| using the ASCII table by hand.
 \end{ex}
 
-\begin{ex}
-Using the code from the Caesar Code as a guide, try to write code that wiill encrypt text using a given  One Time Pad.
-\end{ex}
+%\begin{ex}
+%Using the code from the Caesar Code as a guide, try to write code that will encrypt text using a given  One Time Pad.
+%\end{ex}
 
 
 
@@ -124,7 +124,7 @@ I LOVE MATH
 
 
 \begin{ex}
-Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN| using the tool on the Jupyter notebook:
+Encrypt the following text using a Vigenère Cipher with the keyword \verb|SUPERMAN| using the online tool \url{https://cryptii.com/}:
 \begin{verbatim}
 To be, or not to be, that is the question:
 Whether 'tis nobler in the mind to suffer
@@ -139,8 +139,12 @@ Devoutly to be wish'd. To die, to sleep;
 \end{ex}
 
 
+%\begin{ex}
+%Using only the code from the Caesar Code, try to write code that wiill encrypt text using the Vigenère method.
+%\end{ex}
+
 \begin{ex}
-Using only the code from the Caesar Code, try to write code that wiill encrypt text using the Vigenère method.
+Use the online tool \url{https://www.101computing.net/frequency-analysis/} to run a frequency analysis on the ciphertext. Then decrypt the hidden message.
 \end{ex}
 
 
@@ -159,6 +163,30 @@ Decrypt the following message using length 4: \verb|INLRREINVCFIIAOA|.
 
 \begin{ex}
 Eve intercepted the following message. Help her break it: \verb|HYDAMAPOYPNZ|.
+\end{ex}
+
+
+
+\newpage
+
+\subsection{Some Simple Code}
+\begin{ex}
+Clone the code from the repository \url{https://github.com/olidec/caesar}. Read and try to understand the code that encrypts a text with the Caesar cipher. We will talk through the code together.
+\end{ex}
+
+\begin{ex}
+Write a new function \verb|decryptCaesar()| that takes a ciphertext as input and returns the plaintext.
+\end{ex}
+
+\begin{ex}
+Write code that encrypts plaintext with the atbash cipher. 
+\end{ex}
+
+\begin{ex}
+Use the code from the \verb|encryptCaesar| function to encode a text using a Vigenère cipher. 
+
+Option 1: use a fixed key \\
+Option 2: add an input field for the key
 \end{ex}
 
 
@@ -186,25 +214,25 @@ In general, what are the possible solutions for $x\mod n$ ?
 \end{ex}
 
 
-\subsubsection{Multiplying with modular arithmetic}
-
-Multiplying also works in the natural way. We multiply the solutions to $x = a\mod b$ and $y = c \mod b$ and then we reduce $(x\cdot y) \mod b$.
-Dividing is harder. Using when dividing by $n$, we multiply by the reciprocal $\frac{1}{n}=n^{-1}$. But since we are only working with natural numbers, the fraction $\frac{1}{n}$ doesn’t exist. So we need a new way to
-define a multiplicative inverse:
-$a^{-1}$ is the number less than $b$ that satisfies $(a^{-1}\cdot a) \mod b = 1$
-
-
-\begin{ex}
-What is the multiplicative inverse of $5\mod 7$ ?
-\end{ex}
-
-\begin{ex}
-What is the multiplicative inverse of $4\mod 9$ ?
-\end{ex}
-
-\begin{ex}
-Does $2$ have a multiplicative inverse $\mod 4$ ?
-\end{ex}
+%\subsubsection{Multiplying with modular arithmetic}
+%
+%Multiplying also works in the natural way. We multiply the solutions to $x = a\mod b$ and $y = c \mod b$ and then we reduce $(x\cdot y) \mod b$.
+%Dividing is harder. Using when dividing by $n$, we multiply by the reciprocal $\frac{1}{n}=n^{-1}$. But since we are only working with natural numbers, the fraction $\frac{1}{n}$ doesn’t exist. So we need a new way to
+%define a multiplicative inverse:
+%$a^{-1}$ is the number less than $b$ that satisfies $(a^{-1}\cdot a) \mod b = 1$
+%
+%
+%\begin{ex}
+%What is the multiplicative inverse of $5\mod 7$ ?
+%\end{ex}
+%
+%\begin{ex}
+%What is the multiplicative inverse of $4\mod 9$ ?
+%\end{ex}
+%
+%\begin{ex}
+%Does $2$ have a multiplicative inverse $\mod 4$ ?
+%\end{ex}
 
 
 \newpage
@@ -319,6 +347,8 @@ print("The md5 hashed output is: " + hash_md5(string_to_hash))
 
 
 \end{ex}
+
+
 
 
 
