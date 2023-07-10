@@ -14,7 +14,7 @@
 *.glg
 *.glo
 *.gls
-!images/*
+!/in_progress/script/images/*
 !exercises/*
 
 # Don't add databases
