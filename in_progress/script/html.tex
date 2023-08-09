@@ -1,0 +1,123 @@
+\documentclass[english,11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{color}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\usepackage{upquote}
+\usepackage{listings}
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+        language=html,
+        sensitive=true, 
+        alsoletter={<>=-},
+        otherkeywords={
+        % HTML tags
+        <html>, <head>, <title>, </title>, <meta, />, </head>, <body>,
+        <canvas, \/canvas>, <script>, </script>, </body>, </html>, <!, html>, <style>, </style>, ><
+        },  
+        ndkeywords={
+        % General
+        =,
+        % HTML attributes
+        charset=, id=, width=, height=,
+        % CSS properties
+        border:, transform:, -moz-transform:, transition-duration:, transition-property:, transition-timing-function:
+        },  
+        morecomment=[s]{<!--}{-->},
+        tag=[s]
+}
+
+\lstset{%
+    % Basic design
+    backgroundcolor=\color{editorGray},
+    basicstyle={\small\ttfamily},   
+    frame=l,
+    % Line numbers
+    xleftmargin={0.75cm},
+    numbers=left,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,
+    % Code design   
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{darkgray}\ttfamily,
+    ndkeywordstyle=\color{editorGreen}\bfseries,
+    stringstyle=\color{editorOcher},
+    % Code
+    language=HTML5,
+    alsolanguage=JavaScript,
+    alsodigit={.:;},
+    tabsize=2,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,        
+    % Support for German umlauts
+    literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+}
+
+\begin{document}
+\section{Learning HTML}
+
+In this chapter we will go through the basics of HTML and take our first steps in the making of a website.
+
+\subsection{What is HTML?}
+
+HTML is an abbreviation for \emph{Hypertext Markup Language}. Hypertext refers to the fact that we can link multiple such files together (so-called hyperlinks). A markup language is a way of writing text where we give the output application instructions on how it should be formatted. 
+
+The only text editor you probably know is 'Word' -- a WYSIWYG (what you see i what you get) editor. This automatically shows you what the final version looks like. However, it may be difficult to coordinate styles and layouts over larger documents or even across multiple files. For this reason webpages are written using the markup language HTML. Other markup languages exist and are used in various places (more on that later).
+
+\subsection{The Structure of a Website}
+A modern website usually consists of three main parts: 
+\begin{itemize}
+    \item An HTML-file containing the content and layout of the webpage.
+    \item A CSS-file containing information on how to \emph{style} the webpage.
+    \item A JavaScript-file to add interactivity.
+\end{itemize}
+
+We will start by looking at HTML, then we will add CSS and finally we will look at how to make pages interactive using JavaScript. 
+
+\subsection{The Structure of a HTML file}
+An HTML file consists of two main parts: a head and a body. The head contains metainformation about the webpage, whereas the body contains all of the actual content.
+
+Within the head and the body are HHTML \emph{elements}. These are the basic building blocks of HTML code and usually have the following structure: 
+\begin{itemize}
+    \item An \emph{opening tag} (e.g. \lstinline[columns=alignment]{<p>})
+    \item \emph{Content} (e.g. Hello)
+    \item A \emph{closing tag} (e.g. \lstinline[columns=alignment]{</p>})
+\end{itemize}
+
+So the HTML element for a paragraph \lstinline|p| would look like this:
+\begin{lstlisting}
+    <p> Hello </p>
+\end{lstlisting}
+Note that it does not matter whether you write this on one or more lines. Everything between the opening and closing tags will be rendered accordingly:
+\begin{lstlisting}
+    <p> 
+        Hello 
+    </p>
+\end{lstlisting}
+
+
+\end{document}
