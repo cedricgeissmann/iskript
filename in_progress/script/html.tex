@@ -103,9 +103,9 @@ An HTML file consists of two main parts: a head and a body. The head contains me
 
 Within the head and the body are HHTML \emph{elements}. These are the basic building blocks of HTML code and usually have the following structure: 
 \begin{itemize}
-    \item An \emph{opening tag} (e.g. \lstinline[columns=alignment]{<p>})
+    \item An \emph{opening tag} (e.g. \lstinline|<p>|)
     \item \emph{Content} (e.g. Hello)
-    \item A \emph{closing tag} (e.g. \lstinline[columns=alignment]{</p>})
+    \item A \emph{closing tag} (e.g. \lstinline|</p>|)
 \end{itemize}
 
 So the HTML element for a paragraph \lstinline|p| would look like this:
@@ -119,5 +119,57 @@ Note that it does not matter whether you write this on one or more lines. Everyt
     </p>
 \end{lstlisting}
 
+\newpage
+\subsection{A Basic HTML File}
+In order for your web browser to properly render your webpage, you have to follow certain standards and norms. This ensures that the webpage looks the same for all users. A very basic HTML file looks like this:
+
+\begin{lstlisting}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+<body>
+    
+</body>
+</html>
+\end{lstlisting}
+
+Let's break this down:
+\begin{itemize}
+    \item The \lstinline|!DOCTYPE| tag tells the browser that what follows is written in HTML.
+    \item The opening and closing \lstinline|html| tags include all of the HTML code.
+    \item The \lstinline|head| tags enclose metadata about the webpage -- in this case the character set (\lstinline|charset|) used (worry about that later) and the title of the webpage (between the \lstinline|title| tags).
+    \item Everything between the \lstinline|body| tags will be the content of the webpage.
+\end{itemize}
+
+\subsection{Workflow for Getting Started}
+In general, start each new project in a new folder. This will help you keep an overview over all the different projects you may have. Our standard code editor will be Visual Studio Code and I will give you the basics for writing code with this editor. If you use a different editor, you will have to work out the details on your own.
+
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\begin{enumerate}
+    \item When you open up VSCode for the first time you will probably see something like this:
+    \centfig{0.5}{welcome}
+    \item Under the file menu select 'Open Folder'.
+    \centfig{0.5}{open-folder2}
+    \item In the dialog box select 'New Folder'.
+    \centfig{0.5}{new-folder}
+    \item Write the name of your new folder, click 'Create'  and then click 'Open'.
+    \centfig{0.5}{newproject}
+    \item You should now see an empty workspace. Show the file browser by clicking on the 'pages' in the top left corner. \centfig{0.5}{file-explorer}
+    \item Add a new file by clicking on the 'New File' button at the top of the file explorer.
+    \centfig{0.5}{new-file}
+    \item Name your new file \verb|index.html|.
+    \centfig{0.5}{index.png}
+    \item Within the text area of your empty file type \verb|html:5| and push 'return'. This should give you a basic HTML template to work with. Hit \verb|control-s| (\verb|command-s| on Mac) to save your work.
+    \centfig{0.5}{html.png}
+    \centfig{0.5}{html-template}
+    \newpage
+    \item Click on the 'Source Control' Panel. Click 'Publish to Github'. The first time you do this, you will be asked to verify your identity.
+    \centfig{0.5}{source-control}
+    \item If you have done everything correctly, your 'Source Control' panel should look like this.
+    \centfig{0.5}{source-control2}
+\end{enumerate}
 
 \end{document}
