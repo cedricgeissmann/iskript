@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- Question 1 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Styling in HTML]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to apply styles directly within an HTML document?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<style>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<style="css">]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<css>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<format>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 2 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Text Formatting]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to make text bold?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<italic>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<strong>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<b>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<emphasize>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 3 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Color Representation]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which value is used in CSS to represent a color with its name?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[Hexadecimal value]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[RGB value]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[Color name]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[Decimal value]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 4 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Creating Links]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to create a hyperlink?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[<a>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<link>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<hyperlink>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<url>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 5 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Ordered Lists]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to create an ordered list?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<ul>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<list>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<ol>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<li>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 6 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Using Classes]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which attribute is used in HTML to apply a class to an element?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[classname]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[style]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[css]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[class]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 7 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Using IDs]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which attribute is used in HTML to uniquely identify an element?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[element]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[name]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[id]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[unique]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 8 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Layout in HTML]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML element is commonly used to create a two-column layout?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[<div>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<layout>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<table>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<section>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 9 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Following a Style Guide]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Why is it important to follow a style guide when coding in HTML?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[To maintain consistent and organized code across a project.]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[To impress clients with intricate designs.]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[To ensure the website is colorful and eye-catching.]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[To make the code longer and more complex.]]></text>
+    </answer>
+  </question>
+
+  <!-- Continue with the rest of the questions, following the same format -->
+  <!-- ... -->
+
+  <!-- Question 10 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Styling Text]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which CSS property is used to change the font color of text?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[font-family]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[font-size]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[text-decoration]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[color]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 11 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Hyperlink Target]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which target attribute value opens a link in a new browser window or tab?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[_self]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[_parent]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[_top]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[_blank]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 12 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Creating Unordered Lists]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to create an unordered list?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<ol>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<list>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<ul>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<ul>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 13 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Using IDs for Styling]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[In CSS, what is the correct syntax to select an element with the id "header"?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[header]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[#header]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[#header]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[.header]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 14 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Creating Navigation]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to create a navigation menu?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<nav>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<link>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<a>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<nav>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 15 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[External Stylesheet]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML tag is used to link an external CSS stylesheet?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[<link>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<style>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<css>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<stylesheet>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 16 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[HTML Block vs Inline Elements]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which type of HTML elements typically take up the full width of their container?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[Block elements]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[Inline elements]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[Both block and inline elements]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[None of the above]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 17 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[CSS Box Model]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which component of the CSS box model determines the spacing outside the border of an element?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[Padding]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[Border]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[Content]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[Margin]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 18 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[HTML5 Semantic Elements]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which HTML5 element is used to define a section that contains navigation links?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[<nav>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<section>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<div>]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[<nav>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 19 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Using Inline Styles]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[What is the correct way to apply an inline style to a paragraph?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text><![CDATA[<p style="color: blue;">This is a blue paragraph.</p>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<p class="blue">This is a blue paragraph.</p>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<p id="blue">This is a blue paragraph.</p>]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[<p color="blue">This is a blue paragraph.</p>]]></text>
+    </answer>
+  </question>
+
+  <!-- Question 20 -->
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Creating a Fluid Layout]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[Which CSS property is used to create a fluid layout that adjusts based on screen size?]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text><![CDATA[width]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[height]]></text>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[fixed]]></text>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[max-width]]></text>
+    </answer>
+  </question>
+</quiz>
+
