@@ -15,11 +15,11 @@ def load_image_data(url):
 
 def make_image():
     c = Canvas(width=200, height=200)
-    c.sync_image_data = True
+    c.sync_image_data = False
     return c
 
 def draw_grid(canvas, SCALE_FACTOR=20):
-    mc = MultiCanvas(2, width=canvas.width, height=canvas.height, sync_image_data=True)
+    mc = MultiCanvas(2, width=canvas.width, height=canvas.height, sync_image_data=False)
     mc[0].put_image_data(canvas.get_image_data(), 0, 0)
     grid = mc[1]
     ran = range(0,mc.width,SCALE_FACTOR)
@@ -57,7 +57,9 @@ def write_image_from_data(data):
         for y in range(150):
             newdata[x][y] = data[int(x // scale)][int(y // scale)]
 
-    c = Canvas(width=150, height=150, sync_image_data=True)
+    # FIX: In neueren Versionen von ipycanvas, sollte sync_image_data=False sein.
+    # Ich bin nicht sicher ob das so sein muss, aber es scheint zu funktionieren.
+    c = Canvas(width=150, height=150, sync_image_data=False)
     alpha = np.zeros((150, 150)) + 255
     rgb_data = np.stack([newdata, newdata, newdata, alpha], axis=2)
     c.put_image_data(rgb_data, 0, 0)
@@ -79,7 +81,7 @@ def write_image_from_data_colored(data):
             for i in range(3):
                 newdata[x][y][i] = data[int(x // scale)][int(y // scale)][i]
 
-    c = Canvas(width=150, height=150, sync_image_data=True)
+    c = Canvas(width=150, height=150, sync_image_data=False)
     alpha = np.zeros((150, 150)) + 255
     rgb_data = np.stack([newdata[:,:,0], newdata[:,:,1], newdata[:,:,2], alpha], axis=2)
     c.put_image_data(rgb_data, 0, 0)
@@ -101,7 +103,7 @@ def write_image_from_data_rgb(data):
             for i in range(3):
                 newdata[x][y][i] = data[int(x // scale)][int(y // scale)][i]
 
-    c = Canvas(width=150, height=150, sync_image_data=True)
+    c = Canvas(width=150, height=150, sync_image_data=False)
     alpha = np.zeros((150, 150)) + 255
     rgb_data = np.stack([newdata[:,:,0], newdata[:,:,1], newdata[:,:,2], alpha], axis=2)
     c.put_image_data(rgb_data, 0, 0)
@@ -116,7 +118,7 @@ def write_image_rgb(data, width):
 
     data = np.reshape(data, (height, width, 3))
 
-    c = Canvas(width=width, height=height, sync_image_data=True)
+    c = Canvas(width=width, height=height, sync_image_data=False)
     # alpha = np.zeros((width, height)) + 255
     # rgb_data = np.stack([data[:,:,0], data[:,:,1], data[:,:,2], alpha], axis=2)
     c.put_image_data(data, 0, 0)
@@ -131,7 +133,7 @@ def write_image_grey(data, width):
 
     data = np.reshape(data, (height, width, 1))
 
-    c = Canvas(width=width, height=height, sync_image_data=True)
+    c = Canvas(width=width, height=height, sync_image_data=False)
     grey_data = np.stack([data[:,:,0], data[:,:,0], data[:,:,0]], axis=2)
     c.put_image_data(grey_data, 0, 0)
     return c
