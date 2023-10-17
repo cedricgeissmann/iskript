@@ -1,0 +1,173 @@
+\documentclass[english,11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{color}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\usepackage{upquote}
+\usepackage{listings}
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+        language=html,
+        sensitive=true, 
+        alsoletter={<>=-},
+        otherkeywords={
+        % HTML tags
+        <html>, <head>, <title>, </title>, <meta, />, </head>, <body>,
+        <canvas, \/canvas>, <script>, </script>, </body>, </html>, <!, html>, <style>, </style>, ><
+        },  
+        ndkeywords={
+        % General
+        =,
+        % HTML attributes
+        charset=, id=, width=, height=,
+        % CSS properties
+        border:, transform:, -moz-transform:, transition-duration:, transition-property:, transition-timing-function:
+        },  
+        morecomment=[s]{<!--}{-->},
+        tag=[s]
+}
+
+\lstset{%
+    % Basic design
+    backgroundcolor=\color{editorGray},
+    basicstyle={\small\ttfamily},   
+    frame=l,
+    % Line numbers
+    xleftmargin={0.75cm},
+    numbers=left,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,
+    % Code design   
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{darkgray}\ttfamily,
+    ndkeywordstyle=\color{editorGreen}\bfseries,
+    stringstyle=\color{editorOcher},
+    % Code
+    language=HTML5,
+    alsolanguage=JavaScript,
+    alsodigit={.:;},
+    tabsize=2,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,        
+    % Support for German umlauts
+    literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+}
+
+\begin{document}
+\section{Learning CSS}
+
+\subsection{The Box Model}
+
+\begin{flushleft}
+The Box Model in CSS describes how elements occupy space on a webpage. All elements are divided into 4 areas.
+\end{flushleft}
+\begin{itemize}
+    \item \texttt{margin}: The outer margin, i.e., the distance from other elements.
+    \item \texttt{border}: The border of an element. It is usually not visible but can be used to outline elements.
+    \item \texttt{padding}: The inner margin, i.e., the distance from the content to the border.
+    \item \texttt{content}: The content of the element. This is usually specified in width and height.
+\end{itemize}
+\begin{flushleft}
+To apply the Box Model most simply, you should always include the following CSS rule:
+\end{flushleft}
+\begin{verbatim}
+* {
+  box-sizing: border-box;
+}
+\end{verbatim}
+\begin{flushleft}
+\textbf{Example: Task - Playing with the Box Model}
+\end{flushleft}
+Create an element with the ID \textbf{box}. Experiment with the following CSS code until you understand what each part does.
+\begin{verbatim}
+#box {
+  background-color: cyan;
+  border: 2px solid black;
+  margin: 50px;
+  padding: 10px;
+  width: 300px;
+  height: 70px;
+}
+\end{verbatim}
+
+\subsubsection{Specific Margins}
+\begin{flushleft}
+You can also address individual parts of the margins and do not have to use the same distances for all.
+\end{flushleft}
+\textbf{Example: Task - Colored Border on the Left Side}
+With \textbf{border-left}, you can target only the left border. Create a class \textbf{danger} that has a red border of 5 pixels on the left side.
+\begin{flushleft}
+You can address the individual parts of the margin as follows, and the others are analogous:
+\end{flushleft}
+\begin{itemize}
+    \item \textbf{margin-left}
+    \item \textbf{margin-right}
+    \item \textbf{margin-top}
+    \item \textbf{margin-bottom}
+\end{itemize}
+
+\newpage
+
+\subsection{Summary}
+
+You should know how to use basic CSS selectors and some basic modifiers:
+\begin{itemize}
+  \item \verb|*|
+  \item \verb|tagname|
+  \item \verb|.classname|
+  \item \verb|#idname|
+  \item \verb|selector:hover|
+\end{itemize}
+
+You should know the following CSS properties and how to apply them:
+\begin{itemize}
+  \item \verb|float|
+  \item \verb|margin|
+  \item \verb|border|
+  \item \verb|padding|
+  \item \verb|width|
+  \item \verb|height|
+  \item \verb|color|
+  \item \verb|background-color|
+  \item \verb|font-size|
+  \item \verb|font-weight|
+  \item \verb|font-style|
+  \item \verb|text-align|
+\end{itemize}
+
+In particular, you should be able to:
+\begin{itemize}
+  \item Set colors for text and backgrounds (using color names and rgb codes).
+  \item Layout divisions and images on the page e.g. centering on a page.
+  \item Use spacing to separate elements.
+  \item Use your head.
+\end{itemize}
+
+
+
+
+\end{document}
