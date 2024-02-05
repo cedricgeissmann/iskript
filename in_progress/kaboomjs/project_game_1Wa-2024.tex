@@ -1,0 +1,187 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\usepackage[ngerman]{babel}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\setlength{\headheight}{24pt}
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Informatik - Gruppenarbeit - Spiel Projekt} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\title{Informatik Gruppenarbeit 1Wa}
+\date{Winter/Frühjahr 2024}
+% \author{DC}
+
+
+
+\begin{document}
+\maketitle
+
+\newpage
+\section{Erste Schritte}
+
+In den nächsten Wochen werden Sie in Gruppen an einem Programmierprojekt
+arbeiten. Sie werden dabei ein interaktives Spiel entwickeln. Dabei werden Sie
+das Projekt das wir im Unterricht begonnen haben anpassen und erweitern, um ein
+tolles kreatives Spiel zu erstellen.
+
+\subsection{Gruppen}
+
+Im ersten Schritt werden Sie Gruppen bilden. Eine Gruppe besteht aus 3 bis 4
+Personen. Die Gruppen müssen nicht nach Praktikum eingeteilt sein, es kann
+sogar Sinn ergeben wenn die Gruppe auf verschiedene Praktikumsgruppen verteilt
+ist, damit Sie mehr Zeit für Fragen haben.
+
+% \subsection{Installieren der Werkzeuge}
+
+% Um an dem Projekt zu arbeiten müssen Sie einige Werkzeuge bei Ihnen lokal auf
+% dem Computer installieren. Einige Werkzeuge haben Sie vermutlich bereits
+% installiert. Einige Werkzeuge brauchen Sie nicht unbedingt, können es Ihnen
+% aber einfacher machen.
+
+% \begin{itemize}
+% \item Damit Sie Versionskontrolle für die Zusammenarbeit nutzen können, und
+%     damit überprüft werden kann wer wieviel beigetragen hat, müssen Sie
+%     \verb|Git| lokal auf Ihrem Computer installieren (dies haben Sie bereits
+%     gemacht).
+
+%     \begin{center}
+%         \url{https://git-scm.com/downloads}
+%     \end{center}
+
+% \item Als Programmierumgebung verwenden wir \verb|Visual Studio Code|. Das
+%     haben Sie bereits installiert.
+
+%         \begin{center}
+%             \url{https://code.visualstudio.com/}
+%         \end{center}
+
+% \item Damit Sie in \verb|Visual Studio Code| so arbeiten können wie Sie sich
+%     das gewohnt sind, müssen Sie noch Extensions installieren:
+% \begin{itemize}
+% \item Git Graph (das von \emph{mhutchie})
+% \item Live Server
+% \item Prettier (Automatisches formatieren von Code)
+
+% \end{itemize}
+
+% \end{itemize}
+
+\newpage
+
+\section{Projektbeschreibung}
+
+\subsection{Ziele} 
+
+Ziel des Projektes ist es ein interaktives Spiel mit standard Webtechnologien
+(HTML, CSS und Javascript) zu entwickeln. Der Fokus dabei liegt auf der
+Entwicklung eines Einzelspielerspiels. Mehrspielerspiele können auch entwickelt
+werden, diese sollten aber am gleichen Computer stattfinden.
+
+Einige Beispiele zur Inspiration:
+\begin{itemize}
+\item Jump \& Run
+\item Top-Down RPG
+\item Rundenbasiertes Karten oder Brettspiel
+\item Capture the Flag
+\item Worms
+\item Lemmings
+\item etc.
+\end{itemize}
+
+\subsection{Ablauf}
+Das Projekt dauert von der Woche 6 bis zur Woche 15. Die Abschlusspräsentation
+mit Demo des Spiels wird am 16.04.2024 stattfinden. Die erste Woche sollte dafür
+verwendet werden einen Plan für das Spiel zu erstellen und sich mit
+nochmals mit dem Projekt vertraut zu machen. Dabei sollten Sie unbedingt eine
+Liste mit Anforderungen machen, was Sie alles an Spiellogik brauchen. Ungefähr
+in der Hälfte des Projektes sollten Sie eine minimale Version von Ihrem Spiel
+haben, die bereits einige Basisfeatures implementiert. Die finale Version des
+Spiel muss spielbar sein.
+
+Für die Dokumentation des Spiels (worum geht es, wie wird es gespielt, wer hat
+es entwickelt, wo ist es verfügbar) schreiben Sie eine eigene Webseite (diese
+können Sie via Github - Pages veröffentlichen).
+
+\subsubsection{Milensteine}
+\begin{description}
+    \item[am 27.02.2024] Eine kurze Präsentation (5 Minuten) über die Idee
+        Ihres Spiels. Die Klasse wird da die Gelegenheit haben Fragen zu
+        stellen und Anregungen zu geben.
+\item[um den 12.03.2024] In einem persönlichen Treffen stellen Sie mir Ihr
+    Projekt vor, was Sie bis jetzt gemacht haben und woran Sie noch arbeiten
+        werden.
+    \item[am 15.04.2024] Finale Version (inklusive Webseite) muss via Github
+        abgegeben werden. Es findet eine Präsentation mit Demo vor der Klasse
+        statt. Auftretende Fragen zum Projekt sollen beantwortet werden.
+\end{description}
+
+\subsection{Benotung}
+
+Sie werden eine Note als Gruppe für das Projekt erhalten. Faktoren die bei der
+Benotung berücksichtigt werden sind: Haben Sie die Zeit sinnvoll eingeteilt?
+Hat jeder in der Gruppe zum Projekt beigetragen? Machen Sie Fortschritt? Wie
+wurde das Feedback von Meilenstein 2 umgesetzt? Funktioniert Ihr Spiel? Gibt es
+Bugs oder nicht fertige Features? Ist die Dokumentation vollständig und
+verständlich? \dots
+
+Die Note ist für alle Gruppenmitglieder die gleiche. Treten jedoch starke
+Abweichungen in den Beiträgen auf (git commits) kann die Note für einzelne
+Gruppenmitglieder separat gesetzt werden.
+
+\newpage
+
+\subsection{Ressourcen}
+
+Als Hauptressource gilt das Internet und alles was wir bisher im Unterricht
+gemacht haben. Wenn Sie Code aus dem Internet verwenden, stellen Sie sicher das
+Sie den Code verstehen, und halten Sie fest woher der Code stammt.
+
+Bei Fragen und Problemen können Sie mich natürlich jederzeit kontaktieren.
+
+\end{document}

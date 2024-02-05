@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\usepackage[english]{babel}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\setlength{\headheight}{24pt}
+
+\usepackage{listings}
+\lstset{language=Python}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Computer Science - Group Project - Game Project}
+\fancyfoot[C]{\thepage}
+
+\title{Computer Science Group Project 1E}
+\date{Winter/Spring 2024}
+
+
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\section{First Steps}
+
+In the coming weeks, you will work in groups on a programming project. You will develop an interactive game by adapting and expanding the project we started in class to create an exciting and creative game.
+
+\subsection{Groups}
+
+In the first step, you will form groups. A group consists of 4 people (2 each from the biology and ecpnomics groups). 
+
+\newpage
+
+\section{Project Description}
+
+\subsection{Objectives}
+
+The goal of the project is to develop an interactive game using standard web technologies (HTML, CSS, and JavaScript). The focus is on creating a single-player game, although multiplayer games can also be developed -- they should however be playable on one computer.
+
+Some examples for inspiration:
+\begin{itemize}
+\item Jump \& Run
+\item Top-Down RPG
+\item Turn-based card or board game
+\item Capture the Flag
+\item Worms
+\item Lemmings
+\item etc.
+\end{itemize}
+
+\subsection{Timeline}
+
+The project will run from week 6 to week 15. The final presentation with a demo of the game will take place on 16.04.2024. The first week should be used to create a plan for the game and familiarize yourself with the project. Be sure to make a list of requirements for the game logic. Around the halfway point of the project, you should have a minimal version of your game with some basic features implemented. The final version of the game must be playable.
+
+For the documentation of the game (what it is about, how it is played, who developed it, where it is available), write a separate webpage (which you can publish via GitHub Pages).
+
+\subsubsection{Milestones}
+\begin{description}
+    \item[on 27.02.2024] A brief presentation (5 minutes) about the idea of your game. The class will have the opportunity to ask questions and provide feedback.
+\item[around 12.03.2024] In a personal meeting, present your project, what you have done so far, and what you will continue to work on.
+    \item[on 15.04.2024] Final version (including webpage) must be submitted via GitHub. A presentation with a demo will take place in front of the class, addressing any questions about the project.
+\end{description}
+
+\subsection{Grading}
+
+You will receive a group grade for the project. Factors considered in the evaluation include: Did you allocate time effectively? Did everyone in the group contribute to the project? Are you making progress? How was the feedback from Milestone 2 implemented? Does your game work? Are there bugs or unfinished features? Is the documentation complete and understandable? \dots
+
+The grade is the same for all group members. However, if there are significant deviations in contributions (git commits), individual grades for group members may be assigned separately.
+
+\newpage
+
+\subsection{Resources}
+
+The main resource is the internet and everything we have covered in class so far. If you use code from the internet, make sure you understand the code and document where the code comes from.
+
+If you have questions or problems, feel free to contact me at any time.
+
+\end{document}
