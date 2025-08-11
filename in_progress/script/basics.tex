@@ -1,0 +1,277 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+
+\usepackage{listings}
+\lstset{language=Python}
+
+\usepackage{longtable}
+
+\usepackage{verbatim} % Added for the folder structure example
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.9,0.9,0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	morekeywords={forward,turn},
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+%    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Computer Science} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+
+
+
+\begin{document}
+\section{Computer Basics}
+
+\subsection{Understanding the File System}
+
+Think of your computer's file system as a digital filing cabinet. Instead of drawers and paper folders, you have drives and digital folders to organize your documents. The main tool to navigate this system is the \textbf{File Explorer} (on Windows) or \textbf{Finder} (on macOS).
+
+Use \verb|win-e| (Windows) or \verb|cmd-n| (from the Desktop on Mac) to open a new window.
+
+
+These windows show the contents of your computer.
+Your main folder is called the \textbf{Home} folder, and it's personalized for your user account. It contains several key subfolders:
+
+\begin{itemize}
+    \item \textbf{Desktop:} Files you place here are visible on your main screen background. Good for temporary files, but can get cluttered quickly!
+    \item \textbf{Documents:} The intended place for most of your personal work, like essays, spreadsheets, and reports.
+    \item \textbf{Downloads:} Your web browser's default location for saving files from the internet. It's a good idea to move important files out of here and into \emph{Documents}.
+    \item \textbf{Pictures, Music, Videos:} Folders designated for specific types of media.
+\end{itemize}
+
+You will also likely see cloud storage folders like \textbf{OneDrive}, \textbf{Google Drive}, or \textbf{Dropbox} integrated into your file browser.
+
+
+\subsection{Files, Folders, and Extensions: Your Digital Building Blocks}
+
+On your phone, apps manage files for you, so you rarely see the underlying structure. On a computer, understanding this structure is key to staying organized.
+
+\paragraph{Folders (or Directories)} are containers. This used to refer to actual folders in a filing cabinet. You use them to group related files together. A folder can hold both files and other folders (called subfolders).
+
+\paragraph{Files} are the actual documents themselves—the essay, the photo, the spreadsheet. Every file has two parts: a \textbf{name} and an \textbf{extension}, separated by a dot. For example: \texttt{Lab-Report.pdf}.
+
+\paragraph{File Extensions} tell the operating system what kind of file it is and what program should be used to open it. For example, your computer knows to open a \texttt{.docx} file with Microsoft Word and a \texttt{.jpg} file with a photo viewer.
+
+Here are some common extensions you'll encounter:
+\begin{center}
+\begin{tabular}{|l|p{0.6\textwidth}|}
+\hline
+\bfb{Extension} & \bfb{Description} \\
+\hline
+\texttt{.docx, .pptx, .xlsx} & Microsoft Office files (Word, PowerPoint, Excel). \\
+\texttt{.pdf} & Portable Document Format. Great for sharing final versions of documents because they are hard to edit and look the same everywhere. \\
+\texttt{.jpg, .png, .gif} & Standard image formats for photos and graphics. \\
+\texttt{.mp3, .mp4, .mov} & Audio and video files. \\
+\texttt{.zip} & A compressed archive. It's a single file that bundles other files and folders together to make them smaller and easier to transfer. \\
+\texttt{.txt} & A plain text file with no formatting. \\
+\texttt{.py, .java, .m} & Code or script files for programming languages like Python, Java, or MATLAB. \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Building a Good Folder Structure}
+The best way to stay organized is to create a logical hierarchy of folders. Start broad and get more specific. We recommend organizing by semester, then by course.
+
+\newpage
+Here is an example structure inside your main \texttt{Documents} folder:
+\begin{verbatim}
+My-Studies/
+|
++--- Fall-2025/
+|    |
+|    +--- CS101_Intro-to-Programming/
+|    |    |
+|    |    +--- Homework/
+|    |    |    '--- 2025-09-15_Homework-1.py
+|    |    |
+|    |    +--- Lectures/
+|    |    |    '--- 2025-09-08_Lecture-Notes.pdf
+|    |    |
+|    |    '--- Project/
+|    |
+|    '--- MATH150_Calculus-I/
+|         |
+|         +--- Notes/
+|         |
+|         '--- Worksheets/
+|
+'--- Spring-2026/
+     |
+     '--- (etc...)
+\end{verbatim}
+
+By combining a good folder structure with the smart naming conventions discussed next, you will always be able to find your work quickly.
+
+\subsection{Local vs. Cloud Storage}
+
+You can store files either \textbf{locally} (directly on your computer's hard drive) or on the \textbf{cloud} (on a remote server accessed via the internet). Each has pros and cons.
+
+\begin{center}
+\begin{tabular}{|l|p{0.4\textwidth}|p{0.4\textwidth}|}
+\hline
+ & \bfb{Local Storage} & \bfb{Cloud Storage} \\
+\hline
+\bf{Pros} & Fast access, no internet required, full privacy control. & Access from any device, easy to share and collaborate, syncs automatically. \\
+\hline
+\bf{Cons} & Hard to access from other devices, vulnerable to hardware failure (e.g. laptop breaks). & Requires internet, potential privacy concerns, may have storage limits or costs. \\
+\hline
+\end{tabular}
+\end{center}
+
+You need to figure out a good system for managing documents that works for you so you can always find what you need.
+For most people, a \textbf{hybrid approach} is best:
+\begin{itemize}
+    \item Use a cloud service (like OneDrive, provided by the school) for your active, important documents (school work, projects). This keeps them synced and accessible.
+    \item Work directly from the synchronized cloud folder on your computer.
+        Most modern cloud services handle this seamlessly.
+    \item Use your local \emph{Downloads} or \emph{Desktop} folders for temporary, less important files.
+\end{itemize}
+
+
+\subsection{Smart Naming Conventions}
+How you name your files and folders matters! A good system makes sorting and finding files much easier.
+
+\paragraph{The Rules:}
+\begin{enumerate}
+    \item \textbf{Avoid special characters:} Stick to letters, numbers, hyphens (-), and underscores (\_). Avoid characters like \verb|? / \ : * " < > | |.
+    \item \textbf{Avoid spaces:} While modern systems can handle spaces, they can cause problems with programming scripts or when transferring files.
+        Use \texttt{kebab-case} (my-file-name), \texttt{snake\_case} (my\_file\_name), or \texttt{CamelCase} (MyFileName) instead.
+    \item \textbf{Be descriptive but brief:} \texttt{Biology-Lab-Report-Photosynthesis.docx} is much better than \texttt{Document1.docx}.
+    \item \textbf{Use dates for chronological files:} For recurring files like notes, start the filename with the date in \texttt{YYYY-MM-DD} format. This makes sorting by date automatic and reliable.
+        
+\end{enumerate}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\bfb{Good Example} & \bfb{Bad Example} \\
+\hline
+\texttt{2025-08-11\_CS-Lecture-Notes.pdf} & \texttt{notes 11.08.pdf} \\
+\texttt{Physics-Homework-Week3.docx} & \texttt{Phys HW \#3.docx} \\
+\texttt{Project-Proposal-Draft-v2.pdf} & \texttt{draft for project new version.pdf} \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{Backups: Don't Lose Your Work!}
+
+A common mistake is thinking that cloud storage (like OneDrive) is a backup. It's not! Cloud storage is for \textbf{synchronization}, not protection. If your local file gets accidentally deleted or corrupted (damaged and unreadable), the cloud version will be deleted or corrupted too.
+
+
+A true backup is a separate copy of your files stored in a different location. The gold standard is the \textbf{3-2-1 Backup Rule}:
+\begin{itemize}
+    \item Have at least \textbf{3} total copies of your data.
+    \item Store the copies on \textbf{2} different types of media (e.g., your laptop's internal drive and an external hard drive).
+    \item Keep \textbf{1} copy off-site (in a different physical location).
+        
+\end{itemize}
+
+\paragraph{Practical Steps:}
+\begin{enumerate}
+    \item Get an external hard drive. 
+    \item Use your operating system's built-in backup software. It's easy and automatic.
+    \begin{itemize}
+        \item \textbf{macOS:} Use \emph{Time Machine}.
+        \item \textbf{Windows:} Use \emph{File History}.
+    \end{itemize}
+    \item Run a backup regularly (at least once a week).
+\end{enumerate}
+
+
+\section{Essential Keyboard Shortcuts}
+Using shortcuts will dramatically speed up your workflow.
+
+\begin{longtable}{|p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+\hline
+{\bf Action} & {\bf Windows Shortcut} & {\bf macOS Shortcut}  \\
+\hline
+\endhead
+\multicolumn{3}{|c|}{\bfb{File \& Application Management}} \\
+\hline
+New Explorer/Finder Window & \verb|Win + E| & \verb|Cmd + N| (on Desktop) \\
+
+New Folder & \verb|Ctrl + Shift + N| & \verb|Cmd + Shift + N| \\
+Open New Document/Tab & \verb|Ctrl + N| & \verb|Cmd + N| \\
+Save Current File & \verb|Ctrl + S| & \verb|Cmd + S| \\
+Print & \verb|Ctrl + P| & \verb|Cmd + P| \\
+
+Close Window/Tab & \verb|Ctrl + W| & \verb|Cmd + W| \\
+
+Close Application & \verb|Alt + F4| & \verb|Cmd + Q| \\
+Rename File & \verb|F2| & \verb|Return| \\
+
+\hline
+\multicolumn{3}{|c|}{\bfb{Text Editing}} \\
+\hline
+Undo & \verb|Ctrl + Z| & \verb|Cmd + Z| \\
+
+Redo & \verb|Ctrl + Y| & \verb|Cmd + Shift + Z| \\
+Cut & \verb|Ctrl + X| & \verb|Cmd + X| \\
+
+Copy & \verb|Ctrl + C| & \verb|Cmd + C| \\
+Paste & \verb|Ctrl + V| & \verb|Cmd + V| \\
+Select All & \verb|Ctrl + A| & \verb|Cmd + A| \\
+
+\hline
+\multicolumn{3}{|c|}{\bfb{Navigation \& Other Tools}} \\
+\hline
+Cycle Through Apps & \verb|Alt + Tab| & \verb|Cmd + Tab| \\
+
+Search (Files/Apps) & \verb|Win + S| & \verb|Cmd + Space| \\
+Screenshot (Area) & \verb|Win + Shift + S| & \verb|Cmd + Shift + 4| \\
+Screenshot (Full Screen) & \verb|Win + PrtScn| & \verb|Cmd + Shift + 3| \\
+\hline
+
+\end{longtable}
+\end{document}
