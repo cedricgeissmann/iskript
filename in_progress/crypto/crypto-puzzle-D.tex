@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{cyan}
+
+\usepackage{dclecture}
+
+\usepackage{pigpen}
+\pdfgentounicode=0
+
+\usepackage{morse}
+\def\lm{\Large\morse}
+
+\setlength{\headheight}{24pt}
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Thema} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+\section*{Mord im Mathematik Department}
+Ein Mord wurde im Mathematik-Department an einer
+nahegelegenen Schule begangen.
+
+Ihre Aufgabe ist es, die Hinweise zu entschlüsseln, um
+\begin{enumerate}
+    \item die Identität des Mörders
+    \item die Mordwaffe
+   \item den Raum, in dem der Mord stattgefunden hat
+
+\end{enumerate}
+
+Die sieben Verdächtigen sind:
+\begin{multicols}{4}
+    \begin{itemize}
+        \item Herr Broome 
+        \item Dr. France 
+        \item Herr Halai 
+        \item Fräulein Kaur
+        \item Herr Scotland 
+        \item Herr Sheppard 
+        \item Herr Smith
+    \end{itemize}
+\end{multicols}
+Die möglichen Mordwaffen sind:
+\begin{multicols}{4}
+    \begin{itemize}
+        \item Meterstab 
+        \item Stuhl 
+        \item Schere
+        \item Zirkel 
+        \item Lehrbuch 
+        \item Bleistift
+        \item Hefter
+    \end{itemize}
+\end{multicols}
+Der Raum, in dem der Mord begangen wurde, könnte sein:
+\begin{verbatim}
+    16 23 24 25 28 29 Computerraum
+\end{verbatim}
+
+\newpage
+
+\section*{Code 1: Schweinepen}
+Der erste Code verwendet den folgenden Schlüssel. Sie müssen herausfinden, wie Sie den Schlüssel
+verwenden, um die folgende Nachricht zu entschlüsseln.
+
+\centfig{0.8}{pigpen.png}
+
+{\pigpenfont DER RAUM, IN DEM DER MORD BEGANGEN WURDE, HAT EINE RAUMNUMMER}
+
+\section*{Code 2: Polybius-Quadrat}
+\centfig{0.5}{polybius}
+
+\begin{verbatim}
+    (5,2)(3,4)(5,5) (3,3)(1,1)(3,2)(4,5)(5,5)(3,2)(5,5)(3,2) 
+    (4,5)(5,3)(5,5)(4,2) (4,3)(5,3)(5,2) (3,4)(1,5)(2,1)(5,5) 
+    (1,5)(4,3) (5,5) (4,4)(4,3) (5,2)(3,4)(5,5)(4,4)(3,2) 
+    (4,3)(1,5)(3,3)(5,5)
+\end{verbatim}
+
+\section*{Code 3}
+\begin{verbatim}
+    20,8,5  13,21,18,4,5,18  23,1,19  14,15,20  9,14 1 
+    16,18,9,13,5  14,21,13,2,5,18,5,4  18,15,15,13
+\end{verbatim}
+
+\section*{Code 4}
+Ihr einziger Hinweis für diesen ist, dass er per Mobiltelefon empfangen wurde.
+
+\centfig{0.4}{mobile}
+
+\begin{verbatim}
+    843068733709327660363706680428302074277063825072780
+\end{verbatim}
+
+\section*{Code 5: Atbash}
+Hinweis: Jeder Buchstabe stellt einen anderen Buchstaben in einem einfachen System dar.
+
+\begin{verbatim}
+    GSV ILLN MFNYVI RH Z NFOGRKOV LU ULFI
+\end{verbatim}
+
+\section*{Code 6: Caesar-Verschlüsselung}
+
+\begin{verbatim}
+    KYV DLIUVIVIJ ERDV NZCC KVCC PFL NYRK TFLEKIP YV ZJ WIFD
+\end{verbatim}
+
+\section*{Code 7: Morsecode}
+\centfig{0.8}{morse}
+
+{\lm die Raum Nummer}
+
+{\lm hat acht Faktoren}
+
+\section*{Code 8: Die letzte Herausforderung}
+
+{\lm kdc qxf mrm qn mx } 
+
+{\lm rc ynaqjyb frcq }
+
+{\lm bxvncqrwp cqjc}
+
+{\lm  bcdmnwcb ljw brc xw}
+
+\end{document}

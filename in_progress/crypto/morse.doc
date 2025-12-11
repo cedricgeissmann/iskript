@@ -1,0 +1,119 @@
+M O R S E   -- a short font report
+==================================
+
+(The telegraphic alphabet - by  Udo Heyl, January 1st, 1998)
+
+Error Reports in case of UNCHANGED versions to
+   Udo Heyl,
+   Stregdaer Allee 7,
+   99817 Eisenach,
+   Federal Republic of Germany
+or
+   DANTE, Deutschsprachige Anwendervereinigung TeX e.V., 
+   Postfach 10 18 40,
+   69008 Heidelberg, 
+   Federal Republic of Germany, 
+   Email: dante@dante.de 
+
+1. What is   M O R S E ?
+************************
+
+It is a LaTeX2e - package for printing Morse code signs.
+
+The  MORSE package contains the following files:
+         
+         morse10.mf   ---*
+         morse.alf       |________ the METAFONT - files
+         morse.num       |
+         morse.def    ---*
+
+         morse.sty    ------------ the LaTeX2e style file
+
+         morse10.tfm  ------------ the TeX Font Metric file
+
+         morsedoc.tex ------------ the ** SHORT FONT REPORT **
+                                       LaTeX2e file
+
+         morse.doc    ------------ the FONT REPORT ascii file
+
+
+COPYRIGHT (c) 1998, by Udo Heyl, Eisenach.
+
+Copying of part or all of any file in the morse package
+is allowed under the following conditions only:
+(1) You may freely distribute unchanged copies of the files. Please
+    include the documentation when you do so.
+(2) You may modify a renamed copy of any file, but only for personal
+    use or use within an organization.
+(3) You may copy fragments from the files, for personal use or for use
+    in a macro package for distribution, as long as credit is given
+    where credit is due.
+
+You are NOT ALLOWED to take money for the distribution or use of
+these files or modified versions or fragments thereof, except for
+a nominal charge for copying etc.
+
+2. How to use the MORSE package?
+********************************
+
+First and foremost you've got to copy the following files
+
+-     morse10.mf, morse.def, morse.alf and morse.num
+      into your Metafont-directory
+      \emtex\mfinput\morse
+-     morse.sty into your Style-directory 
+      \emtex\texinput\morse and
+-     morse10.tfm into your Tfm-directory
+      \emtex\tfm\morse .
+
+Note, however, that the paths may be different in your 
+LaTeX2e implementation (EmTeX for MS-DOS, web2c for UNIX etc.).
+LaTeX2e is absolutely required, if you want to use MORSE, 
+which doesn't run with the ANCIENT LaTeX 209.
+
+The example shows you the usage of this font:
+
+   \documentclass[10pt]{article}
+   \usepackage{morse} %%% to include morse.sty
+   \begin{document} ... 
+   %..........
+   {\morse ..... }
+   %..........
+   \end{document}
+
+Telegraphic code will appear now in the current size
+and won't change the current shape. Of course you can input
+
+         {\Huge\morse  M o r s e T e x t} 
+         
+to manage greater Morse code signs. After the command 
+
+         \morse
+
+numbers, stops and letters (upper and lower case) are converted 
+into Morse code, exceptions are given in Table 1 (see MORSEDOC.TEX).
+
+The exceptions are:
+
+      INPUT      #   OUTPUT    #    VALUE
+      -----------#-------------#-----------------------
+      \aAcute    #   .--.      #    á
+      \eAcute    #   ..-..     #    é
+      \ae        #   .-.-      #    ä
+      \oe        #   ---.      #    ö
+      \ue        #   ..--      #    ü
+      \ch        #   ----      #    ch
+      \dq        #   -....-    #    " (double quote)
+      \sq        #   .----.    #    ' (single quote)
+      -----------#-------------#-----------------------
+
+Comments and suggestions are welcome.
+
+Since I am curious to know whether the font is useful and how it looks 
+in practice, I would appreciate a short message (with reference) - or 
+even some sample pages - if it is used in a publication.
+
+
+                                            Udo Heyl, January 1st, 1998.
+      
+

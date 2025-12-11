@@ -1,0 +1,144 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{cyan}
+
+\usepackage{dclecture}
+
+\usepackage{pigpen}
+\pdfgentounicode=0
+
+\usepackage{morse}
+\def\lm{\Large\morse}
+
+\setlength{\headheight}{24pt}
+
+
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
+\fancyhead[C]{Topic} %Kopfzeile mitte
+%\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
+\fancyfoot[C]{\thepage}
+
+
+
+
+
+
+
+\begin{document}
+
+\section*{Murder in the Mathematics Department}
+A murder has been committed in the Maths department at a
+nearby school.
+
+Your job is to decode the clues to find
+\begin{enumerate}
+    \item the identity of the murderer
+    \item  the murder weapon
+   \item the room in which the murder took place
+
+\end{enumerate}
+
+The seven suspects are:
+\begin{multicols}{4}
+    \begin{itemize}
+        \item Mr Broome 
+        \item Dr France 
+        \item Mr Halai 
+        \item Miss Kaur
+        \item Mr Scotland 
+        \item Mr Sheppard 
+        \item Mr Smith
+    \end{itemize}
+\end{multicols}
+The possible murder weapons are:
+\begin{multicols}{4}
+    \begin{itemize}
+        \item Metre ruler 
+        \item Chair 
+        \item Scissors
+        \item Compass 
+        \item Textbook 
+        \item Pencil
+        \item Stapler
+    \end{itemize}
+\end{multicols}
+The room in which the murder was committed could be:
+\begin{verbatim}
+    16 23 24 25 28 29 Computer room
+\end{verbatim}
+
+
+
+\newpage
+
+\section*{Code 1: Pigpen}
+The first code uses the following key. You need to work out how to use the key
+to decode the message which follows.
+
+\centfig{0.8}{pigpen.png}
+
+{\pigpenfont THE ROOM IN WHICH THE MURDER WAS COMMITTED HAS A ROOM NUMBER}
+
+\section*{Code 2: Polybius Square}
+\centfig{0.5}{polybius}
+
+\begin{verbatim}
+    (5,2)(3,4)(5,5) (3,3)(1,1)(3,2)(4,5)(5,5)(3,2)(5,5)(3,2) 
+    (4,5)(5,3)(5,5)(4,2) (4,3)(5,3)(5,2) (3,4)(1,5)(2,1)(5,5) 
+    (1,5)(4,3) (5,5) (4,4)(4,3) (5,2)(3,4)(5,5)(4,4)(3,2) 
+    (4,3)(1,5)(3,3)(5,5)
+\end{verbatim}
+
+\section*{Code 3}
+\begin{verbatim}
+    20,8,5  13,21,18,4,5,18  23,1,19  14,15,20  9,14 1 
+    16,18,9,13,5  14,21,13,2,5,18,5,4  18,15,15,13
+\end{verbatim}
+
+\section*{Code 4}
+Your only clue for this one is that it was received by mobile phone.
+
+\centfig{0.4}{mobile}
+
+\begin{verbatim}
+    843068733709327660363706680428302074277063825072780
+\end{verbatim}
+
+\section*{Code 5: Atbash}
+Hint: every letter represents some other letter in a simple system
+
+\begin{verbatim}
+    GSV ILLN MFNYVI RH Z NFOGRKOV LU ULFI
+\end{verbatim}
+
+\section*{Code 6: Caesar Cipher}
+
+\begin{verbatim}
+    KYV DLIUVIVIJ ERDV NZCC KVCC PFL NYRK TFLEKIP YV ZJ WIFD
+\end{verbatim}
+
+\section*{Code 7: Morse Code}
+\centfig{0.8}{morse}
+
+{\lm the room number}
+
+{\lm has eight factors}
+
+\section*{Code 8: The Final Challenge}
+
+{\lm kdc qxf mrm qn mx } 
+
+{\lm rc ynaqjyb frcq }
+
+{\lm bxvncqrwp cqjc}
+
+{\lm  bcdmnwcb ljw brc xw}
+
+
+
+\end{document}

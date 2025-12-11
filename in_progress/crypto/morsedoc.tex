@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage{morse}
+
+\def\lm{\Large\morse}
+\pagestyle{plain}
+\topmargin-1cm
+\textwidth15.85cm
+\textheight23.35cm
+\parindent0pt
+\sloppy
+
+\begin{document}
+
+\underline{\LARGE \Morsesym\/ -- a short font report}\\[1ex]
+(The telegraphic alphabet - by {\sc Udo Heyl}, January $1^{st}$, 1998)\\
+\begin{center}
+\fbox{\parbox{6in}{
+\begin{center}
+{\it Error Reports in case of UNCHANGED versions to}\\ 
+   Udo Heyl,
+   Stregdaer Allee 7,
+   99817 Eisenach,
+   Federal Republic of Germany \\
+{\it or} \\
+   DANTE, Deutschsprachige Anwendervereinigung TeX e.V., 
+   Postfach 10 18 40,\\ 
+   69008 Heidelberg, 
+   Federal Republic of Germany, 
+   Email: dante@dante.de 
+\end{center}
+}}
+\end{center}
+
+\section{What is \Morsesym ?}
+
+It is a \LaTeX2e - package for printing Morse code signs.
+
+\section{How to use the \Morsesym\/ package?}
+
+First and foremost you've got to copy the following files
+\begin{itemize}
+\item {\sc morse10.mf, morse.def, morse.alf} and {\sc morse.num} 
+      into your Metafont-directory
+      \verb/(\emtex\mfinput\morse)/
+\item {\sc morse.sty} into your Style-directory 
+      \verb/(\emtex\texinput\morse)/ and
+\item {\sc morse10.tfm} into your Tfm-directory
+      \verb/(\emtex\tfm\morse)/.
+\end{itemize}
+Note, however, that the paths may be different in your 
+\LaTeX2e ~implementation 
+(Em\TeX ~for {\sc MS-DOS}, {\sf web2c} for {\sc UNIX} etc.).
+\LaTeX2e ~is absolutely required, if you want to use \Morsesym, 
+which doesn't run with the {\bf ancient} \LaTeX 209. \\
+
+The example shows you the usage of this font:
+\begin{verbatim}
+   \documentclass[10pt]{article}
+   \usepackage{morse} %%% to include morse.sty
+   \begin{document} ... 
+   %..........
+   {\morse ..... }
+   %..........
+   \end{document}
+\end{verbatim}
+Telegraphic code will appear now in the current size
+and won't change the current shape. Of course you can input
+\verb/{\Huge\morse /{\it MorseText}\verb/ }/ to manage greater
+Morse code signs. After the command \verb/\morse/ numbers, stops
+and letters (upper and lower case) are converted into Morse code,
+exceptions are given in Table 1.
+
+\begin{center}
+\begin{table}[t]
+\caption{\Large\bf The Alphabet of the Telegraphy}
+\vskip20pt
+\begin{tabular}{||l|c|c||l|c|c||l|c|c||} 
+\hline\hline
+&&&&&&&&\\
+Input & Output & Value&Input & Output & Value& 
+                           Input & Output & Value\\
+&&&&&&&&\\\hline &&&&&&&&\\
+\verb=a= & \lm a & a & \verb=n= & \lm n & n & \verb=3= & \lm 3 & 3 \\
+\verb=\aAcute= &\lm\aAcute & \'{a} & \verb=o= &
+                                    \lm o & o & \verb=4= & \lm 4 & 4 \\
+\verb=\ae= &\lm\ae & \H{a} & \verb=\oe= & \lm\oe & \H{o} & 
+                                    \verb=5= &\lm 5 & 5 \\
+\verb=b= & \lm b & b & \verb=p= & \lm p & p & \verb=6= & \lm 6 & 6 \\
+\verb=c= & \lm c & c & \verb=q= & \lm q & q & \verb=7= & \lm 7 & 7 \\
+\verb=d= & \lm d & d & \verb=r= & \lm r & r & \verb=8= & \lm 8 & 8 \\
+\verb=\ch= & \lm\ch & ch & \verb=s= & \lm s & s & 
+                                    \verb=9= & \lm 9 & 9 \\
+\verb=e= & \lm e & e & \verb=t= & \lm t & t & \verb=0= & \lm 0 & 0 \\
+\verb=\eAcute= &\lm\eAcute & \'{e} & \verb=u= & \lm u & u &
+                                    \verb=;= & \lm ; & ; \\
+\verb=f= & \lm f & f & \verb=\ue= & \lm \ue & \H{u} & 
+                                    \verb=,= & \lm , & , \\
+\verb=g= & \lm g & g & \verb=v= & \lm v & v & \verb=:= & \lm : & : \\
+\verb=h= & \lm h & h & \verb=w= & \lm w & w & \verb=?= & \lm ? & ? \\
+\verb=i= & \lm i & i & \verb=x= & \lm x & x & \verb=!= & \lm ! & ! \\
+\verb=j= & \lm j & j & \verb=y= & \lm y & y & 
+                                           \verb=\dq= & \lm \dq & \dq \\
+\verb=k= & \lm k & k & \verb=z= & \lm z & z & 
+                                           \verb=\sq= & \lm \sq & \sq \\
+\verb=l= & \lm l & l & \verb=1= & \lm 1 & 1 & \verb=/= & \lm / & / \\
+\verb=m= & \lm m & m & \verb=2= & \lm 2 & 2 & \verb=.= & \lm . & . \\
+&&&&&&&&\\
+\hline\hline
+\end{tabular}
+\end{table}
+\end{center}
+\vskip-1cm
+\begin{footnotesize}
+\begin{minipage}{7.4cm}
+In the year 1832 the American painter and director of the  
+Plastic Arts Academy {\sc Samuel Morse} had the idea to use electromagnetism 
+in order to set up a telegraphic connection. 
+After some different unsuccessful experiments he could propose a model of 
+his \dq Recording electric telegraph\dq ~to the New York University in 1835.  
+In Washington he took out a patent for his invention in 1837.
+At the same time 
+   {\sc Charles Wheatstone} in England and
+   {\sc Karl August Steinheil} in Bavaria
+had made up telegraphs.
+The one by the last mentioned was the same on principle as {\sc Morse}'s
+telegraph, 
+but wasn't as useful in drawing longer lines \hfill
+because its fine and complex mecha-
+\end{minipage}
+\hskip1cm
+\begin{minipage}{7.4cm}
+nism. That is why {\sc Steinheil} himself
+recommended the installation of {\sc Morse}'s telegraph,
+which was the better one in later experiments too because of its
+plainness and easy usage up to now.
+{\sc Morse}'s system consists of an armature with a pin, which is
+attracted by a powerized electric magnet.
+The pin prints dots or dashes onto a passing tape of paper,
+in proportion as the power circuit is complete for shorter or longer
+periods.
+The foregoing alphabet is composed out of this dots and dashes.
+The character \'{a} is an 
+innovation for the Hungarian language; 
+\H{a}, \H{o} and \H{u} for the German vocabulary; and in Polish words
+the characters    \c{a}, \c{e} and \'{o} are described by
+                  \H{a}, \'{e} and \H{o}.
+\end{minipage}
+\end{footnotesize}
+\end{document}
