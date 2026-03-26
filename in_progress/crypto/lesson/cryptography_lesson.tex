@@ -1,0 +1,407 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Computer Science - Cryptography}
+\rhead{45-Minute Lesson Plan}
+\cfoot{\thepage}
+
+\title{\textbf{Lesson Plan: From Classical to Modern Cryptography}}
+\author{Introduction to Public-Key Cryptography}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Lesson Overview}
+\begin{itemize}
+    \item \textbf{Duration:} 45 minutes
+    \item \textbf{Topic:} Transition from classical ciphers to modern cryptographic methods
+    \item \textbf{Prerequisites:} Caesar cipher, Vigenère cipher, basic transposition ciphers
+    \item \textbf{Learning Objectives:}
+    \begin{enumerate}
+        \item Identify fundamental weaknesses in classical cryptographic systems
+        \item Understand Kerckhoffs's Principle and its importance
+        \item Explain the concept of one-way functions in cryptography
+        \item Describe how public-key cryptography solves the key distribution problem
+        \item Apply the Diffie-Hellman key exchange algorithm with small numbers
+    \end{enumerate}
+\end{itemize}
+
+\section{Part 1: Recap and Critical Analysis (5--7 minutes)}
+
+\subsection*{Opening Activity}
+Begin with an interactive discussion to activate prior knowledge:
+
+\textbf{Question 1:} ``If I encrypt a message using a Caesar cipher with shift 7, what information does an attacker need to decrypt it?''
+
+\textit{Expected answer:} Only the shift value (7). Once they know or guess this single number, all messages are compromised.
+
+\vspace{0.3cm}
+
+\textbf{Question 2:} ``The Vigenère cipher was called 'le chiffre indéchiffrable' (the indecipherable cipher) for centuries. What technique eventually broke it?''
+
+\textit{Expected answer:} Frequency analysis combined with pattern recognition (Kasiski examination or Friedman test to find key length, then treating it as multiple Caesar ciphers).
+
+\vspace{0.3cm}
+
+\textbf{Key Insight to Emphasize:} All classical ciphers share a fundamental weakness—if the method is known and the key is compromised, security is lost. Moreover, they all assume both parties can somehow secretly agree on a key beforehand.
+
+\subsection*{The Two Critical Problems}
+\begin{enumerate}
+    \item \textbf{Security through obscurity:} Classical ciphers relied on keeping the method secret
+    \item \textbf{Key distribution problem:} How do two people who have never met share a secret key securely?
+\end{enumerate}
+
+\section{Part 2: Bridge to Modern Cryptography (3--5 minutes)}
+
+\subsection*{Kerckhoffs's Principle}
+Introduce the foundational principle of modern cryptography, stated by Auguste Kerckhoffs in 1883:
+
+\begin{quote}
+\textit{``A cryptosystem should be secure even if everything about the system, except the key, is public knowledge.''}
+\end{quote}
+
+\textbf{Discussion prompt:} ``This seems impossible! How can a system be secure if everyone knows how it works?''
+
+\vspace{0.3cm}
+
+\textbf{The answer lies in mathematics.} Modern cryptography uses mathematical problems that are:
+\begin{itemize}
+    \item Easy to perform in one direction
+    \item Extremely difficult (practically impossible) to reverse without special information
+\end{itemize}
+
+These are called \textbf{one-way functions}.
+
+\section{Part 3: One-Way Functions (8--10 minutes)}
+
+\subsection*{Concept Introduction}
+A \textbf{one-way function} is easy to compute but very hard to reverse.
+
+\textbf{Everyday analogy:} Mixing paint
+\begin{itemize}
+    \item Easy: Mix yellow and blue paint to get green
+    \item Hard: Given green paint, determine the exact amounts of yellow and blue used
+\end{itemize}
+
+\subsection*{Mathematical Example: Modular Exponentiation}
+Consider the function:
+\[
+f(x) = g^x \bmod p
+\]
+
+where $g$ is a base, $p$ is a large prime number, and $x$ is the secret.
+
+\vspace{0.3cm}
+
+\textbf{Example with small numbers:}
+\begin{itemize}
+    \item Let $g = 3$, $p = 17$, and $x = 5$
+    \item Computing forward: $3^5 \bmod 17 = 243 \bmod 17 = 5$
+    \item This is easy to calculate
+\end{itemize}
+
+\textbf{The reverse problem (discrete logarithm):}
+\begin{itemize}
+    \item Given: $g = 3$, $p = 17$, and result $= 5$
+    \item Find: What value of $x$ satisfies $3^x \bmod 17 = 5$?
+    \item For small numbers, we can try all possibilities
+    \item For large primes (hundreds of digits), this becomes practically impossible
+\end{itemize}
+
+\subsection*{Another Example: Prime Factorization}
+\begin{itemize}
+    \item Easy: Multiply two numbers: $53 \times 79 = 4187$
+    \item Hard: Given 4187, find the two prime factors
+    \item With large primes (200+ digits each), factorization is computationally infeasible
+\end{itemize}
+
+This property is used in RSA encryption.
+
+\section{Part 4: The Diffie-Hellman Key Exchange (12--15 minutes)}
+
+\subsection*{The Revolutionary Idea}
+In 1976, Whitfield Diffie and Martin Hellman solved the key distribution problem with a stunning idea: two people can create a shared secret over a public channel without ever transmitting the secret itself.
+
+\subsection*{The Paint Mixing Analogy}
+Before the mathematics, consider this analogy:
+
+\begin{enumerate}
+    \item Alice and Bob publicly agree on a common paint color (yellow)
+    \item Alice secretly chooses her own color (red) and mixes it with yellow $\rightarrow$ orange
+    \item Bob secretly chooses his own color (blue) and mixes it with yellow $\rightarrow$ green
+    \item They exchange their mixed colors publicly (orange and green)
+    \item Alice adds her secret red to Bob's green $\rightarrow$ muddy brown
+    \item Bob adds his secret blue to Alice's orange $\rightarrow$ muddy brown
+    \item They both have the same final color, but an eavesdropper cannot easily determine it
+\end{enumerate}
+
+\subsection*{The Mathematical Protocol}
+
+\textbf{Public parameters} (known to everyone, including attackers):
+\begin{itemize}
+    \item $p$ = a large prime number
+    \item $g$ = a generator (a number between 1 and $p-1$)
+\end{itemize}
+
+\textbf{Protocol steps:}
+
+\begin{enumerate}
+    \item \textbf{Alice chooses} a secret number $a$ and computes:
+    \[
+    A = g^a \bmod p
+    \]
+    Alice sends $A$ to Bob publicly.
+    
+    \item \textbf{Bob chooses} a secret number $b$ and computes:
+    \[
+    B = g^b \bmod p
+    \]
+    Bob sends $B$ to Alice publicly.
+    
+    \item \textbf{Alice computes} the shared secret:
+    \[
+    s = B^a \bmod p = (g^b)^a \bmod p = g^{ab} \bmod p
+    \]
+    
+    \item \textbf{Bob computes} the shared secret:
+    \[
+    s = A^b \bmod p = (g^a)^b \bmod p = g^{ab} \bmod p
+    \]
+\end{enumerate}
+
+Both Alice and Bob now share the same secret $s = g^{ab} \bmod p$, which can be used as an encryption key!
+
+\subsection*{Why is this secure?}
+An eavesdropper knows $g$, $p$, $A$, and $B$, but to find $s = g^{ab} \bmod p$, they would need to solve the discrete logarithm problem to find either $a$ or $b$. With large enough numbers, this is computationally infeasible.
+
+\subsection*{Worked Example (8--10 minutes)}
+
+Let's work through a complete example with small numbers:
+
+\textbf{Public parameters:}
+\begin{align*}
+p &= 23 \quad \text{(prime number)} \\
+g &= 5 \quad \text{(generator)}
+\end{align*}
+
+\textbf{Alice's secret:} $a = 6$
+
+\textbf{Alice computes:}
+\[
+A = g^a \bmod p = 5^6 \bmod 23 = 15625 \bmod 23 = 8
+\]
+
+Alice sends $A = 8$ to Bob.
+
+\vspace{0.3cm}
+
+\textbf{Bob's secret:} $b = 15$
+
+\textbf{Bob computes:}
+\[
+B = g^b \bmod p = 5^{15} \bmod 23 = 30517578125 \bmod 23 = 19
+\]
+
+Bob sends $B = 19$ to Alice.
+
+\vspace{0.3cm}
+
+\textbf{Alice computes the shared secret:}
+\[
+s_A = B^a \bmod p = 19^6 \bmod 23 = 47045881 \bmod 23 = 2
+\]
+
+\textbf{Bob computes the shared secret:}
+\[
+s_B = A^b \bmod p = 8^{15} \bmod 23 = 35184372088832 \bmod 23 = 2
+\]
+
+\textbf{Result:} Both Alice and Bob have computed the same shared secret: $s = 2$
+
+\vspace{0.3cm}
+
+\textbf{What does an eavesdropper know?}
+\begin{itemize}
+    \item Public: $p = 23$, $g = 5$, $A = 8$, $B = 19$
+    \item To find the secret, they need to solve: $5^a \bmod 23 = 8$ or $5^b \bmod 23 = 19$
+    \item With small numbers, this is possible by trial
+    \item With 2048-bit primes, this is practically impossible
+\end{itemize}
+
+\section{Part 5: Student Practice (8--10 minutes)}
+
+\subsection*{Guided Practice Problem}
+
+Students should work through this problem individually or in pairs:
+
+\vspace{0.3cm}
+
+\textbf{Given:} $p = 11$, $g = 2$
+
+\textbf{Alice's secret:} $a = 3$
+
+\textbf{Bob's secret:} $b = 7$
+
+\vspace{0.3cm}
+
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Calculate $A$ (Alice's public value)
+    \item Calculate $B$ (Bob's public value)
+    \item Calculate the shared secret $s$ from Alice's perspective
+    \item Calculate the shared secret $s$ from Bob's perspective
+    \item Verify that both computed secrets match
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\textbf{Solution:}
+\begin{align*}
+A &= 2^3 \bmod 11 = 8 \bmod 11 = 8 \\
+B &= 2^7 \bmod 11 = 128 \bmod 11 = 7 \\
+s_{\text{Alice}} &= 7^3 \bmod 11 = 343 \bmod 11 = 2 \\
+s_{\text{Bob}} &= 8^7 \bmod 11 = 2097152 \bmod 11 = 2
+\end{align*}
+
+Shared secret: $s = 2$
+
+\section{Part 6: Assessment Questions (5 minutes)}
+
+Students should answer these questions to check their understanding:
+
+\subsection*{Conceptual Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{What is the main weakness that all classical ciphers (Caesar, Vigenère, transposition) share?}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{State Kerckhoffs's Principle in your own words. Why is this principle important for modern cryptography?}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{What is a one-way function? Give an example of a mathematical operation that is easy to perform but difficult to reverse.}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{Explain the key distribution problem. How does the Diffie-Hellman key exchange solve this problem?}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{In the Diffie-Hellman protocol, which values are public (known to everyone, including attackers) and which are secret?}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{An eavesdropper intercepts the following Diffie-Hellman exchange:}
+    \begin{itemize}
+        \item Public parameters: $p = 17$, $g = 3$
+        \item Alice sends: $A = 15$
+        \item Bob sends: $B = 6$
+    \end{itemize}
+    \textbf{What information does the eavesdropper still need to compute the shared secret? Why is this difficult with large numbers?}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{True or False: In modern cryptography, the security of a system depends on keeping the algorithm secret.}
+    
+    \textit{Explain your answer.}
+    
+    \vspace{0.3cm}
+    
+    \item \textbf{Challenge Question:} In real-world applications, Diffie-Hellman uses prime numbers that are hundreds of digits long. Why can't we just use small primes like 11 or 23?
+\end{enumerate}
+
+\subsection*{Computational Question}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \setcounter{enumi}{8}
+    
+    \item \textbf{Complete the following Diffie-Hellman key exchange:}
+    
+    \textbf{Public parameters:} $p = 13$, $g = 6$
+    
+    \textbf{Alice's secret:} $a = 5$
+    
+    \textbf{Bob's secret:} $b = 4$
+    
+    \begin{enumerate}[label=\alph*)]
+        \item What value $A$ does Alice send to Bob?
+        \item What value $B$ does Bob send to Alice?
+        \item What is the shared secret $s$?
+        \item Show your calculations for each step.
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Answer Key (For Teacher)}
+
+\subsection*{Conceptual Answers}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item Classical ciphers rely on keeping the method secret (security through obscurity) and have the key distribution problem. If the key is compromised or the method is known, security is lost. They can also be broken through frequency analysis and pattern recognition.
+    
+    \item Kerckhoffs's Principle states that a cryptosystem should remain secure even if everything about it (except the key) is publicly known. This is important because it allows cryptographic methods to be studied, tested, and improved by the community, and ensures that security doesn't depend on keeping the algorithm secret.
+    
+    \item A one-way function is easy to compute in one direction but extremely difficult to reverse. Examples: (1) Modular exponentiation—computing $g^x \bmod p$ is easy, but finding $x$ given the result is hard (discrete logarithm); (2) Multiplication of large primes—easy to multiply, hard to factor.
+    
+    \item The key distribution problem: How can two parties who have never met securely agree on a secret key over a public channel? Diffie-Hellman solves this by allowing both parties to independently compute the same shared secret without ever transmitting it, using one-way functions.
+    
+    \item \textbf{Public:} $p$, $g$, $A$ (Alice's public value), $B$ (Bob's public value). \textbf{Secret:} $a$ (Alice's private key), $b$ (Bob's private key), and $s$ (the shared secret).
+    
+    \item The eavesdropper needs either $a$ or $b$ to compute the shared secret. They must solve the discrete logarithm problem (e.g., $3^a \bmod 17 = 15$). With small numbers this is possible by trying all values, but with 2048-bit primes, it would take billions of years.
+    
+    \item \textbf{False.} In modern cryptography, security depends only on the secrecy of the key, not the algorithm. The algorithm can and should be public so it can be analyzed and verified by experts (Kerckhoffs's Principle).
+    
+    \item Small primes can be broken by trying all possible values (brute force attack). With small numbers, an attacker can solve the discrete logarithm problem quickly. Large primes (hundreds of digits) make brute force computationally infeasible—it would take longer than the age of the universe.
+\end{enumerate}
+
+\subsection*{Computational Answer}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \setcounter{enumi}{8}
+    
+    \item \textbf{Diffie-Hellman calculation:}
+    
+    \begin{enumerate}[label=\alph*)]
+        \item $A = g^a \bmod p = 6^5 \bmod 13 = 7776 \bmod 13 = 7$
+        \item $B = g^b \bmod p = 6^4 \bmod 13 = 1296 \bmod 13 = 9$
+        \item Alice computes: $s_A = B^a \bmod p = 9^5 \bmod 13 = 59049 \bmod 13 = 3$
+        
+        Bob computes: $s_B = A^b \bmod p = 7^4 \bmod 13 = 2401 \bmod 13 = 3$
+        
+        \textbf{Shared secret: $s = 3$}
+        
+        \item Calculations shown above.
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Extension Activities (Optional/Homework)}
+
+For advanced students or as homework:
+
+\begin{enumerate}
+    \item Research RSA encryption and explain how it differs from Diffie-Hellman
+    \item Investigate why the Diffie-Hellman protocol is vulnerable to man-in-the-middle attacks and how digital signatures solve this problem
+    \item Write a simple Python program to perform Diffie-Hellman key exchange with larger numbers
+    \item Research quantum computing and its threat to current public-key cryptography systems
+\end{enumerate}
+
+\section*{Teacher Notes}
+
+\begin{itemize}
+    \item The modular arithmetic calculations can be challenging. Consider having calculators available or using an online modular arithmetic calculator for demonstration.
+    \item Emphasize the \textit{concept} over the calculations—the revolutionary idea that two parties can create a shared secret publicly.
+    \item If time permits, discuss real-world applications: HTTPS/TLS, secure messaging apps, VPNs.
+    \item The paint mixing analogy is very helpful for initial understanding before diving into the mathematics.
+    \item For students struggling with modular arithmetic, review that $a \bmod p$ means the remainder when $a$ is divided by $p$.
+\end{itemize}
+
+\end{document}

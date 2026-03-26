@@ -1,0 +1,1107 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{verbatim}
+
+%%% Fancy Header and Footer
+\usepackage{fancyhdr}
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Computer Science - Cryptography Exercises}
+\fancyfoot[C]{\thepage}
+
+\title{Cryptography\\Exercise Set}
+\author{Computer Science Course}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Instructions}
+This exercise set covers all major topics from the cryptography course. Work through the exercises to test your understanding. Solutions are provided at the end of the document, but try to solve the problems yourself first!
+
+\tableofcontents
+\newpage
+
+% =====================================================
+\section{Introduction and Basic Concepts}
+% =====================================================
+
+\begin{ex}
+Define the following terms in your own words:
+\begin{enumerate}[label=\alph*)]
+    \item Plaintext
+    \item Ciphertext
+    \item Encryption
+    \item Keyspace
+    \item Cryptanalysis
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+What are the four main security properties that cryptography provides? Give a brief explanation of each.
+\end{ex}
+
+\begin{ex}
+Alice says: "I encrypted all my files with the strongest encryption algorithm, so my data is completely secure now."
+
+Explain at least three reasons why Alice's data might still be vulnerable despite using strong encryption.
+\end{ex}
+
+\begin{ex}
+Explain the difference between steganography and cryptography. Give an example of each.
+\end{ex}
+
+% =====================================================
+\section{Classical Cryptography}
+% =====================================================
+
+\subsection{Caesar Cipher}
+
+\begin{ex}
+Encrypt the message \texttt{CRYPTOGRAPHY IS FUN} using a Caesar cipher with shift $k = 7$.
+\end{ex}
+
+\begin{ex}
+Decrypt the following message which was encrypted with a Caesar cipher:
+
+\texttt{WKLV LV D VHFUHW PHVVDJH}
+
+Hint: Try different shift values or use frequency analysis.
+\end{ex}
+
+\begin{ex}
+Explain why the Caesar cipher has a keyspace of only 25 (not 26). Why does this make it insecure?
+\end{ex}
+
+\begin{ex}
+Bob suggests: "Instead of using shift 3, I'll use shift 283. That will make it much more secure!"
+
+Is Bob correct? Explain why or why not.
+\end{ex}
+
+\subsection{Substitution Ciphers}
+
+\begin{ex}
+What is the keyspace size of a monoalphabetic substitution cipher? Express your answer using factorial notation and approximate decimal value.
+\end{ex}
+
+\begin{ex}
+Despite having a huge keyspace, monoalphabetic substitution ciphers are still vulnerable to frequency analysis. Explain how frequency analysis works and why it's effective against these ciphers.
+\end{ex}
+
+\begin{ex}
+The following ciphertext was encrypted using a monoalphabetic substitution cipher:
+
+\texttt{GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT}
+
+Use frequency analysis to decrypt it. (Hint: The most common letter in the ciphertext likely represents E or T)
+\end{ex}
+
+\begin{ex}
+The Atbash cipher maps A$\leftrightarrow$Z, B$\leftrightarrow$Y, C$\leftrightarrow$X, etc.
+
+\begin{enumerate}[label=\alph*)]
+    \item Encrypt \texttt{HELLO WORLD} using Atbash
+    \item What is special about the Atbash cipher compared to other substitution ciphers?
+    \item What is the keyspace of Atbash?
+\end{enumerate}
+\end{ex}
+
+\subsection{Transposition Ciphers}
+
+\begin{ex}
+Encrypt the message \texttt{MEET AT NOON} using a rail fence cipher with 3 rails.
+\end{ex}
+
+\begin{ex}
+The following message was encrypted using a rail fence cipher with 4 rails:
+
+\texttt{CAORHHPTISGPY}
+
+Decrypt it.
+\end{ex}
+
+\begin{ex}
+Encrypt \texttt{HELLO WORLD} using columnar transposition with the keyword \texttt{KEYS}.
+
+Show your work by:
+\begin{enumerate}[label=\alph*)]
+    \item Writing the message in rows under the keyword
+    \item Numbering the columns based on alphabetical order of the keyword
+    \item Reading the columns in order
+\end{enumerate}
+\end{ex}
+
+\subsection{Vigenère Cipher}
+
+\begin{ex}
+Encrypt the message \texttt{ATTACK AT DAWN} using the Vigenère cipher with keyword \texttt{CRYPTO}.
+\end{ex}
+
+\begin{ex}
+Decrypt the following Vigenère ciphertext using the keyword \texttt{KEY}:
+
+\texttt{RIJVS UYVJN}
+\end{ex}
+
+\begin{ex}
+Explain why the Vigenère cipher is more secure than a Caesar cipher. What makes it harder to break?
+\end{ex}
+
+\begin{ex}
+Describe the Kasiski examination method for breaking a Vigenère cipher. What does it help you determine?
+\end{ex}
+
+\begin{ex}
+Alice encrypts two different messages with the same Vigenère keyword. She notices that both ciphertexts have the sequence \texttt{XQF} appearing at positions that are 15 characters apart. What does this tell you about the keyword length?
+\end{ex}
+
+\subsection{One-Time Pad}
+
+\begin{ex}
+Encrypt the message \texttt{HELLO} (represented as numbers: H=7, E=4, L=11, L=11, O=14) using the one-time pad with key: 23, 8, 15, 19, 2.
+
+Use modulo 26 arithmetic (A=0, B=1, ..., Z=25).
+\end{ex}
+
+\begin{ex}
+Why is the one-time pad considered to have "perfect secrecy"? Explain what this means.
+\end{ex}
+
+\begin{ex}
+List and explain the four critical requirements for a one-time pad to be secure.
+\end{ex}
+
+\begin{ex}
+During the Cold War, Soviet intelligence reused some of their one-time pad keys. Explain why this was a catastrophic security failure and what it allowed the NSA to do (VENONA project).
+\end{ex}
+
+\begin{ex}
+A company proposes using one-time pads to encrypt all their email communications. Explain why this is impractical, even though it would be theoretically unbreakable.
+\end{ex}
+
+% =====================================================
+\section{Modern Cryptography Principles}
+% =====================================================
+
+\begin{ex}
+State Kerckhoffs's principle and explain why it's important for modern cryptography.
+\end{ex}
+
+\begin{ex}
+Compare classical and modern cryptography on the following aspects:
+\begin{enumerate}[label=\alph*)]
+    \item What provides security (secret algorithm vs. secret key)
+    \item Typical key sizes
+    \item Method of breaking (pattern analysis vs. computational hardness)
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Explain what "computational security" means. How is it different from the "perfect secrecy" of the one-time pad?
+\end{ex}
+
+\begin{ex}
+A 128-bit key has $2^{128}$ possible values. If you could test 1 trillion ($10^{12}$) keys per second, approximately how long would it take to try all keys? Express your answer in years and compare it to the age of the universe (about $10^{10}$ years).
+\end{ex}
+
+% =====================================================
+\section{Symmetric Encryption}
+% =====================================================
+
+\begin{ex}
+What is symmetric encryption? What are its main advantages and disadvantages?
+\end{ex}
+
+\begin{ex}
+Alice wants to communicate securely with 10 friends using symmetric encryption. If each pair needs a unique shared key, how many keys must be managed in total? (Use the formula for the number of unique pairs from $n$ people)
+\end{ex}
+
+\begin{ex}
+Explain the difference between block ciphers and stream ciphers. Give an example of each.
+\end{ex}
+
+\begin{ex}
+Why should you never use ECB (Electronic Codebook) mode with a block cipher? What information does it leak?
+\end{ex}
+
+\subsection{AES}
+
+\begin{ex}
+Answer the following about AES:
+\begin{enumerate}[label=\alph*)]
+    \item What does AES stand for?
+    \item When was it adopted as a standard?
+    \item What block size does AES use?
+    \item What key sizes are available for AES?
+    \item What replaced AES? (Trick question!)
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Explain why a 256-bit key is not just "twice as secure" as a 128-bit key. How much more secure is it actually?
+\end{ex}
+
+\begin{ex}
+List at least 5 real-world applications where AES is used.
+\end{ex}
+
+\begin{ex}
+What is an Initialization Vector (IV) and why is it needed for most encryption modes? What happens if you reuse an IV?
+\end{ex}
+
+\begin{ex}
+What is AEAD (Authenticated Encryption with Associated Data)? What security properties does it provide beyond just confidentiality? Give an example of an AEAD mode.
+\end{ex}
+
+\begin{ex}
+Why should you never use a password directly as an encryption key? What should you use instead?
+\end{ex}
+
+% =====================================================
+\section{Asymmetric Encryption}
+% =====================================================
+
+\begin{ex}
+Explain the "key distribution problem" that symmetric encryption faces. How does asymmetric encryption solve this problem?
+\end{ex}
+
+\begin{ex}
+In asymmetric cryptography:
+\begin{enumerate}[label=\alph*)]
+    \item Which key is used for encryption?
+    \item Which key is used for decryption?
+    \item Which key is kept secret?
+    \item Which key is shared publicly?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Describe the "mailbox analogy" for public-key cryptography. How does it illustrate the concept?
+\end{ex}
+
+\begin{ex}
+What is a "one-way function with a trapdoor"? Give an example related to RSA.
+\end{ex}
+
+\subsection{RSA}
+
+\begin{ex}
+Answer the following about RSA:
+\begin{enumerate}[label=\alph*)]
+    \item What does RSA stand for?
+    \item When was it invented?
+    \item What mathematical problem provides its security?
+    \item What is the current minimum recommended key size?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In simplified terms, describe the three main steps of RSA key generation.
+\end{ex}
+
+\begin{ex}
+Alice wants to send a 5 MB video file to Bob using RSA with a 2048-bit key. Why is this a bad idea? What should she do instead?
+\end{ex}
+
+\begin{ex}
+Compare symmetric and asymmetric encryption in terms of:
+\begin{enumerate}[label=\alph*)]
+    \item Speed
+    \item Key size for equivalent security
+    \item Typical use cases
+\end{enumerate}
+\end{ex}
+
+\subsection{Elliptic Curve Cryptography}
+
+\begin{ex}
+What is the main advantage of ECC compared to RSA?
+\end{ex}
+
+\begin{ex}
+Fill in the table showing equivalent security levels:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{RSA Key Size} & \textbf{ECC Key Size} \\
+\hline
+1024 bits & ??? \\
+2048 bits & ??? \\
+3072 bits & 256 bits \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\begin{ex}
+List at least 4 applications or systems that use ECC.
+\end{ex}
+
+\subsection{Diffie-Hellman}
+
+\begin{ex}
+Explain the "color mixing" analogy for Diffie-Hellman key exchange.
+\end{ex}
+
+\begin{ex}
+What is the key difference between Diffie-Hellman and RSA in terms of what they accomplish?
+\end{ex}
+
+\begin{ex}
+What is "forward secrecy" (or "perfect forward secrecy") and why is it important for secure communications like TLS?
+\end{ex}
+
+% =====================================================
+\section{Cryptographic Hash Functions}
+% =====================================================
+
+\begin{ex}
+What is a cryptographic hash function? What does it do?
+\end{ex}
+
+\begin{ex}
+List and briefly explain the 7 key properties that a cryptographic hash function should have.
+\end{ex}
+
+\begin{ex}
+What is the "avalanche effect"? Why is it important for hash functions?
+\end{ex}
+
+\begin{ex}
+Why do collisions mathematically exist for hash functions? (Hint: pigeonhole principle)
+\end{ex}
+
+\begin{ex}
+Complete the following table:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Output Size} & \textbf{Status} \\
+\hline
+MD5 & ??? & ??? \\
+SHA-1 & 160 bits & ??? \\
+SHA-256 & ??? & Secure \\
+SHA-512 & ??? & Secure \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\subsection{Hash Function Applications}
+
+\begin{ex}
+You download a file \texttt{ubuntu.iso} and its SHA-256 hash from a website over HTTP (not HTTPS). After downloading, you compute the hash and it matches. Are you guaranteed the file is safe and authentic? Explain.
+\end{ex}
+
+\begin{ex}
+Why should passwords never be stored in plaintext in a database? What should be stored instead?
+\end{ex}
+
+\begin{ex}
+What is a "salt" in the context of password hashing? Why is it important even though it's stored in plaintext alongside the hash?
+\end{ex}
+
+\begin{ex}
+Alice's database shows:
+\begin{verbatim}
+User: alice | Salt: abc123 | Hash (MD5): 1A2B3C...
+User: bob   | Salt: xyz789 | Hash (MD5): 4D5E6F...
+\end{verbatim}
+
+Identify at least two security problems with this password storage approach.
+\end{ex}
+
+\begin{ex}
+Why are specialized password hashing functions like Argon2 or bcrypt better than just using SHA-256 for password storage?
+\end{ex}
+
+\begin{ex}
+Explain how hash functions are used in blockchain technology. Mention at least two specific uses.
+\end{ex}
+
+\begin{ex}
+Why can't you use a hash function to sign a 1 GB video file directly with RSA? How do hash functions solve this problem?
+\end{ex}
+
+% =====================================================
+\section{Digital Signatures and PKI}
+% =====================================================
+
+\begin{ex}
+What three security properties do digital signatures provide?
+\end{ex}
+
+\begin{ex}
+Describe the process of creating and verifying a digital signature. Which keys are used at each step?
+\end{ex}
+
+\begin{ex}
+Complete the comparison:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Property} & \textbf{Encryption} & \textbf{Signing} \\
+\hline
+Lock with & ??? & ??? \\
+Unlock with & ??? & ??? \\
+Purpose & Confidentiality & ??? \\
+Who can do it? & ??? & Only key owner \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\begin{ex}
+What is a digital certificate? What information does it contain?
+\end{ex}
+
+\begin{ex}
+What is a Certificate Authority (CA)? What role does it play in PKI?
+\end{ex}
+
+\begin{ex}
+Explain the "chain of trust" in PKI. How does your browser verify that a website's certificate is valid?
+\end{ex}
+
+\begin{ex}
+When you visit \texttt{https://www.example.com}, describe the steps of the TLS handshake that establish a secure connection.
+\end{ex}
+
+\begin{ex}
+What three security properties does HTTPS provide?
+\end{ex}
+
+% =====================================================
+\section{Modern Applications}
+% =====================================================
+
+\begin{ex}
+What does "end-to-end encryption" (E2EE) mean? Give three examples of messaging apps that use it.
+\end{ex}
+
+\begin{ex}
+Explain the difference between:
+\begin{enumerate}[label=\alph*)]
+    \item E2EE messaging (like Signal)
+    \item Regular email
+    \item HTTPS-protected web messaging
+\end{enumerate}
+Who can read your messages in each case?
+\end{ex}
+
+\begin{ex}
+How do password managers work? Why are they more secure than reusing the same password everywhere or writing passwords on paper?
+\end{ex}
+
+\begin{ex}
+What do VPNs do, and what don't they do? List at least 3 things for each category.
+\end{ex}
+
+\begin{ex}
+Explain how Bitcoin uses cryptography. Mention at least three specific cryptographic techniques or concepts.
+\end{ex}
+
+% =====================================================
+\section{Threats and Security}
+% =====================================================
+
+\begin{ex}
+Match each attack with its description:
+
+\begin{enumerate}[label=\alph*)]
+    \item Brute force
+    \item Dictionary attack
+    \item Rainbow table
+    \item Man-in-the-middle
+    \item Side-channel attack
+\end{enumerate}
+
+\begin{enumerate}[label=\Roman*)]
+    \item Try every possible key
+    \item Intercept and modify communication
+    \item Precomputed password hashes
+    \item Try common passwords from a list
+    \item Extract secrets from timing or power consumption
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+What is the quantum computing threat to cryptography? Which types of cryptography are most at risk?
+\end{ex}
+
+\begin{ex}
+What is Shor's algorithm and why is it significant for cryptography?
+\end{ex}
+
+\begin{ex}
+How does the quantum threat affect symmetric encryption differently than asymmetric encryption?
+\end{ex}
+
+\begin{ex}
+What is post-quantum cryptography (PQC)? Name at least two PQC algorithms that NIST has standardized.
+\end{ex}
+
+\begin{ex}
+What is social engineering? Give three examples of social engineering attacks.
+\end{ex}
+
+\begin{ex}
+Explain the phrase: "Security is only as strong as the weakest link." Give an example where strong cryptography fails due to a weak link.
+\end{ex}
+
+% =====================================================
+\section{Best Practices}
+% =====================================================
+
+\begin{ex}
+List at least 5 best practices that regular users should follow to stay secure online.
+\end{ex}
+
+\begin{ex}
+What is two-factor authentication (2FA)? Why is it important even if you have a strong password?
+\end{ex}
+
+\begin{ex}
+Why is the advice "don't roll your own crypto" so important for developers?
+\end{ex}
+
+\begin{ex}
+What are the current recommended algorithms for:
+\begin{enumerate}[label=\alph*)]
+    \item Symmetric encryption
+    \item Asymmetric encryption
+    \item Hashing
+    \item Password hashing
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+List at least 5 common cryptographic mistakes that developers should avoid.
+\end{ex}
+
+% =====================================================
+\section{Comprehensive Problems}
+% =====================================================
+
+\begin{ex}
+You are designing a secure messaging application.
+
+\begin{enumerate}[label=\alph*)]
+    \item Which type of encryption would you use for the actual messages and why?
+    \item How would you exchange encryption keys between users?
+    \item How would you ensure message integrity?
+    \item How would you authenticate users?
+    \item Would you use E2EE? Why or why not?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+A company stores customer data encrypted with AES-256. An attacker steals the encrypted database. For each scenario, explain whether the attacker can decrypt the data:
+
+\begin{enumerate}[label=\alph*)]
+    \item The encryption key was stored in the same database in plaintext
+    \item The key was derived from the password "password123"
+    \item The key was randomly generated and stored in a separate, secure key management system
+    \item The attacker also stole a backup from 2 years ago encrypted with the same key
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+You are implementing online banking. Design a security system that uses:
+\begin{itemize}
+    \item Symmetric encryption (specify where and why)
+    \item Asymmetric encryption (specify where and why)
+    \item Hash functions (specify where and why)
+    \item Digital signatures (specify where and why)
+\end{itemize}
+\end{ex}
+
+\begin{ex}
+Alice receives an email claiming to be from her bank, asking her to click a link and enter her password. The link starts with \texttt{https://}, so Alice thinks it's safe.
+
+\begin{enumerate}[label=\alph*)]
+    \item What type of attack is this?
+    \item Why doesn't HTTPS protect Alice in this case?
+    \item What should Alice do?
+    \item How could cryptography help prevent this attack?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Compare and contrast:
+\begin{enumerate}[label=\alph*)]
+    \item Caesar cipher vs. AES
+    \item One-time pad vs. AES
+    \item RSA vs. Elliptic Curve Cryptography
+    \item MD5 vs. SHA-256
+\end{enumerate}
+
+For each pair, discuss security, practical usability, and when (if ever) each should be used.
+\end{ex}
+
+\newpage
+% =====================================================
+\section*{Solutions}
+% =====================================================
+
+\subsection*{Section 1: Introduction and Basic Concepts}
+
+\textbf{Exercise 1.1:}
+\begin{enumerate}[label=\alph*)]
+    \item Plaintext: The original, readable message before encryption
+    \item Ciphertext: The encrypted, unreadable version of a message
+    \item Encryption: The process of converting plaintext to ciphertext using a cipher and key
+    \item Keyspace: The set of all possible keys that can be used with a particular cipher
+    \item Cryptanalysis: The study and practice of breaking cryptographic systems
+\end{enumerate}
+
+\textbf{Exercise 1.2:}
+The four main security properties are:
+\begin{itemize}
+    \item \textbf{Confidentiality:} Only authorized parties can read the information
+    \item \textbf{Integrity:} Data cannot be modified without detection
+    \item \textbf{Authentication:} Verify the identity of the sender
+    \item \textbf{Non-repudiation:} The sender cannot deny sending a message
+\end{itemize}
+
+\textbf{Exercise 1.3:}
+Alice's data might still be vulnerable because:
+\begin{itemize}
+    \item Weak password or key management (key stored insecurely)
+    \item Malware on her device could steal the key or data before encryption
+    \item Social engineering attacks could trick her into revealing the key
+    \item Physical access to her unlocked device
+    \item Implementation bugs in the encryption software
+    \item Side-channel attacks
+    \item Backup copies not encrypted
+\end{itemize}
+
+\textbf{Exercise 1.4:}
+\textbf{Steganography} hides the existence of a message (e.g., invisible ink, data hidden in images). \textbf{Cryptography} makes a message unreadable even if discovered (e.g., encryption). Example: Writing a message in lemon juice (steganography) vs. using a Caesar cipher (cryptography).
+
+\subsection*{Section 2: Classical Cryptography}
+
+\textbf{Exercise 2.1:}
+With shift $k=7$: \texttt{JYFWAVNYHWOF PZ MBU}
+
+\textbf{Exercise 2.2:}
+Shift of 3 was used. Decrypted message: \texttt{THIS IS A SECRET MESSAGE}
+
+\textbf{Exercise 2.3:}
+There are only 25 possible shifts because shift 0 leaves the message unchanged (not encryption) and shift 26 returns to the original (same as shift 0). This makes it trivially breakable by trying all 25 possibilities.
+
+\textbf{Exercise 2.4:}
+Bob is incorrect. Since the alphabet has only 26 letters, shift 283 is equivalent to shift $283 \mod 26 = 23$. The security is the same as using shift 23.
+
+\textbf{Exercise 2.5:}
+$26! \approx 4 \times 10^{26}$ possible permutations of the alphabet.
+
+\textbf{Exercise 2.6:}
+Frequency analysis exploits the fact that certain letters appear more frequently in any language. By counting letter frequencies in the ciphertext and matching them to expected frequencies in the language (e.g., E is most common in English), you can deduce the substitution mapping. Common patterns like "THE" also help narrow down possibilities.
+
+\textbf{Exercise 2.7:}
+This is a ROT13 cipher (shift 13). Decrypted: \texttt{THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG}
+
+\textbf{Exercise 2.8:}
+\begin{enumerate}[label=\alph*)]
+    \item \texttt{SVOOL DLIOW}
+    \item Atbash is its own inverse - encrypting twice gives the original message
+    \item Keyspace is 1 (only one possible mapping)
+\end{enumerate}
+
+\textbf{Exercise 2.9:}
+With 3 rails:
+\begin{verbatim}
+M . . . A . . . O .
+. E . T . T . O . N
+. . E . . . N . .
+\end{verbatim}
+Ciphertext: \texttt{MAO ETT ONE EN} or \texttt{MAOETTONEEN}
+
+\textbf{Exercise 2.10:}
+Reading in zigzag pattern with 4 rails: \texttt{CRYPTOGRAPHY}
+
+\textbf{Exercise 2.11:}
+\begin{enumerate}[label=\alph*)]
+    \item
+\begin{verbatim}
+K E Y S
+H E L L
+O W O R
+L D X X  (padding)
+\end{verbatim}
+    \item Alphabetical order: E(2), K(1), S(4), Y(3)
+    \item Reading columns 1-2-3-4: \texttt{HOL EEWLDO LOXR XX} or \texttt{HOLEEWLDOLOXRXX}
+\end{enumerate}
+
+\textbf{Exercise 2.12:}
+With keyword CRYPTO repeated:
+\begin{verbatim}
+Plaintext:  A T T A C K A T D A W N
+Keyword:    C R Y P T O C R Y P T O
+Ciphertext: C K R P V Y C K B P P B
+\end{verbatim}
+
+\textbf{Exercise 2.13:}
+With keyword KEY: \texttt{HELLO WORLD}
+
+\textbf{Exercise 2.14:}
+Vigenère uses different Caesar shifts at different positions based on a keyword. This means the same plaintext letter encrypts to different ciphertext letters depending on its position, defeating simple frequency analysis. It has a much larger keyspace ($26^n$ for keyword length $n$).
+
+\textbf{Exercise 2.15:}
+Kasiski examination looks for repeated sequences in ciphertext. The distances between repetitions likely share factors with the keyword length. This helps determine the keyword length, after which each position can be attacked separately with frequency analysis.
+
+\textbf{Exercise 2.16:}
+The keyword length is likely a factor of 15 (i.e., 1, 3, 5, or 15). Most likely 3, 5, or 15.
+
+\textbf{Exercise 2.17:}
+\begin{verbatim}
+Message: H  E  L  L  O
+         7  4 11 11 14
+Key:    23  8 15 19  2
+Sum:    30 12 26 30 16 (mod 26)
+         4 12  0  4 16
+Result:  E  M  A  E  Q
+\end{verbatim}
+
+\textbf{Exercise 2.18:}
+Perfect secrecy means the ciphertext provides absolutely no information about the plaintext. Without the key, all possible plaintexts of the same length are equally likely. Even with unlimited computing power, you cannot break it.
+
+\textbf{Exercise 2.19:}
+\begin{enumerate}
+    \item Key must be at least as long as the message
+    \item Key must be truly random (not pseudo-random)
+    \item Key must never be reused (even partially)
+    \item Key must be kept completely secret and destroyed after use
+\end{enumerate}
+
+\textbf{Exercise 2.20:}
+When keys are reused, attackers can compute the XOR of two ciphertexts to get the XOR of the two plaintexts, completely breaking the perfect secrecy. The VENONA project exploited this to decrypt Soviet intelligence messages and identify spies.
+
+\textbf{Exercise 2.21:}
+Impractical because: (1) Key must be as long as all emails combined, (2) Secure key distribution is extremely difficult, (3) Key storage and management is cumbersome, (4) True random number generation at scale is hard, (5) Any reuse breaks security catastrophically.
+
+\subsection*{Section 3: Modern Cryptography Principles}
+
+\textbf{Exercise 3.1:}
+Kerckhoffs's principle states that a cryptosystem should be secure even if everything except the key is public knowledge. This is important because it allows algorithms to be publicly tested by experts, standardized for widespread use, and only requires changing keys (not entire systems) if compromised.
+
+\textbf{Exercise 3.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Classical: secret algorithm; Modern: secret key only
+    \item Classical: small (often < 26); Modern: large (128-4096 bits)
+    \item Classical: pattern analysis; Modern: computational hardness
+\end{enumerate}
+
+\textbf{Exercise 3.3:}
+Computational security means breaking the cipher is theoretically possible but practically infeasible with current computing resources. Unlike perfect secrecy (one-time pad), it relies on computational limitations rather than information-theoretic guarantees.
+
+\textbf{Exercise 3.4:}
+$2^{128} \div 10^{12} = 2^{128} \div 10^{12} \approx 3.4 \times 10^{26}$ seconds $\approx 1.1 \times 10^{19}$ years. This is about 1 billion times the age of the universe!
+
+\subsection*{Section 4: Symmetric Encryption}
+
+\textbf{Exercise 4.1:}
+Symmetric encryption uses the same key for encryption and decryption. \textbf{Advantages:} Very fast, strong security with short keys, low computational cost. \textbf{Disadvantages:} Key distribution problem, difficult key management, key compromise affects all messages.
+
+\textbf{Exercise 4.2:}
+$\frac{n(n-1)}{2} = \frac{10 \times 9}{2} = 45$ keys
+
+\textbf{Exercise 4.3:}
+\textbf{Block ciphers} encrypt fixed-size blocks (e.g., AES encrypts 128-bit blocks). \textbf{Stream ciphers} encrypt bit-by-bit or byte-by-byte (e.g., ChaCha20). Block cipher example: AES. Stream cipher example: ChaCha20.
+
+\textbf{Exercise 4.4:}
+ECB mode encrypts identical plaintext blocks to identical ciphertext blocks, revealing patterns in the data. Famous example: "ECB Penguin" where encrypting an image in ECB mode still shows the outline.
+
+\textbf{Exercise 4.5:}
+\begin{enumerate}[label=\alph*)]
+    \item Advanced Encryption Standard
+    \item 2001
+    \item 128 bits (always)
+    \item 128, 192, or 256 bits
+    \item Nothing! AES is still the current standard
+\end{enumerate}
+
+\textbf{Exercise 4.6:}
+A 256-bit key has $2^{256}$ possibilities while a 128-bit key has $2^{128}$ possibilities. Since $2^{256} = (2^{128})^2$, a 256-bit key is $2^{128}$ times more secure (approximately $10^{38}$ times), not twice.
+
+\textbf{Exercise 4.7:}
+WiFi (WPA2/WPA3), VPNs, TLS/SSL (HTTPS), file encryption, messaging apps (Signal, WhatsApp), disk encryption, banking systems.
+
+\textbf{Exercise 4.8:}
+An IV (Initialization Vector) is a random value used as input to encryption modes to ensure encrypting the same message twice produces different ciphertexts. Reusing an IV can break security completely, potentially leaking information about the plaintext.
+
+\textbf{Exercise 4.9:}
+AEAD provides encryption (confidentiality) plus authentication and integrity checking in one operation. Examples: AES-GCM, ChaCha20-Poly1305. It ensures data hasn't been tampered with and verifies the sender.
+
+\textbf{Exercise 4.10:}
+Passwords are too short (low entropy), non-uniformly distributed, and potentially weak. Instead, use a Key Derivation Function (KDF) like PBKDF2, Argon2, or scrypt to derive a proper key from the password with salt and multiple iterations.
+
+\subsection*{Section 5: Asymmetric Encryption}
+
+\textbf{Exercise 5.1:}
+The key distribution problem: How do two parties who have never met securely share a secret key when all communication can be intercepted? Asymmetric encryption solves this by using public keys that can be freely shared - Alice encrypts with Bob's public key, and only Bob's private key can decrypt.
+
+\textbf{Exercise 5.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Public key
+    \item Private key
+    \item Private key
+    \item Public key
+\end{enumerate}
+
+\textbf{Exercise 5.3:}
+Public key = mailbox that anyone can deposit letters into. Private key = key to open the mailbox. Anyone can send you secure messages (drop letters in mailbox) but only you can read them (open with your key).
+
+\textbf{Exercise 5.4:}
+A one-way function is easy to compute but hard to reverse (e.g., multiplying large primes is easy, but factoring the product is hard). The trapdoor is secret information that makes reversing easy (e.g., knowing one prime factor makes finding the other easy). In RSA, the private key is the trapdoor.
+
+\textbf{Exercise 5.5:}
+\begin{enumerate}[label=\alph*)]
+    \item Rivest-Shamir-Adleman (inventors' names)
+    \item 1977
+    \item Factoring large numbers
+    \item 2048 bits
+\end{enumerate}
+
+\textbf{Exercise 5.6:}
+(1) Choose two large primes $p$ and $q$; (2) Compute $n = p \times q$ and $\phi(n)$; (3) Choose public exponent $e$ and compute private exponent $d$.
+
+\textbf{Exercise 5.7:}
+Bad idea because: (1) RSA can only encrypt data smaller than the key size (2048 bits = 256 bytes), (2) RSA is extremely slow for large data. Instead: Generate random AES key, encrypt video with AES (fast), encrypt AES key with RSA (small), send both.
+
+\textbf{Exercise 5.8:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetric is thousands of times faster
+    \item Asymmetric needs much larger keys (2048 bits RSA vs 256 bits AES)
+    \item Symmetric: bulk data encryption; Asymmetric: key exchange, digital signatures
+\end{enumerate}
+
+\textbf{Exercise 5.9:}
+ECC provides equivalent security with much smaller keys (e.g., 256-bit ECC ~ 3072-bit RSA), making it faster and requiring less bandwidth/storage.
+
+\textbf{Exercise 5.10:}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+1024 bits & 160 bits \\
+2048 bits & 224 bits \\
+3072 bits & 256 bits \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Exercise 5.11:}
+Bitcoin/cryptocurrencies, modern TLS/SSL, Signal/WhatsApp, Apple iMessage, SSH keys, IoT devices.
+
+\textbf{Exercise 5.12:}
+Alice and Bob agree on a public color (yellow). Each picks a secret color (Alice: red, Bob: blue). They mix their secret with public and exchange (Alice sends orange, Bob sends green). Each mixes their secret with received color to get the same final mixture. Eve sees only yellow, orange, green but can't determine the final shared color.
+
+\textbf{Exercise 5.13:}
+Diffie-Hellman establishes a shared secret key between two parties. RSA encrypts messages or creates digital signatures. DH is for key agreement, RSA is for encryption/signing.
+
+\textbf{Exercise 5.14:}
+Forward secrecy means that if long-term keys are compromised, past session keys remain secure. This is achieved by using ephemeral (temporary) keys for each session. Important because it protects past communications even if the server is hacked later.
+
+\subsection*{Section 6: Cryptographic Hash Functions}
+
+\textbf{Exercise 6.1:}
+A function that takes any input and produces a fixed-size output (hash/digest). It's one-way (hard to reverse) and collision-resistant.
+
+\textbf{Exercise 6.2:}
+(1) Deterministic, (2) Fast to compute, (3) Pre-image resistant (one-way), (4) Second pre-image resistant, (5) Collision resistant, (6) Avalanche effect, (7) Fixed output size.
+
+\textbf{Exercise 6.3:}
+A small change in input (even 1 bit) produces a drastically different hash (approximately 50% of bits flip). Important for security (similar inputs shouldn't have similar hashes) and integrity checking (any corruption completely changes hash).
+
+\textbf{Exercise 6.4:}
+By the pigeonhole principle: infinite possible inputs, finite possible outputs means collisions must exist. However, finding them should be computationally infeasible.
+
+\textbf{Exercise 6.5:}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+MD5 & 128 bits & Broken \\
+SHA-1 & 160 bits & Deprecated \\
+SHA-256 & 256 bits & Secure \\
+SHA-512 & 512 bits & Secure \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Exercise 6.6:}
+No! While matching hash proves file wasn't corrupted in transit, it doesn't guarantee safety because: (1) Website could be compromised serving malicious file + matching hash, (2) HTTP allows man-in-the-middle to replace both file and hash, (3) File could be intentionally malicious but correctly hashed. Need HTTPS or digital signature for true security.
+
+\textbf{Exercise 6.7:}
+Plaintext passwords allow immediate compromise of all accounts if database is stolen. Instead, store the hash of the password. When user logs in, hash entered password and compare hashes.
+
+\textbf{Exercise 6.8:}
+A random string added to password before hashing. Important because it prevents: (1) Rainbow table attacks, (2) Identifying users with same password, (3) Parallel attacks on multiple passwords. Even though stored in plaintext, it forces attackers to compute hashes individually.
+
+\textbf{Exercise 6.9:}
+Problems: (1) Using MD5 which is broken and too fast (enables brute-force), (2) Should use specialized password hash function like Argon2 or bcrypt that's intentionally slow and memory-hard.
+
+\textbf{Exercise 6.10:}
+They're intentionally slow (thwart brute-force), memory-hard (resist specialized hardware), and designed specifically for password security with built-in salting. SHA-256 is too fast and not designed for passwords.
+
+\textbf{Exercise 6.11:}
+(1) Each block contains hash of previous block (creating the chain), (2) Proof of work requires finding hash with specific properties, (3) Transaction addresses are hashes of public keys, (4) Merkle trees for efficient verification.
+
+\textbf{Exercise 6.12:}
+RSA is too slow to sign large files directly. Solution: Hash the file (fast), sign the small hash with RSA (fast), anyone can verify by hashing the file and checking signature.
+
+\subsection*{Section 7: Digital Signatures and PKI}
+
+\textbf{Exercise 7.1:}
+Authentication (proves who sent it), Integrity (proves not modified), Non-repudiation (sender can't deny sending).
+
+\textbf{Exercise 7.2:}
+\textbf{Creating:} Hash message, encrypt hash with private key (signature), send message + signature. \textbf{Verifying:} Hash received message, decrypt signature with public key, compare hashes.
+
+\textbf{Exercise 7.3:}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Lock with & Public key & Private key \\
+Unlock with & Private key & Public key \\
+Purpose & Confidentiality & Authentication \\
+Who can do it? & Anyone & Only key owner \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Exercise 7.4:}
+A digital ID card for a public key, containing: public key, owner's identity, validity period, CA's digital signature.
+
+\textbf{Exercise 7.5:}
+A trusted third party that verifies identities and issues certificates by signing them with the CA's private key. Acts as intermediary for trust.
+
+\textbf{Exercise 7.6:}
+Website certificate → signed by Intermediate CA → signed by Root CA (pre-installed in browser). Browser verifies: valid signature, not expired, matches domain, not revoked.
+
+\textbf{Exercise 7.7:}
+(1) Server sends certificate, (2) Browser verifies certificate, (3) Perform Diffie-Hellman key exchange, (4) Establish symmetric session key, (5) Encrypt all data with session key.
+
+\textbf{Exercise 7.8:}
+Confidentiality (encrypted), Authentication (verified server identity), Integrity (data can't be tampered with).
+
+\subsection*{Section 8: Modern Applications}
+
+\textbf{Exercise 8.1:}
+Only sender and recipient can read messages - not even the service provider. Examples: Signal, WhatsApp, iMessage, ProtonMail.
+
+\textbf{Exercise 8.2:}
+\begin{enumerate}[label=\alph*)]
+    \item E2EE: Only sender and recipient can read
+    \item Regular email: Email provider can read
+    \item HTTPS web messaging: Platform can read (encrypted in transit only)
+\end{enumerate}
+
+\textbf{Exercise 8.3:}
+Master password → derives encryption key → all passwords encrypted with AES-256. More secure because: unique strong passwords for each site, protects against phishing (auto-fill only on correct domain), protects against keyloggers, encrypted storage.
+
+\textbf{Exercise 8.4:}
+\textbf{Do:} Encrypt traffic to VPN server, hide IP address, bypass geo-restrictions, protect on public WiFi. \textbf{Don't:} Make you anonymous, protect against malware, encrypt after VPN server, hide activity from VPN provider.
+
+\textbf{Exercise 8.5:}
+(1) Public-private key pairs (wallets), (2) Digital signatures (sign transactions), (3) Hash functions (proof of work, block linking, addresses), (4) Merkle trees (transaction verification).
+
+\subsection*{Section 9: Threats and Security}
+
+\textbf{Exercise 9.1:}
+a-I, b-IV, c-III, d-II, e-V
+
+\textbf{Exercise 9.2:}
+Quantum computers could break current public-key cryptography (RSA, ECC, Diffie-Hellman) by efficiently solving hard problems like factoring and discrete logarithm.
+
+\textbf{Exercise 9.3:}
+A quantum algorithm that can factor large numbers and solve discrete logarithm problems efficiently. Significant because it breaks RSA, Diffie-Hellman, and ECC.
+
+\textbf{Exercise 9.4:}
+Symmetric encryption less affected - Grover's algorithm only provides quadratic speedup (need to double key size). Asymmetric encryption severely affected - Shor's algorithm breaks it completely.
+
+\textbf{Exercise 9.5:}
+Cryptographic algorithms resistant to quantum computers, based on problems quantum computers can't solve efficiently (lattice problems, hash-based, etc.). Examples: CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON, SPHINCS+.
+
+\textbf{Exercise 9.6:}
+Manipulating people into revealing sensitive information or performing actions that compromise security. Examples: phishing emails, pretexting (impersonation), baiting (infected USB drives), tailgating (physical access).
+
+\textbf{Exercise 9.7:}
+Security fails at the weakest point. Example: Strong encryption useless if password is "password123", or if user reveals password via phishing, or if malware steals key from memory.
+
+\subsection*{Section 10: Best Practices}
+
+\textbf{Exercise 10.1:}
+(1) Strong unique passwords with password manager, (2) Enable 2FA, (3) Keep software updated, (4) Use HTTPS, (5) Be wary of phishing, (6) Use E2EE messaging, (7) Encrypt sensitive data, (8) VPN on public WiFi.
+
+\textbf{Exercise 10.2:}
+Additional authentication factor beyond password (something you have/are, not just something you know). Important because even if password is compromised, attacker still can't access account.
+
+\textbf{Exercise 10.3:}
+Cryptography is extremely complex and subtle mistakes can catastrophically break security. Use well-tested libraries created by experts. Implementing your own is almost guaranteed to have vulnerabilities.
+
+\textbf{Exercise 10.4:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetric: AES-256-GCM, ChaCha20-Poly1305
+    \item Asymmetric: RSA-2048+, Curve25519, Ed25519
+    \item Hashing: SHA-256, SHA-3, BLAKE2
+    \item Password hashing: Argon2, bcrypt, scrypt
+\end{enumerate}
+
+\textbf{Exercise 10.5:}
+Using deprecated algorithms (MD5, SHA-1, DES), storing plaintext passwords, reusing keys/IVs/nonces, using ECB mode, implementing own crypto, trusting user input, hardcoding keys, using weak random generators, not handling crypto failures properly.
+
+\subsection*{Section 11: Comprehensive Problems}
+
+\textbf{Exercise 11.1:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetric (AES-256-GCM) for speed and efficiency
+    \item Asymmetric (X25519 Diffie-Hellman) for key exchange
+    \item AEAD mode (GCM) or separate MAC for integrity
+    \item Digital signatures with user private keys
+    \item Yes, E2EE so provider can't read messages
+\end{enumerate}
+
+\textbf{Exercise 11.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Yes - key immediately available
+    \item Probably - weak password easily brute-forced
+    \item No - key properly secured
+    \item Concerning - key reuse over time reduces security, but doesn't directly help attacker
+\end{enumerate}
+
+\textbf{Exercise 11.3:}
+\textbf{Symmetric:} Encrypt account data, session encryption (fast). \textbf{Asymmetric:} TLS handshake, authenticate server/user (solve key distribution). \textbf{Hash:} Store password hashes (Argon2), transaction integrity (SHA-256). \textbf{Signatures:} Sign transactions (non-repudiation), verify authenticity.
+
+\textbf{Exercise 11.4:}
+\begin{enumerate}[label=\alph*)]
+    \item Phishing attack
+    \item HTTPS only encrypts connection to the site Alice is visiting - if that site is fake/malicious, HTTPS doesn't help
+    \item Verify sender, check URL carefully, contact bank directly through official channels, never click links in emails
+    \item Digital signatures from bank, certificate pinning, hardware tokens (2FA)
+\end{enumerate}
+
+\textbf{Exercise 11.5:}
+\textbf{Caesar vs AES:} Caesar has tiny keyspace (25), easily broken, historical only. AES has huge keyspace ($2^{256}$), computationally secure, used everywhere. Both symmetric but completely different security levels.
+
+\textbf{OTP vs AES:} OTP has perfect secrecy (information-theoretically secure) but impractical (key = message length, can't reuse). AES has computational security but practical (short keys, reusable). Use OTP only for highest-security, low-volume communications; AES for everything else.
+
+\textbf{RSA vs ECC:} Both asymmetric. ECC provides same security with much smaller keys (256-bit ECC ~ 3072-bit RSA), faster, less bandwidth. RSA more mature, more widely analyzed. Trend moving toward ECC.
+
+\textbf{MD5 vs SHA-256:} MD5 broken (collisions found easily), 128-bit output, deprecated. SHA-256 secure, 256-bit output, current standard. Never use MD5 for security; always use SHA-256 or better.
+
+\end{document}

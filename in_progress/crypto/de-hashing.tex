@@ -1,0 +1,407 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+\usepackage{verbatim}
+\usepackage{circuitikz}
+
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+\makeatletter
+
+\usepackage{listings}
+
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0}
+\definecolor{editorGreen}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1,0.45,0.13}
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,
+  alsoletter={<>=-},
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  >,
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	</body, <body,
+	</div, <div, </div>,
+	</p, <p, </p>,
+	</script, <script,
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  =,
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  basicstyle={\footnotesize\ttfamily},
+  frame=b,
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+
+\lstdefinestyle{py} {%
+language=python,
+literate=%
+*{0}{{{\color{lightred}0}}}1
+{1}{{{\color{lightred}1}}}1
+{2}{{{\color{lightred}2}}}1
+{3}{{{\color{lightred}3}}}1
+{4}{{{\color{lightred}4}}}1
+{5}{{{\color{lightred}5}}}1
+{6}{{{\color{lightred}6}}}1
+{7}{{{\color{lightred}7}}}1
+{8}{{{\color{lightred}8}}}1
+{9}{{{\color{lightred}9}}}1,
+basicstyle=\footnotesize\ttfamily,
+numbers=left,
+numbersep=5pt,
+tabsize=4,
+extendedchars=true,
+breaklines=true,
+keywordstyle=\color{blue}\bfseries,
+frame=b,
+commentstyle=\color{brown}\itshape,
+stringstyle=\color{editorOcher}\ttfamily,
+showspaces=false,
+showtabs=false,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+showstringspaces=false,
+}%
+
+\makeatother
+
+%%% Fancy Header and Footer
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Informatik}
+\fancyfoot[C]{\thepage}
+
+\newcommand{\bfb}[1]{{\bf \color{blue} #1}}
+
+\begin{document}
+\setcounter{section}{6}
+\section{Hashfunktionen und Kryptographisches Hashing}
+
+Eine Hashfunktion ist ein Algorithmus, der Daten auf einen numerischen Wert abbildet (in der Regel mit fester Länge).
+Hashfunktionen werden in vielen Anwendungen eingesetzt. Sie sind sehr nützlich für die Organisation grosser Datenmengen.
+Die Hauptanwendung von Hashfunktionen, die wir uns ansehen werden, ist ihr Einsatz in der Kryptographie.
+Wie bereits erwähnt, ist es keine gute Idee, eine Datenbank mit Klartext-Passwörtern zu führen.
+Die Lösung besteht darin, die Passwörter mit einer "Einwegfunktion" zu hashen, die einfach zu berechnen, aber rechnerisch nicht umkehrbar ist.
+Unten sind einige Beispiel-Eingaben und ihre entsprechenden SHA1-Ausgaben dargestellt. (Hinweis: SHA1 gilt mittlerweile als unsicher; moderne Systeme verwenden SHA-256 oder SHA-3).
+\centfig{0.7}{Cryptographic_Hash_Function.svg.png}
+
+\subsection{Was sollte ein Hashing-Algorithmus leisten?}
+
+Ein Hashing-Algorithmus sollte die folgenden Eigenschaften haben:
+\begin{itemize}
+\item Schnell zu berechnen (aber nicht zu schnell, um Brute-Force-Angriffe zu verhindern).
+\item Alle möglichen Ergebnisse sollten gleich wahrscheinlich sein.
+\item \textbf{Urbildresistenz:} Rechnerisch nicht umkehrbar (aus dem Hash kann man die Eingabe nicht ermitteln).
+\item \textbf{Kollisionsresistenz:} Es ist sehr schwer, zwei Eingaben mit der gleichen Ausgabe zu finden.
+\item \textbf{Lawineneffekt:} Kleine Änderungen in der Eingabe sollten zu grossen Änderungen in der Ausgabe führen.
+\end{itemize}
+
+Zusätzlich sind die meisten Hashfunktionen so aufgebaut, dass alle Ausgabe-Hashes die gleiche Länge haben.
+Die tatsächlichen Algorithmen, die in der modernen Kryptographie verwendet werden, sind viel zu kompliziert, um sie hier zu vertiefen.
+Wir werden stattdessen einige der Ideen betrachten, die zu modernen Hashing-Algorithmen geführt haben, und warum die historischen Algorithmen nicht mehr verwendet werden.
+
+\subsection{Verwendung von Hashfunktionen}
+
+Hashfunktionen können in Datenbanken verwendet werden, um die verschiedenen Einträge schnell zu organisieren und zu durchsuchen.
+Der Hash liefert in der Regel eine eindeutige Kennung für jeden Eintrag und macht die Suche sehr effizient.
+Eine weitere Verwendung von Hashfunktionen ist die Bereitstellung einer Prüfsumme für eine heruntergeladene Datei oder Anwendung: Wenn man sicher sein möchte, dass die heruntergeladene Datei nicht manipuliert wurde, kann man ihren Hash mit dem auf der Download-Seite angegebenen Prüfsummenwert vergleichen, und wenn sie übereinstimmen, ist die heruntergeladene Datei dieselbe Datei, die auf diesen Server hochgeladen wurde.
+Die Hauptanwendung, die wir betrachten werden, ist das Hashen von Passwörtern für die Speicherung von Werten in einer Login-Datenbank.
+Passwörter sollten niemals im Klartext gespeichert werden. Datenbanken können geleakt oder gehackt werden, Mitarbeiter können ihre Berechtigungen missbrauchen usw. Der Weg, um Passwörter zu schützen, besteht darin, sie durch eine Einwegfunktion (Hash) zu verarbeiten.
+Das Ergebnis dieses Hashs wird dann in der Datenbank gespeichert.
+Wenn ein Benutzer sich in sein Konto einloggen möchte, sendet er sein Passwort an den Server.
+Das Passwort wird dann gehasht und der Hash wird mit der Datenbank verglichen.
+Wenn der Benutzername und das gehashte Passwort übereinstimmen, erhält der Benutzer Zugang zu seinem Konto.
+\begin{ex}
+Was sind die zwei Hauptprobleme bei dieser Art der Passwortspeicherung?
+\end{ex}
+\sol{
+1. Zwei Personen mit demselben Passwort haben denselben Hash (Kollisionen in der Datenbank).
+2. Angreifer können "Rainbow Tables" (vorberechnete Listen von Hashes für gängige Passwörter) verwenden, um die Hashes sofort umzukehren.
+}
+
+\subsection{Salzen von Hashes}
+
+Um Angriffe auf Passwort-Datenbanken zu erschweren und Kollisionen unwahrscheinlicher zu machen, fügen moderne (gute) Websites ein \textbf{Salt} zu Ihrem Passwort hinzu, bevor es gehasht wird.
+Ein Salt ist eine zufällige Zeichenfolge, die vor oder nach Ihrem Passwort eingefügt wird, bevor es gehasht wird.
+Das Salt stellt sicher, dass zwei Personen mit demselben Passwort nicht denselben Hash-Wert in der Datenbank haben.
+Ausserdem macht das Salzen es sehr schwer für jemanden, eine Hash-Tabelle (Rainbow Table) mit allen möglichen Passwörtern aufzusetzen.
+\textbf{Beispiel}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Passwort & Salt & Hash-Eingabe & md5-gehashter Wert \\
+\hline
+qwerty & 001 & qwerty001 & CB35A6121CD458E811CA895FE93B9359 \\
+123456 & 002 & 123456002 & 1AF65A8D875258C0F03FC2C40BB58269 \\
+password & 003 & password003 & C838AADE3D08F3A27B903CAD39D6FA5B \\
+Password & 004 & Password004 & 5D59F67F5270937A04373E32435DF6EE \\
+\hline
+\end{tabular}
+\caption{Hash-Tabelle mit sequentiellem Salt}
+\end{table}
+
+
+Wie Sie sehen können, hat diese Website einfach die Reihenfolge, in der sich die Leute registriert haben, als Salt verwendet.
+Ist das eine gute Idee? Wie könnte ein solches System angegriffen werden?
+Sichere Systeme geben jedem Benutzer eine lange, zufällige Sequenz als Salt:
+
+\begin{table}[h]
+\scriptsize
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Passwort & Salt & Hash-Eingabe & md5-gehashter Wert \\
+\hline
+qwerty & GJFXCOAD2H2I & qwertyGJFXCOAD2H2I & E060A807B976C5377535493CEE1F8EC7 \\
+123456 & 2II348P2IQ5H & 1234562II348P2IQ5H & 81906B7FC960BAED4997E8C2B5B760B0 \\
+password & 6VC8ODIX67TU & password6VC8ODIX67TU & 2DA5E01DE9DB60B845B52DD7575E381E \\
+Password & A4WQKW5GMRLT & PasswordA4WQKW5GMRLT & B85D82A57176F52BC1D429B828A1FAE1 \\
+\hline
+\end{tabular}
+\caption{Hash-Tabelle mit zufälligem Salt}
+\end{table}
+
+
+\textbf{Warnung:} md5 ist nicht sicher und sollte niemals in einer Passwortspeicherungsanwendung verwendet werden.
+Ich habe es hier zu Illustrationszwecken verwendet, weil die Hashes kürzer sind als die von SHA-256 oder höher erzeugten.
+
+\subsection{Eine sehr einfache Hashfunktion}
+
+Eine Möglichkeit für einen Hashing-Algorithmus ist, den numerischen Wert Ihrer Daten zu nehmen und den Rest bei der Division durch eine Primzahl zu berechnen.
+So könnten wir zum Beispiel die Hashfunktion definieren als
+\[
+\texttt{hash(data)} = \texttt{Zahl\_aus\_Daten} \mod 11
+\]
+
+Die Frage, wie man die Daten in eine Zahl übersetzt, ist eine sehr gängige in der Informatik.
+Wir können einfach die ASCII-Kodierung jedes Buchstabens verwenden und sie hintereinander schreiben (Das ist nicht, wie es tatsächlich gemacht wird, aber für unsere Zwecke ausreichend).
+So würde 'abc' zur Zahl '979899' werden, und 'Hello' wäre '72101108108111'.
+Nach Anwendung unserer "Hashfunktion" würden wir die folgenden Ergebnisse erhalten:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Eingabe & 'Zahl' & 'Hash' \\
+\hline
+abc & 979899 & 8 \\
+Hello & 72101108108111 & 5 \\
+\hline
+\end{tabular}
+\caption{Einige Beispiel-Hashes}
+\end{table}
+
+
+Offensichtlich ist dies kein sehr guter Hashing-Algorithmus: Spätestens nach 12 Einträgen wird es Kollisionen geben.
+Auf dem Github-Repository \url{https://github.com/olidec/hashing} finden Sie eine Website, die diesen Hash für eine gegebene Eingabe berechnet.
+Die Methode zur Übersetzung von Text in eine Zahl kann einfach kopiert werden, wenn Sie sie anderswo benötigen.
+Die Feinheiten dieses Codes sind im Moment zu viel.
+\subsection{Übungen}
+{\bf Erinnerung: }
+
+Ein Hashing-Algorithmus sollte die folgenden Eigenschaften haben:
+\begin{enumerate}
+\item  relativ schnell zu berechnen (aber nicht zu schnell)
+\item  alle möglichen Ergebnisse sollten gleich wahrscheinlich sein
+\item  unmöglich umzukehren
+\item  sehr schwer, zwei Eingaben mit der gleichen Ausgabe zu finden (diese werden \emph{Kollisionen} genannt)
+\item  kleine Änderungen in der Eingabe sollten zu grossen Änderungen in der Ausgabe führen
+\end{enumerate}
+
+
+\begin{ex}
+Betrachten Sie den folgenden Hashing-Algorithmus:
+\[
+\texttt{hash(Eingabe)} = \texttt{Zahl-aus-Eingabe} \mod 127
+\]
+\begin{enumerate}
+\item Ist dies ein guter Hashing-Algorithmus?
+Welche der obigen Bedingungen sind erfüllt, welche können nicht erfüllt werden?
+\item Ändern Sie den Code auf der Beispiel-Website, um den oben beschriebenen Hash zu berechnen.
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item Dieser Algorithmus ist schnell zu berechnen, jedoch gibt es nur 127 mögliche Hashes, was es sehr einfach macht, Hash-Kollisionen zu erzeugen.
+Ausserdem führen kleine Änderungen nicht automatisch zu stark unterschiedlichen Hashes.
+\item Ändern Sie einfach die $11$ zu $127$
+\end{enumerate}
+}
+
+\begin{ex}
+Wir betrachten den folgenden Hashing-Algorithmus:
+\begin{itemize}
+\item Eingabe in Kleinbuchstaben umwandeln.
+\item Sonderzeichen ignorieren.
+\item Alle Buchstaben der Eingabe alphabetisch ordnen.
+\item Zählen, wie oft jeder Buchstabe vorkommt.
+\item Jeden Buchstaben zusammen mit seiner entsprechenden Häufigkeit aufschreiben.
+\end{itemize}
+Beispiel: "Hello" wird zu \texttt{e1 h1 l2 o1}
+\begin{enumerate}
+\item Ist dies ein guter Hashing-Algorithmus?
+Welche der obigen Bedingungen sind erfüllt, welche können nicht erfüllt werden?
+\item Finden Sie den Hash für die Eingabe "The Answer to Life, the Universe and Everything is 42."
+\item Können Sie {\bf irgendeine} Eingabe finden, die den folgenden Hash hat:
+\[
+\texttt{a1 e1 g1 i1 m3 n2 s1 t2 u2 y1 z1}
+\]
+\item Können Sie eine {\bf sinnvolle} Eingabe finden, die den folgenden Hash hat:
+\[
+\texttt{a1 e1 g1 i1 m3 n2 s1 t2 u2 y1 z1}
+\]
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item Sehr einfach, Kollisionen zu erzeugen, da die Eingabe nicht wirklich 'Sinn ergeben' muss.
+Kleine Änderungen an der Eingabe haben nur kleine Auswirkungen auf den Hash.
+\item \texttt{a2 d1 e8 f1 g1 h3 i3 l1 n4 o1 r3 s2 t4 u1 v2 w1 y1}
+\item \texttt{aegimmmnnsttuuyz}
+\item \texttt{Gymnasium Muttenz}
+\end{enumerate}
+}
+
+\begin{ex}
+Wir betrachten den Hashing-Algorithmus JHA ("Josh's Hash Algorithm" -- erfunden von Joshua Holden vom Rose-Hulman Institute of Technology in Indiana):
+\[
+\texttt{hash(Eingabe)} = (7\ \cdot\ \texttt{\#-Vokale}\  -\  3\ \cdot \ \texttt{\#-Konsonanten}\  +\  \texttt{\#-Leerzeichen}^2) \mod 17
+\]
+Beispiel: Für die Eingabe "Hello my name is Alice" erhalten wir
+\[
+(7\cdot 8 - 3\cdot 10 + 4^2) \mod 17 = 8
+\]
+\begin{enumerate}
+\item Ist dies ein guter Hashing-Algorithmus?
+Welche der obigen Bedingungen sind erfüllt, welche können nicht erfüllt werden?
+\item Was ist der Hash zu "A long time ago in a galaxy far far away"?
+\item (optional) Können Sie eine sinnvolle Eingabe finden, die den Hash-Wert $0$ hat?
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item Man kann Kollisionen erzeugen, indem man mit der Eingabe herumspielt -- besonders wenn sie keinen Sinn ergeben muss. Kleine Änderungen führen nicht unbedingt zu grossen Änderungen im Hash.
+\item $7\cdot 14 -3\cdot 17 + 9^2 \mod 17 = 9$
+\end{enumerate}
+}
+
+
+\newpage
+
+\begin{ex}
+Gegeben ist der folgende Ausschnitt aus einer Hash-Tabelle, kodiert mit SHA1:
+
+\begin{tabular}{rl}
+\texttt{Eingabe} & \texttt{SHA1-Hash} \\
+abc000 & 4368A4330198860D6A8CF4C5E7619193594A52F4 \\
+abc001 & A3325CF1C081DB0CB9992F1716A66A7F44B4F522 \\
+abc002 & C12DD1CBBC17362579A617FDE0E287A1BEA09504 \\
+abc003 & 24C0219A84B5B8585256A7E9D66468C40FDC10FF \\
+abc004 & 9154095B37BA24E2B1F38BDFC815DA25C60F045C \\
+abc005 & 9EEEC88BFC50376C49DA4DC2165C84D228BD5BAD \\
+abc006 & 4EAE2D8134D7ECB0FACA5B0B95BA6F31FB87A215
+\end{tabular}
+
+\begin{enumerate}
+\item Angenommen, jeder Eintrag in der Tabelle besteht aus drei Buchstaben und drei Zahlen in lexikographischer Reihenfolge.
+Was sind die nächsten drei Eingaben in der Tabelle? Was sind die drei Eingaben, die vor dem Ausschnitt kommen?
+\item Können Sie sagen, was der Hash-Wert für abc007 sein wird?
+\item Rudy Ridiculous hat das Passwort "abc" und das Salt $003$. Was ist sein gehashtes Passwort in dieser Datenbank?
+\end{enumerate}
+\end{ex}
+\sol{
+\begin{enumerate}
+\item danach: \texttt{abc007, abc008, abc009} \\
+davor: \texttt{abb999, abb998, abb997}
+\item Mit einem Online-SHA1-Rechner: \texttt{2dff70403a3fc319c09402afac07aed9e322bc9e}
+\item \texttt{24C0219A84B5B8585256A7E9D66468C40FDC10FF}
+\end{enumerate}
+}
+
+\subsection{Lösungen}
+\printcursols
+
+\end{document}

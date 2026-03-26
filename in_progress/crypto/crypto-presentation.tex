@@ -1,0 +1,1193 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% Code listing style
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    breaklines=true
+}
+
+\title{Introduction to Cryptography}
+\subtitle{From Classical Ciphers to Modern Encryption}
+\author{Computer Science Course}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+% =====================================================
+\section{Introduction to Cryptography}
+% =====================================================
+
+\begin{frame}{What is Cryptography?}
+\begin{block}{Definition}
+The science and practice of securing communication through codes and ciphers
+\end{block}
+
+\textbf{Etymology:} Greek \emph{kryptos} (hidden) + \emph{graphein} (to write) \pause
+
+\vspace{0.5cm}
+\textbf{We use cryptography every day:}
+\begin{itemize}
+    \item<2-> Messaging apps (WhatsApp, Signal)
+    \item<3-> Online shopping
+    \item<4-> Banking
+    \item<5-> WiFi connections
+\end{itemize}
+
+% IMAGE SUGGESTION: Icon/diagram showing various everyday uses of cryptography
+\end{frame}
+
+\begin{frame}{Why Do We Need Cryptography?}
+\textbf{Without cryptography, we are vulnerable to:}
+
+\begin{description}
+    \item[Eavesdropping] Unauthorized parties reading your messages
+    \item[Tampering] Attackers modifying messages without detection
+    \item[Impersonation] Someone pretending to be you
+    \item[Data theft] Personal information being stolen\pause
+\end{description}
+
+
+\vspace{0.5cm}
+\textbf{Cryptography provides:}
+\begin{itemize}
+    \item \textbf{Confidentiality:} Only authorized parties can read
+    \item \textbf{Integrity:} Data cannot be modified undetected
+    \item \textbf{Authentication:} Verify sender identity
+    \item \textbf{Non-repudiation:} Sender cannot deny sending
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing attacker scenarios and cryptographic protections
+\end{frame}
+
+\begin{frame}{Cryptography's Limitations}
+
+
+% IMAGE SUGGESTION: XKCD comic about voting software/security
+
+\textbf{Even strong encryption cannot protect against:}
+\begin{itemize}
+    \item Social engineering attacks
+    \item Malware on your device
+    \item Poor password choices
+    \item Insider threats
+    \item Physical access to devices
+    \item Implementation bugs
+\end{itemize}\pause
+
+\begin{alertblock}{Remember}
+``Cryptography is like a really good lock on your door. It won't help if the walls are made of paper.''
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Basic Terminology}
+\begin{description}
+    \item[Plaintext]<1-> Original, readable message
+    \item[Ciphertext]<2-> Encrypted, unreadable message
+    \item[Cipher]<3-> Algorithm for encryption/decryption
+    \item[Key]<4-> Secret information used with cipher
+    \item[Encryption]<5-> Converting plaintext to ciphertext
+    \item[Decryption]<5-> Converting ciphertext to plaintext
+    \item[Keyspace]<6-> Set of all possible keys
+\end{description}
+
+% IMAGE SUGGESTION: Simple diagram showing plaintext → encryption → ciphertext → decryption → plaintext
+\end{frame}
+
+% \begin{frame}{Meet Alice, Bob, and Eve}
+% \textbf{Standard names in cryptography:}
+
+% \begin{description}
+%     \item[Alice] First party sending a message
+%     \item[Bob] Second party receiving a message
+%     \item[Eve] Eavesdropper trying to intercept
+%     \item[Mallory] Malicious attacker modifying messages
+%     \item[Trent] Trusted third party
+% \end{description}
+
+% % IMAGE SUGGESTION: Cartoon illustration of Alice, Bob, Eve showing communication flow
+% \end{frame}
+
+% =====================================================
+\section{Classical Cryptography}
+% =====================================================
+
+\begin{frame}{Historical Context}
+\textbf{Cryptography through history:}
+
+\begin{itemize}
+    \item \textbf{Ancient Egypt (1900 BCE):} Hieroglyphic substitutions
+    \item \textbf{Spartans (5th century BCE):} Scytale transposition cipher
+    \item \textbf{Julius Caesar (100-44 BCE):} Caesar cipher for military
+    \item \textbf{Medieval Period:} Al-Kindi's frequency analysis (850 CE)
+    \item \textbf{WWII:} Enigma machine and Bletchley Park
+\end{itemize}
+
+% IMAGE SUGGESTION: Timeline with historical cryptography examples/images
+\end{frame}
+
+\begin{frame}{Steganography vs. Cryptography}
+\begin{block}{Steganography}
+Hiding the \emph{existence} of a message
+\end{block}
+
+\textbf{Examples:}
+\begin{itemize}
+    \item Invisible ink
+    \item Microdots
+    \item Acrostics
+    \item Data hidden in images/audio
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\begin{exampleblock}{Try This}
+\texttt{Since everyone can read, encoding text in neutral\\
+sentences is doubtfully effective.}
+\end{exampleblock}\pause
+
+Hidden message: \textbf{SECRET INSIDE} (first letters)
+
+% IMAGE SUGGESTION: Example of steganography - image with hidden data
+\end{frame}
+
+\begin{frame}[fragile]{Caesar Cipher}
+\textbf{One of the oldest ciphers:}
+
+Shift each letter by a fixed number of positions
+
+\vspace{0.3cm}
+\textbf{Example with shift k=3:}
+\begin{verbatim}
+Plaintext:  THE QUICK BROWN FOX
+Ciphertext: WKH TXLFN EURZQ IRA
+\end{verbatim}
+
+\vspace{0.3cm}
+\textbf{Mathematical notation:}
+\begin{align*}
+E(x) &= (x + k) \mod 26 \\
+D(x) &= (x - k) \mod 26
+\end{align*}
+
+% IMAGE SUGGESTION: Caesar cipher wheel diagram
+\end{frame}
+
+\begin{frame}{Breaking the Caesar Cipher}
+\textbf{Why Caesar cipher is weak:}
+
+\begin{itemize}
+    \item \textbf{Small keyspace:} Only 25 possible keys
+    \item \textbf{Brute force trivial:} Try all shifts
+    \item \textbf{Frequency analysis works:} Most common letter likely = E
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Try It Yourself}
+Use \texttt{cryptii.com} to experiment with Caesar ciphers
+\end{exampleblock}
+
+% IMAGE SUGGESTION: Frequency analysis chart showing letter distribution
+\end{frame}
+
+\begin{frame}[fragile]{Monoalphabetic Substitution}
+\textbf{Any permutation of alphabet:}
+
+\begin{verbatim}
+Plain:  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Cipher: QWERTYUIOPASDFGHJKLZXCVBNM
+\end{verbatim}
+
+\textbf{Keyspace:} $26! \approx 4 \times 10^{26}$ (huge!)
+
+\vspace{0.5cm}
+\textbf{But still vulnerable to frequency analysis:}
+\begin{itemize}
+    \item Most common letters: E, T, A, O, I, N, S, H, R
+    \item Common digrams: TH, HE, IN, ER, AN
+    \item Common trigrams: THE, AND, ING
+\end{itemize}
+
+% IMAGE SUGGESTION: Frequency analysis bar chart for English text
+\end{frame}
+
+\begin{frame}[fragile]{Transposition Ciphers}
+\textbf{Rearrange letters rather than replacing them}
+
+\vspace{0.3cm}
+\textbf{Rail Fence Cipher (3 rails):}
+
+\begin{verbatim}
+Message: WE ARE DISCOVERED FLEE AT ONCE
+
+W . . . E . . . C . . . R . . . L . . . T . . . E
+. E . R . D . S . O . E . E . F . E . A . O . C .
+. . A . . . I . . . V . . . D . . . E . . . N . .
+
+Ciphertext: WECRL TEERD SOEEF EAOCA IVDEN
+\end{verbatim}
+
+% IMAGE SUGGESTION: Visual diagram of rail fence zigzag pattern
+\end{frame}
+
+\begin{frame}[fragile]{Vigenère Cipher}
+\textbf{Polyalphabetic substitution:} Different shifts at different positions
+
+\vspace{0.3cm}
+\textbf{Example with keyword LEMON:}
+\begin{verbatim}
+Plaintext:  A T T A C K A T D A W N
+Keyword:    L E M O N L E M O N L E
+Ciphertext: L X F O P V E F R N H R
+\end{verbatim}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item Called ``le chiffre indéchiffrable'' (the indecipherable cipher)
+    \item Same plaintext letter → different ciphertext letters
+    \item Defeats simple frequency analysis
+\end{itemize}
+
+% IMAGE SUGGESTION: Vigenère square (tabula recta)
+\end{frame}
+
+\begin{frame}{Breaking Vigenère}
+\textbf{Despite being called ``indecipherable,'' it can be broken:}
+
+\vspace{0.3cm}
+\textbf{Method:}
+\begin{enumerate}
+    \item Find keyword length (Kasiski examination)
+    \begin{itemize}
+        \item Look for repeated sequences
+        \item Distances between repetitions share factors with keyword length
+    \end{itemize}
+    \item Split ciphertext into groups (every $n$-th letter)
+    \item Each group encrypted with same Caesar shift
+    \item Use frequency analysis on each group
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{One-Time Pad: Perfect Secrecy}
+\textbf{The only provably unbreakable cipher!}
+
+\vspace{0.3cm}
+\textbf{Requirements:}
+\begin{itemize}
+    \item Key as long as message
+    \item Truly random key
+    \item Never reuse key (even partially)
+    \item Destroy key after use
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\begin{exampleblock}{Example}
+\begin{verbatim}
+Plaintext:  H E L L O
+Key:        X M C K L (random, same length)
+Ciphertext: E Q N V Z
+\end{verbatim}
+\end{exampleblock}
+
+\textbf{Why unbreakable:} Any plaintext equally likely without key!
+\end{frame}
+
+\begin{frame}{Why We Don't Use One-Time Pad}
+\textbf{Practical challenges:}
+
+\begin{enumerate}
+    \item \textbf{Key length:} Must equal message length (1 GB video = 1 GB key)
+    \item \textbf{Key distribution:} How to securely share huge random keys?
+    \item \textbf{True randomness:} Hard to generate
+    \item \textbf{Key management:} Never reuse, must destroy
+    \item \textbf{Synchronization:} Both parties must use same key portion
+\end{enumerate}
+\pause
+\vspace{0.3cm}
+\begin{alertblock}{Historical Failure}
+Soviet Union reused one-time pads → NSA's VENONA project decrypted thousands of messages
+\end{alertblock}
+\end{frame}
+
+% =====================================================
+\section{Modern Cryptography}
+% =====================================================
+
+\begin{frame}{The Cryptographic Revolution}
+\begin{block}{Kerckhoffs's Principle (1883)}
+``A cryptosystem should be secure even if everything about the system, except the key, is public knowledge.''
+\end{block}
+
+\vspace{0.3cm}
+\textbf{Modern approach benefits:}
+\begin{itemize}
+    \item Algorithms can be published and tested by experts
+    \item Security relies only on secret keys
+    \item Standard algorithms used worldwide
+    \item If key compromised, just change key (not entire system)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Classical vs. Modern Cryptography}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Aspect} & \textbf{Classical} & \textbf{Modern} \\
+\hline
+Security basis & Secret algorithm & Secret key \\
+Key size & Small & Large (128-4096 bits) \\
+Foundation & Simple math & Complex mathematics \\
+Breakability & Pattern analysis & Computational hardness \\
+Speed & Fast (by hand) & Requires computers \\
+Standardization & Difficult & Widespread \\
+\hline
+\end{tabular}
+\end{center}
+
+% IMAGE SUGGESTION: Visual comparison diagram
+\end{frame}
+
+\begin{frame}{Computational Security}
+\textbf{Modern cryptography relies on computational hardness}
+
+\vspace{0.3cm}
+\textbf{Example: 128-bit key}
+\begin{itemize}
+    \item $2^{128} \approx 3.4 \times 10^{38}$ possible values
+    \item Testing 1 trillion keys/second
+    \item Would take $\approx 10^{21}$ years
+    \item \emph{Far longer than age of universe!}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key insight:}
+Breaking is theoretically possible but practically infeasible
+\end{frame}
+
+\begin{frame}{Three Pillars of Modern Cryptography}
+\begin{enumerate}
+    \item<1-> \textbf{Symmetric Encryption}
+    \begin{itemize}
+        \item Same key for encryption/decryption
+        \item Very fast
+        \item Examples: AES, ChaCha20
+    \end{itemize}
+
+    \item<2-> \textbf{Asymmetric Encryption}
+    \begin{itemize}
+        \item Different keys (public/private)
+        \item Solves key distribution
+        \item Examples: RSA, ECC
+    \end{itemize}
+
+    \item<3-> \textbf{Cryptographic Hash Functions}
+    \begin{itemize}
+        \item One-way functions
+        \item Fixed output size
+        \item Examples: SHA-256, SHA-3
+    \end{itemize}
+\end{enumerate}
+
+% IMAGE SUGGESTION: Diagram showing relationship between the three pillars
+\end{frame}
+
+% =====================================================
+\section{Symmetric Encryption}
+% =====================================================
+
+\begin{frame}{Symmetric Encryption Overview}
+\textbf{Same key for both operations}\pause
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Very fast
+    \item Strong security with short keys (256 bits)
+    \item Low computational requirements
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Key distribution problem
+    \item Key management ($n$ people = $\frac{n(n-1)}{2}$ keys)
+    \item Key compromise affects all messages
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing Alice and Bob with shared key
+\end{frame}
+
+\begin{frame}{Block Ciphers vs. Stream Ciphers}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Block Ciphers}
+\begin{itemize}
+    \item Fixed-size blocks (128 bits)
+    \item Examples: AES, DES
+    \item Need padding
+    \item Require mode of operation
+\end{itemize}
+\pause
+
+\column{0.5\textwidth}
+\textbf{Stream Ciphers}
+\begin{itemize}
+    \item Bit-by-bit or byte-by-byte
+    \item Examples: ChaCha20, RC4
+    \item No padding needed
+    \item Good for streaming data
+\end{itemize}
+\end{columns}
+
+\vspace{0.5cm}
+% IMAGE SUGGESTION: Visual comparison of block vs stream cipher operation
+\end{frame}
+
+\begin{frame}{Block Cipher Modes of Operation}
+\textbf{Problem:} Identical plaintext blocks → identical ciphertext blocks
+
+\vspace{0.3cm}
+\textbf{Common modes:}
+\begin{description}
+    \item[ECB] Electronic Codebook - \alert{NOT SECURE!}
+    \item[CBC] Cipher Block Chaining - each block XORed with previous
+    \item[CTR] Counter Mode - turns block cipher into stream cipher
+    \item[GCM] Galois/Counter Mode - encryption + authentication
+\end{description}
+
+% IMAGE SUGGESTION: ECB Penguin example showing why ECB is insecure
+\end{frame}
+
+\begin{frame}{AES: Advanced Encryption Standard}
+\textbf{Most widely used symmetric encryption (adopted 2001)}
+
+\vspace{0.3cm}
+\textbf{Specifications:}
+\begin{itemize}
+    \item Block size: 128 bits
+    \item Key size: 128, 192, or 256 bits
+    \item Rounds: 10, 12, or 14 (depending on key size)
+    \item Based on substitution-permutation network
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Used everywhere:}
+\begin{itemize}
+    \item WiFi (WPA2/WPA3)
+    \item VPNs and TLS/SSL
+    \item File encryption
+    \item Messaging apps
+    \item Government TOP SECRET (with 256-bit keys)
+\end{itemize}
+
+% IMAGE SUGGESTION: AES encryption round diagram
+\end{frame}
+
+\begin{frame}{AES Security}
+\textbf{AES-256 has $2^{256}$ possible keys}
+
+\vspace{0.3cm}
+Testing 1 trillion trillion keys per second:
+\[
+\frac{2^{256}}{10^{24}} \approx 3.7 \times 10^{51} \text{ seconds} \approx 10^{44} \text{ years}
+\]
+
+\vspace{0.3cm}
+\begin{alertblock}{Key Insight}
+Doubling key length doesn't double security - it \emph{squares} it!
+
+$2^{256} = (2^{128})^2$ means 256-bit is $(2^{128})$ times more secure than 128-bit
+\end{alertblock}
+\end{frame}
+
+% =====================================================
+\section{Asymmetric Encryption}
+% =====================================================
+
+\begin{frame}{The Key Distribution Problem}
+\textbf{Symmetric encryption challenge:}
+
+\begin{itemize}
+    \item Alice and Bob need shared secret key
+    \item Never met in person
+    \item Any key sent over internet could be intercepted
+    \item Can't encrypt the key (need another key - infinite regress!)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{This problem plagued cryptography for centuries...}
+
+% IMAGE SUGGESTION: Diagram showing Alice, Bob, and Eve with intercepted key
+\end{frame}
+
+\begin{frame}{The Revolutionary Idea}
+\textbf{Public-Key Cryptography (Diffie-Hellman, 1976)}
+
+\vspace{0.3cm}
+\textbf{Core concept:}
+\begin{itemize}
+    \item Two mathematically related keys: \textbf{public} and \textbf{private}
+    \item Public key shared freely
+    \item Private key kept secret
+    \item Encrypted with public → decrypted with private
+    \item Computationally infeasible to derive private from public
+\end{itemize}
+
+\vspace{0.3cm}
+\begin{block}{Mailbox Analogy}
+Public key = mailbox (anyone can drop letters)\\
+Private key = mailbox key (only you can open)
+\end{block}
+
+% IMAGE SUGGESTION: Mailbox analogy illustration
+\end{frame}
+
+\begin{frame}{How It Solves Key Distribution}
+\begin{enumerate}
+    \item Bob generates public-private key pair
+    \item Bob publishes public key
+    \item Alice looks up Bob's public key
+    \item Alice encrypts message with Bob's public key
+    \item Alice sends ciphertext
+    \item Bob decrypts with his private key
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{No secret information exchanged beforehand!}
+
+% IMAGE SUGGESTION: Step-by-step diagram of public key encryption process
+\end{frame}
+
+\begin{frame}{Symmetric vs. Asymmetric}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Property} & \textbf{Symmetric} & \textbf{Asymmetric} \\
+\hline
+Keys & Same key & Public + Private \\
+Key distribution & Difficult & Easy \\
+Speed & Very fast & Much slower \\
+Key size & 128-256 bits & 2048-4096 bits \\
+Use & Bulk encryption & Key exchange \\
+Examples & AES & RSA, ECC \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{In practice:} Combine both for best results!
+\end{frame}
+
+\begin{frame}{RSA Encryption}
+\textbf{RSA (Rivest-Shamir-Adleman, 1977)}
+
+Based on difficulty of factoring large numbers
+
+\vspace{0.3cm}
+\textbf{Key generation:}
+\begin{enumerate}
+    \item Choose two large primes $p$ and $q$
+    \item Compute $n = p \times q$ (public)
+    \item Compute $\phi(n) = (p-1)(q-1)$
+    \item Choose public exponent $e$ (commonly 65537)
+    \item Compute private exponent $d$
+    \item Public key: $(n, e)$, Private key: $(n, d)$
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Encryption:} $\text{Ciphertext} = \text{Message}^e \mod n$
+
+\textbf{Decryption:} $\text{Message} = \text{Ciphertext}^d \mod n$
+
+% IMAGE SUGGESTION: RSA key generation flowchart
+\end{frame}
+
+\begin{frame}{RSA in Practice}
+\textbf{Key sizes:}
+\begin{itemize}
+    \item 1024 bits: \alert{Deprecated} (factored by nation-states)
+    \item 2048 bits: Current minimum
+    \item 3072 bits: High security
+    \item 4096 bits: Very high security (slower)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Common uses:}
+\begin{itemize}
+    \item TLS/SSL certificates (HTTPS)
+    \item Email encryption (PGP/GPG)
+    \item SSH keys
+    \item Digital signatures
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Note:} Too slow for large data - use hybrid encryption!
+\end{frame}
+
+\begin{frame}{Elliptic Curve Cryptography (ECC)}
+\textbf{Same security as RSA with much smaller keys}
+
+\vspace{0.3cm}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{RSA Key Size} & \textbf{ECC Key Size} \\
+\hline
+1024 bits & 160 bits \\
+2048 bits & 224 bits \\
+3072 bits & 256 bits \\
+15360 bits & 512 bits \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Smaller keys, certificates, signatures
+    \item Faster operations
+    \item Less bandwidth and storage
+\end{itemize}
+
+% IMAGE SUGGESTION: Elliptic curve graph
+\end{frame}
+
+\begin{frame}{ECC Applications}
+\textbf{Where ECC is used:}
+\begin{itemize}
+    \item Bitcoin and cryptocurrency wallets
+    \item Modern TLS/SSL certificates
+    \item Signal, WhatsApp (Curve25519)
+    \item Apple iMessage
+    \item SSH keys
+    \item IoT devices (limited computing power)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Popular curves:}
+\begin{itemize}
+    \item P-256, P-384, P-521 (NIST standard)
+    \item Curve25519 (modern, secure)
+    \item Ed25519 (optimized for signatures)
+\end{itemize}
+\end{frame}
+
+% =====================================================
+\section{Cryptographic Hash Functions}
+% =====================================================
+
+\begin{frame}[fragile]{What is a Hash Function?}
+\textbf{Takes any input → produces fixed-size output}
+
+\vspace{0.3cm}
+\begin{exampleblock}{Example: SHA-256}
+\texttt{Input: "Hello, World!"}\\
+\texttt{Hash: dffd6021bb2bd5b0af676290809ec3a5...}
+
+\vspace{0.2cm}
+\texttt{Input: "Hello, World?" (note the ?)}\\
+\texttt{Hash: a0e0d1d23f58c99b8a73fdecd1ba0d8f...}
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{Notice:}
+\begin{itemize}
+    \item Same length output (256 bits)
+    \item Tiny change → completely different hash
+    \item Looks random
+\end{itemize}
+
+% IMAGE SUGGESTION: Visual diagram of hash function with avalanche effect
+\end{frame}
+
+\begin{frame}{Properties of Cryptographic Hashes}
+\begin{enumerate}
+    \item \textbf{Deterministic:} Same input → same hash
+    \item \textbf{Fast to compute}
+    \item \textbf{Pre-image resistance:} Hard to find input from hash
+    \item \textbf{Second pre-image resistance:} Hard to find different input with same hash
+    \item \textbf{Collision resistance:} Hard to find any two inputs with same hash
+    \item \textbf{Avalanche effect:} Small change → drastically different hash
+    \item \textbf{Fixed output size}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Common Hash Functions}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Output Size} & \textbf{Status} \\
+\hline
+MD5 & 128 bits & \alert{Broken} \\
+SHA-1 & 160 bits & \alert{Deprecated} \\
+SHA-256 & 256 bits & \textcolor{green}{Secure} \\
+SHA-512 & 512 bits & \textcolor{green}{Secure} \\
+SHA-3 & Various & \textcolor{green}{Secure} \\
+BLAKE2/3 & Various & \textcolor{green}{Secure} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\begin{alertblock}{Important}
+Never use MD5 or SHA-1 for security purposes!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Hash Function Applications}
+\textbf{1. Data Integrity / Checksums}
+\begin{itemize}
+    \item Verify file downloads
+    \item Detect corruption or tampering
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{2. Password Storage}
+\begin{itemize}
+    \item Never store plaintext passwords!
+    \item Store hash of password
+    \item Add salt to prevent rainbow tables
+    \item Use specialized functions: Argon2, bcrypt
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{3. Digital Signatures}
+\begin{itemize}
+    \item Hash document, then sign hash
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing password hashing with salt
+\end{frame}
+
+\begin{frame}[fragile]{Password Hashing with Salt}
+\textbf{Salt = random string added before hashing}
+
+\vspace{0.3cm}
+\begin{exampleblock}{Example}
+User 1: "password123" + Salt "a8f9e2" → Hash 1\\
+User 2: "password123" + Salt "x3k8m1" → Hash 2
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{Stored in database:}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{User} & \textbf{Salt} & \textbf{Hash} \\
+\hline
+alice & a8f9e2 & 3f7a8c9d... \\
+bob & x3k8m1 & 9e2b5f1c... \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Prevents:}
+\begin{itemize}
+    \item Rainbow table attacks
+    \item Identifying users with same password
+    \item Parallel attacks
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Blockchain and Cryptocurrencies}
+\textbf{Hash functions are fundamental to blockchain:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Block hashing:} Each block contains hash of previous (creates chain)
+    \item \textbf{Proof of work:} Find nonce where block hash starts with zeros
+    \item \textbf{Addresses:} Bitcoin addresses are hashes of public keys
+    \item \textbf{Merkle trees:} Efficiently verify transactions
+\end{itemize}
+
+% IMAGE SUGGESTION: Blockchain diagram showing hash links between blocks
+\end{frame}
+
+% =====================================================
+\section{Digital Signatures}
+% =====================================================
+
+\begin{frame}{Digital Signatures}
+\textbf{Electronic equivalent of handwritten signature}
+
+\vspace{0.3cm}
+\textbf{Provides:}
+\begin{itemize}
+    \item \textbf{Authentication:} Proves who sent message
+    \item \textbf{Integrity:} Proves message not modified
+    \item \textbf{Non-repudiation:} Sender cannot deny sending
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How it works:}
+\begin{enumerate}
+    \item Hash the message
+    \item Encrypt hash with \textbf{private key} (signature)
+    \item Send message + signature
+    \item Receiver decrypts signature with \textbf{public key}
+    \item Compare with hash of received message
+\end{enumerate}
+
+% IMAGE SUGGESTION: Digital signature process diagram
+\end{frame}
+
+\begin{frame}{Encryption vs. Signing}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Property} & \textbf{Encryption} & \textbf{Signing} \\
+\hline
+Lock with & Public key & Private key \\
+Unlock with & Private key & Public key \\
+Purpose & Confidentiality & Authentication \\
+Who can do it? & Anyone & Only key owner \\
+Who can verify? & Only key owner & Anyone \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Remember:}
+\begin{itemize}
+    \item \textbf{Encryption:} Public lock, private unlock (secrecy)
+    \item \textbf{Signing:} Private lock, public unlock (authenticity)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Public Key Infrastructure (PKI)}
+\textbf{Problem:} How do you know a public key belongs to who it claims?
+
+\vspace{0.3cm}
+\textbf{Solution: Digital Certificates}
+
+\vspace{0.3cm}
+\textbf{Certificate contains:}
+\begin{itemize}
+    \item Public key
+    \item Owner's identity
+    \item Validity period
+    \item Digital signature from Certificate Authority (CA)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trust chain:}
+Website → Intermediate CA → Root CA (pre-installed in browser)
+
+% IMAGE SUGGESTION: PKI certificate chain diagram
+\end{frame}
+
+\begin{frame}{How HTTPS Works}
+\textbf{When you visit \texttt{https://www.example.com}:}
+
+\begin{enumerate}
+    \item Server sends certificate (with public key)
+    \item Browser verifies:
+    \begin{itemize}
+        \item Certificate signed by trusted CA
+        \item Not expired
+        \item Matches domain name
+        \item Not revoked
+    \end{itemize}
+    \item Browser and server perform key exchange
+    \item Establish symmetric encryption key
+    \item All data encrypted with session key
+    \item Green padlock appears!
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Provides:} Confidentiality + Authentication + Integrity
+
+% IMAGE SUGGESTION: HTTPS handshake diagram
+\end{frame}
+
+% =====================================================
+\section{Modern Applications}
+% =====================================================
+
+\begin{frame}{End-to-End Encryption (E2EE)}
+\textbf{Only sender and recipient can read messages}
+
+Not even the service provider!
+
+\vspace{0.3cm}
+\textbf{Examples:}
+\begin{itemize}
+    \item Signal
+    \item WhatsApp
+    \item iMessage
+    \item ProtonMail
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Contrast with:}
+\begin{itemize}
+    \item Regular email: Provider can read
+    \item SMS: Carrier can read
+    \item Social media DMs: Platform can read
+\end{itemize}
+
+% IMAGE SUGGESTION: E2EE vs non-E2EE comparison diagram
+\end{frame}
+
+\begin{frame}{Password Managers}
+\textbf{Securely store all passwords encrypted}
+
+\vspace{0.3cm}
+\textbf{How they work:}
+\begin{itemize}
+    \item Master password derives encryption key
+    \item All passwords encrypted with AES-256
+    \item Only you know master password
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why use one:}
+\begin{itemize}
+    \item Unique strong password for every site
+    \item Protection against phishing
+    \item Protection against keyloggers
+    \item No need to remember passwords
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Examples:} 1Password, Bitwarden, KeePass
+\end{frame}
+
+\begin{frame}{VPNs (Virtual Private Networks)}
+\textbf{Create encrypted tunnels for internet traffic}
+
+\vspace{0.3cm}
+\textbf{What VPNs do:}
+\begin{itemize}
+    \item Encrypt traffic between you and VPN server
+    \item Hide your IP address
+    \item Bypass geographic restrictions
+    \item Protect on public WiFi
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{What VPNs don't do:}
+\begin{itemize}
+    \item Make you completely anonymous
+    \item Protect against malware
+    \item Encrypt data after VPN server
+\end{itemize}
+
+% IMAGE SUGGESTION: VPN tunnel diagram
+\end{frame}
+
+% =====================================================
+\section{Threats and Future}
+% =====================================================
+
+\begin{frame}{Common Attacks}
+\begin{description}
+    \item[Brute Force] Try every possible key
+    \item[Dictionary Attack] Try common passwords
+    \item[Rainbow Tables] Precomputed password hashes
+    \item[Man-in-the-Middle] Intercept communication
+    \item[Side-Channel] Extract secrets via timing, power
+    \item[Implementation Bugs] Heartbleed, POODLE, etc.
+\end{description}
+
+\vspace{0.3cm}
+\textbf{Defense:} Large keys, salting, authentication, constant-time algorithms, updates
+\end{frame}
+
+\begin{frame}{The Quantum Computing Threat}
+\textbf{Quantum computers could break current public-key crypto}
+
+\vspace{0.3cm}
+\textbf{Shor's Algorithm (1994):}
+\begin{itemize}
+    \item Can factor large numbers efficiently
+    \item Breaks: RSA, Diffie-Hellman, ECC
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Symmetric encryption less affected:}
+\begin{itemize}
+    \item Grover's algorithm only quadratic speedup
+    \item Double key size restores security
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Timeline:} 10-30+ years before threat is real
+
+\textbf{Solution:} Post-Quantum Cryptography (PQC)
+
+% IMAGE SUGGESTION: Timeline showing quantum computing development
+\end{frame}
+
+\begin{frame}{Post-Quantum Cryptography}
+\textbf{NIST standardized quantum-resistant algorithms:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{CRYSTALS-Kyber} (encryption)
+    \item \textbf{CRYSTALS-Dilithium} (signatures)
+    \item \textbf{FALCON} (signatures)
+    \item \textbf{SPHINCS+} (signatures)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Based on problems quantum computers can't solve:}
+\begin{itemize}
+    \item Lattice problems
+    \item Hash-based schemes
+    \item Multivariate polynomials
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Social Engineering}
+\begin{alertblock}{Remember}
+``The weakest link is often the human, not the cryptography.''
+\end{alertblock}
+
+\vspace{0.3cm}
+\textbf{Common tactics:}
+\begin{itemize}
+    \item Phishing emails
+    \item Pretexting (impersonation)
+    \item Baiting (infected USB drives)
+    \item Tailgating (physical access)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Defense:}
+\begin{itemize}
+    \item Security awareness training
+    \item Two-factor authentication
+    \item Principle of least privilege
+\end{itemize}
+
+% IMAGE SUGGESTION: Phishing example or social engineering attack diagram
+\end{frame}
+
+% =====================================================
+\section{Best Practices}
+% =====================================================
+
+\begin{frame}{Best Practices for Users}
+\begin{enumerate}
+    \item Use strong, unique passwords (12+ characters)
+    \item Use a password manager
+    \item Enable two-factor authentication (2FA)
+    \item Keep software updated
+    \item Use HTTPS (look for padlock)
+    \item Be wary of phishing
+    \item Use end-to-end encrypted messaging
+    \item Encrypt sensitive data (full disk encryption)
+    \item Use VPN on public WiFi
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Best Practices for Developers}
+\begin{enumerate}
+    \item \textbf{Don't roll your own crypto!}
+    \item Use established libraries (NaCl, OpenSSL)
+    \item Use modern algorithms (AES-256, SHA-256, Argon2)
+    \item Never store plaintext passwords
+    \item Use secure random number generators
+    \item Implement rate limiting
+    \item Use TLS 1.3 with strong ciphers
+    \item Keep dependencies updated
+    \item Perform security audits
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Common Mistakes to Avoid}
+\begin{itemize}
+    \item Using deprecated algorithms (MD5, SHA-1, DES)
+    \item Storing passwords in plaintext
+    \item Reusing keys, IVs, or nonces
+    \item Using ECB mode
+    \item Implementing your own crypto
+    \item Trusting user input
+    \item Ignoring timing attacks
+    \item Hardcoding keys in source code
+    \item Using weak random generators
+\end{itemize}
+\end{frame}
+
+% =====================================================
+\section{Conclusion}
+% =====================================================
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+    \item \textbf{Cryptography is essential} for our digital lives
+    \item \textbf{Security is hard} - small mistakes = big consequences
+    \item \textbf{Use established tools} - don't implement your own
+    \item \textbf{Defense in depth} - crypto is necessary but not sufficient
+    \item \textbf{Stay informed} - threats evolve constantly
+    \item \textbf{Human element matters} - strongest crypto can't stop phishing
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{The Journey}
+\textbf{From ancient ciphers to modern systems:}
+
+\begin{itemize}
+    \item Classical: Caesar, Vigenère, One-Time Pad
+    \item Symmetric: AES, ChaCha20
+    \item Asymmetric: RSA, ECC, Diffie-Hellman
+    \item Hash Functions: SHA-256, Argon2
+    \item Applications: HTTPS, E2EE, blockchain
+    \item Future: Post-quantum cryptography
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Cryptography continues to evolve to meet new challenges!}
+\end{frame}
+
+\begin{frame}{Further Resources}
+\textbf{Books:}
+\begin{itemize}
+    \item \emph{The Code Book} by Simon Singh
+    \item \emph{Applied Cryptography} by Bruce Schneier
+    \item \emph{Cryptography Engineering} by Ferguson et al.
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Online:}
+\begin{itemize}
+    \item cryptohack.org - Learn through challenges
+    \item cryptopals.com - Practical exercises
+    \item cryptii.com - Experiment with ciphers
+    \item Coursera: Stanford Cryptography course
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge Thank You!
+
+\vspace{1cm}
+\large Questions?
+
+\vspace{1cm}
+\normalsize
+\textit{``With great power comes great responsibility.''}
+
+\vspace{0.5cm}
+Use cryptography to protect privacy and security, not to cause harm.
+\end{center}
+\end{frame}
+
+\end{document}

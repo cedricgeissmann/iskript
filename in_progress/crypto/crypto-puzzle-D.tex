@@ -19,7 +19,7 @@
 \renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
 \pagestyle{fancy} %eigener Seitenstil
 \fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
-\fancyhead[C]{Thema} %Kopfzeile mitte
+\fancyhead[C]{Kryptologie} %Kopfzeile mitte
 %\fancyhead[R]{\includegraphics[width=0.2cm]{x.png}}
 \fancyfoot[C]{\thepage}
 
@@ -45,7 +45,7 @@ Die sieben Verdächtigen sind:
         \item Herr Halai 
         \item Fräulein Kaur
         \item Herr Scotland 
-        \item Herr Sheppard 
+        \item Herr~Sheppard 
         \item Herr Smith
     \end{itemize}
 \end{multicols}
@@ -79,56 +79,88 @@ verwenden, um die folgende Nachricht zu entschlüsseln.
 \section*{Code 2: Polybius-Quadrat}
 \centfig{0.5}{polybius}
 
+% % English
+% \begin{verbatim}
+%     (5,2)(3,4)(5,5) (3,3)(1,1)(3,2)(4,5)(5,5)(3,2)(5,5)(3,2) 
+%     (4,5)(5,3)(5,5)(4,2) (4,3)(5,3)(5,2) (3,4)(1,5)(2,1)(5,5) 
+%     (1,5)(4,3) (5,5) (4,4)(4,3) (5,2)(3,4)(5,5)(4,4)(3,2) 
+%     (4,3)(1,5)(3,3)(5,5)
+% \end{verbatim}
+% Deutsch
 \begin{verbatim}
-    (5,2)(3,4)(5,5) (3,3)(1,1)(3,2)(4,5)(5,5)(3,2)(5,5)(3,2) 
-    (4,5)(5,3)(5,5)(4,2) (4,3)(5,3)(5,2) (3,4)(1,5)(2,1)(5,5) 
-    (1,5)(4,3) (5,5) (4,4)(4,3) (5,2)(3,4)(5,5)(4,4)(3,2) 
-    (4,3)(1,5)(3,3)(5,5)
+(5,4) (5,5) (2,3) (5,2) (1,1) (5,3) (4,3) (2,4) (2,5) (5,1) 
+(5,2) (5,5) (5,5) (3,1) (3,5) (3,3) (3,3) (2,5) (4,4) (3,3) 
+(3,4) (5,1) (3,3) (5,5) (3,4) (5,4) (5,5) (2,4) (3,3) (3,5) 
+(5,5) (2,3) (5,4) (5,5) (2,3) (2,4) (3,4) (4,4) (5,3) (4,3) 
+(2,5) (1,2) (3,5) (2,3)
 \end{verbatim}
 
 \section*{Code 3}
+% English
+% \begin{verbatim}
+%     20,8,5  13,21,18,4,5,18  23,1,19  14,15,20  9,14 1 
+%     16,18,9,13,5  14,21,13,2,5,18,5,4  18,15,15,13
+% \end{verbatim}
+% Deutsch
 \begin{verbatim}
-    20,8,5  13,21,18,4,5,18  23,1,19  14,15,20  9,14 1 
-    16,18,9,13,5  14,21,13,2,5,18,5,4  18,15,15,13
+4, 5, 18    13, 15, 18, 4    7, 5, 19, 3, 8, 1, 8    14, 9, 3, 8, 20
+9, 14    5, 9, 14, 5, 13    26, 9, 13, 13, 5, 18    13, 9, 20
+5, 9, 14, 5, 18    16, 18, 9, 13, 26, 1, 8, 12
 \end{verbatim}
 
 \section*{Code 4}
 Ihr einziger Hinweis für diesen ist, dass er per Mobiltelefon empfangen wurde.
 
 \centfig{0.4}{mobile}
-
+% English
+% \begin{verbatim}
+%     843068733709327660363706680428302074277063825072780
+% \end{verbatim}
+% Deutsch
 \begin{verbatim}
-    843068733709327660363706680428302074277063825072780
+    343066739233304280534607242733706382558345
 \end{verbatim}
 
 \section*{Code 5: Atbash}
 Hinweis: Jeder Buchstabe stellt einen anderen Buchstaben in einem einfachen System dar.
-
+% English
+% \begin{verbatim}
+%     GSV ILLN MFNYVI RH Z NFOGRKOV LU ULFI
+% \end{verbatim}
+% Deutsch
 \begin{verbatim}
-    GSV ILLN MFNYVI RH Z NFOGRKOV LU ULFI
+    WRV ARNNVIMFNNVI RHG VRM ERVOUZXSVH ELM ERVI
 \end{verbatim}
 
 \section*{Code 6: Caesar-Verschlüsselung}
 
 \begin{verbatim}
-    KYV DLIUVIVIJ ERDV NZCC KVCC PFL NYRK TFLEKIP YV ZJ WIFD
+    UZV YVIBLEWK UVJ DFVIUVIJ JKVTBK ZD ERDVE
 \end{verbatim}
 
 \section*{Code 7: Morsecode}
 \centfig{0.8}{morse}
 
-{\lm die Raum Nummer}
+{\lm die Zimmernummer}
 
 {\lm hat acht Faktoren}
 
 \section*{Code 8: Die letzte Herausforderung}
 
-{\lm kdc qxf mrm qn mx } 
+% {\lm kdc qxf mrm qn mx } 
 
-{\lm rc ynaqjyb frcq }
+% {\lm rc ynaqjyb frcq }
 
-{\lm bxvncqrwp cqjc}
+% {\lm bxvncqrwp cqjc}
 
-{\lm  bcdmnwcb ljw brc xw}
+% {\lm  bcdmnwcb ljw brc xw}
+
+{\lm rsvi nzv yrk vi vj } 
+
+{\lm xvkre mzvccvztyk }
+
+{\lm dzk vknrj nfirlw}
+
+{\lm  jtylvcvizeeve jzkqve}
 
 \end{document}

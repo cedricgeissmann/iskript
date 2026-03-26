@@ -1,0 +1,1194 @@
+\documentclass[handout]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+% Code listing style
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    breaklines=true
+}
+
+\title{Einführung in die Kryptographie}
+\subtitle{Von klassischen Chiffren zur modernen Verschlüsselung}
+\author{Informatikkurs}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Inhaltsverzeichnis}
+\tableofcontents
+\end{frame}
+
+% =====================================================
+\section{Einführung in die Kryptographie}
+% =====================================================
+
+\begin{frame}{Was ist Kryptographie?}
+\begin{block}{Definition}
+Die Wissenschaft und Praxis der Sicherung von Kommunikation durch Codes und Chiffren
+\end{block}
+
+\textbf{Etymologie:} Griechisch \emph{kryptos} (verborgen) + \emph{graphein} (schreiben) \pause
+
+\vspace{0.5cm}
+\textbf{Wir nutzen Kryptographie jeden Tag:}
+\begin{itemize}
+    \item<2-> Messaging-Apps (WhatsApp, Signal)
+    \item<3-> Online-Shopping
+    \item<4-> Banking
+    \item<5-> WLAN-Verbindungen
+\end{itemize}
+
+% IMAGE SUGGESTION: Icon/diagram showing various everyday uses of cryptography
+\end{frame}
+
+\begin{frame}{Warum brauchen wir Kryptographie?}
+\textbf{Ohne Kryptographie sind wir anfällig für:}
+
+\begin{description}
+    \item[Abhören] Unbefugte lesen deine Nachrichten
+    \item[Manipulation] Angreifer verändern Nachrichten unbemerkt
+    \item[Identitätsdiebstahl] Jemand gibt sich als du aus
+    \item[Datendiebstahl] Persönliche Informationen werden gestohlen\pause
+\end{description}
+
+
+\vspace{0.5cm}
+\textbf{Kryptographie bietet:}
+\begin{itemize}
+    \item \textbf{Vertraulichkeit:} Nur Befugte können lesen
+    \item \textbf{Integrität:} Daten können nicht unbemerkt verändert werden
+    \item \textbf{Authentifizierung:} Absenderidentität überprüfen
+    \item \textbf{Nichtabstreitbarkeit:} Absender kann Senden nicht leugnen
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing attacker scenarios and cryptographic protections
+\end{frame}
+
+\begin{frame}{Grenzen der Kryptographie}
+
+
+% IMAGE SUGGESTION: XKCD comic about voting software/security
+
+\textbf{Selbst starke Verschlüsselung schützt nicht gegen:}
+\begin{itemize}
+    \item Social-Engineering-Angriffe
+    \item Malware auf deinem Gerät
+    \item Schlechte Passwortwahl
+    \item Insider-Bedrohungen
+    \item Physischen Zugang zu Geräten
+    \item Implementierungsfehler
+\end{itemize}\pause
+
+\begin{alertblock}{Merke}
+``Kryptographie ist wie ein wirklich gutes Schloss an deiner Tür. Es hilft nicht, wenn die Wände aus Papier sind.''
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Grundlegende Begriffe}
+\begin{description}
+    \item[Klartext]<1-> Ursprüngliche, lesbare Nachricht
+    \item[Geheimtext]<2-> Verschlüsselte, unlesbare Nachricht
+    \item[Chiffre]<3-> Algorithmus zur Ver-/Entschlüsselung
+    \item[Schlüssel]<4-> Geheime Information für die Chiffre
+    \item[Verschlüsselung]<5-> Umwandlung von Klartext in Geheimtext
+    \item[Entschlüsselung]<5-> Umwandlung von Geheimtext in Klartext
+    \item[Schlüsselraum]<6-> Menge aller möglichen Schlüssel
+\end{description}
+
+% IMAGE SUGGESTION: Simple diagram showing plaintext → encryption → ciphertext → decryption → plaintext
+\end{frame}
+
+% \begin{frame}{Lernt Alice, Bob und Eve kennen}
+% \textbf{Standardnamen in der Kryptographie:}
+
+% \begin{description}
+%     \item[Alice] Erste Partei, die eine Nachricht sendet
+%     \item[Bob] Zweite Partei, die eine Nachricht empfängt
+%     \item[Eve] Lauscherin, die versucht abzufangen
+%     \item[Mallory] Böswilliger Angreifer, der Nachrichten verändert
+%     \item[Trent] Vertrauenswürdige dritte Partei
+% \end{description}
+
+% % IMAGE SUGGESTION: Cartoon illustration of Alice, Bob, Eve showing communication flow
+% \end{frame}
+
+% =====================================================
+\section{Klassische Kryptographie}
+% =====================================================
+
+\begin{frame}{Historischer Kontext}
+\textbf{Kryptographie durch die Geschichte:}
+
+\begin{itemize}
+    \item \textbf{Altes Ägypten (1900 v. Chr.):} Hieroglyphen-Substitutionen
+    \item \textbf{Spartaner (5. Jh. v. Chr.):} Skytale-Transpositionschiffre
+    \item \textbf{Julius Cäsar (100-44 v. Chr.):} Cäsar-Chiffre für das Militär
+    \item \textbf{Mittelalter:} Al-Kindis Häufigkeitsanalyse (850 n. Chr.)
+    \item \textbf{2. Weltkrieg:} Enigma-Maschine und Bletchley Park
+\end{itemize}
+
+% IMAGE SUGGESTION: Timeline with historical cryptography examples/images
+\end{frame}
+
+\begin{frame}{Steganographie vs. Kryptographie}
+\begin{block}{Steganographie}
+Verbergen der \emph{Existenz} einer Nachricht
+\end{block}
+
+\textbf{Beispiele:}
+\begin{itemize}
+    \item Unsichtbare Tinte
+    \item Mikropunkte
+    \item Akrostichon
+    \item Versteckte Daten in Bildern/Audio
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\begin{exampleblock}{Probiere es aus}
+\texttt{Geheim erscheint hier ein interessanter Markt,\\
+nicht immer sichtbar.}
+\end{exampleblock}\pause
+
+Versteckte Nachricht: \textbf{GEHEIM} (erste Buchstaben)
+
+% IMAGE SUGGESTION: Example of steganography - image with hidden data
+\end{frame}
+
+\begin{frame}[fragile]{Cäsar-Chiffre}
+\textbf{Eine der ältesten Chiffren:}
+
+Verschiebe jeden Buchstaben um eine feste Anzahl von Positionen
+
+\vspace{0.3cm}
+\textbf{Beispiel mit Verschiebung k=3:}
+\begin{verbatim}
+Klartext:   DER SCHNELLE FUCHS
+Geheimtext: GHU VFKQHOOH IXFKV
+\end{verbatim}
+
+\vspace{0.3cm}
+\textbf{Mathematische Notation:}
+\begin{align*}
+E(x) &= (x + k) \mod 26 \\
+D(x) &= (x - k) \mod 26
+\end{align*}
+
+% IMAGE SUGGESTION: Caesar cipher wheel diagram
+\end{frame}
+
+\begin{frame}{Die Cäsar-Chiffre knacken}
+\textbf{Warum die Cäsar-Chiffre schwach ist:}
+
+\begin{itemize}
+    \item \textbf{Kleiner Schlüsselraum:} Nur 25 mögliche Schlüssel
+    \item \textbf{Brute-Force trivial:} Probiere alle Verschiebungen
+    \item \textbf{Häufigkeitsanalyse funktioniert:} Häufigster Buchstabe wahrscheinlich = E
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Probiere es selbst}
+Nutze \texttt{cryptii.com} um mit Cäsar-Chiffren zu experimentieren
+\end{exampleblock}
+
+% IMAGE SUGGESTION: Frequency analysis chart showing letter distribution
+\end{frame}
+
+\begin{frame}[fragile]{Monoalphabetische Substitution}
+\textbf{Jede Permutation des Alphabets:}
+
+\begin{verbatim}
+Klar:     ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Geheim:   QWERTYUIOPASDFGHJKLZXCVBNM
+\end{verbatim}
+
+\textbf{Schlüsselraum:} $26! \approx 4 \times 10^{26}$ (riesig!)
+
+\vspace{0.5cm}
+\textbf{Aber immer noch anfällig für Häufigkeitsanalyse:}
+\begin{itemize}
+    \item Häufigste Buchstaben (DE): E, N, I, S, R, A, T
+    \item Häufige Bigramme: EN, ER, CH, DE, EI
+    \item Häufige Trigramme: EIN, ICH, DER
+\end{itemize}
+
+% IMAGE SUGGESTION: Frequency analysis bar chart for German text
+\end{frame}
+
+\begin{frame}[fragile]{Transpositionschiffren}
+\textbf{Buchstaben umordnen statt ersetzen}
+
+\vspace{0.3cm}
+\textbf{Gartenzaun-Chiffre (3 Schienen):}
+
+\begin{verbatim}
+Nachricht: WIR SIND ENTDECKT FLIEHT SOFORT
+
+W . . . I . . . N . . . C . . . L . . . T . . . O . .
+. I . S . N . E . T . E . K . F . I . H . S . F . R .
+. . R . . . D . . . E . . . T . . . E . . . O . . . T
+
+Geheimtext: WINCL TOISE NTEKF IHSFR RDETT EOT
+\end{verbatim}
+
+% IMAGE SUGGESTION: Visual diagram of rail fence zigzag pattern
+\end{frame}
+
+\begin{frame}[fragile]{Vigenère-Chiffre}
+\textbf{Polyalphabetische Substitution:} Verschiedene Verschiebungen an verschiedenen Positionen
+
+\vspace{0.3cm}
+\textbf{Beispiel mit Schlüsselwort LEMON:}
+\begin{verbatim}
+Klartext:   A N G R I F F A U F
+Schlüssel:  L E M O N L E M O N
+Geheimtext: L R S F V Q J M I S
+\end{verbatim}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item Genannt ``le chiffre indéchiffrable'' (die unknackbare Chiffre)
+    \item Gleicher Klartextbuchstabe → verschiedene Geheimtextbuchstaben
+    \item Überwindet einfache Häufigkeitsanalyse
+\end{itemize}
+
+% IMAGE SUGGESTION: Vigenère square (tabula recta)
+\end{frame}
+
+\begin{frame}{Vigenère knacken}
+\textbf{Obwohl ``unknackbar'' genannt, kann sie gebrochen werden:}
+
+\vspace{0.3cm}
+\textbf{Methode:}
+\begin{enumerate}
+    \item Schlüssellänge finden (Kasiski-Untersuchung)
+    \begin{itemize}
+        \item Nach wiederholten Sequenzen suchen
+        \item Abstände zwischen Wiederholungen teilen Faktoren mit Schlüssellänge
+    \end{itemize}
+    \item Geheimtext in Gruppen aufteilen (jeden $n$-ten Buchstaben)
+    \item Jede Gruppe mit gleicher Cäsar-Verschiebung verschlüsselt
+    \item Häufigkeitsanalyse auf jede Gruppe anwenden
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{One-Time-Pad: Perfekte Geheimhaltung}
+\textbf{Die einzige beweisbar unknackbare Chiffre!}
+
+\vspace{0.3cm}
+\textbf{Anforderungen:}
+\begin{itemize}
+    \item Schlüssel so lang wie die Nachricht
+    \item Wirklich zufälliger Schlüssel
+    \item Schlüssel nie wiederverwenden (auch nicht teilweise)
+    \item Schlüssel nach Gebrauch vernichten
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\begin{exampleblock}{Beispiel}
+\begin{verbatim}
+Klartext:   H A L L O
+Schlüssel:  X M C K L (zufällig, gleiche Länge)
+Geheimtext: E Q N V Z
+\end{verbatim}
+\end{exampleblock}
+
+\textbf{Warum unknackbar:} Jeder Klartext gleich wahrscheinlich ohne Schlüssel!
+\end{frame}
+
+\begin{frame}{Warum wir das One-Time-Pad nicht nutzen}
+\textbf{Praktische Herausforderungen:}
+
+\begin{enumerate}
+    \item \textbf{Schlüssellänge:} Muss der Nachrichtenlänge entsprechen (1 GB Video = 1 GB Schlüssel)
+    \item \textbf{Schlüsselverteilung:} Wie teilt man riesige Zufallsschlüssel sicher?
+    \item \textbf{Echte Zufälligkeit:} Schwer zu erzeugen
+    \item \textbf{Schlüsselmanagement:} Nie wiederverwenden, muss vernichtet werden
+    \item \textbf{Synchronisation:} Beide Parteien müssen gleichen Schlüsselteil nutzen
+\end{enumerate}
+\pause
+\vspace{0.3cm}
+\begin{alertblock}{Historisches Versagen}
+Sowjetunion verwendete One-Time-Pads wieder → NSAs VENONA-Projekt entschlüsselte tausende Nachrichten
+\end{alertblock}
+\end{frame}
+
+% =====================================================
+\section{Moderne Kryptographie}
+% =====================================================
+
+\begin{frame}{Die kryptographische Revolution}
+\begin{block}{Kerckhoffs' Prinzip (1883)}
+``Ein Kryptosystem sollte sicher sein, selbst wenn alles über das System außer dem Schlüssel öffentlich bekannt ist.''
+\end{block}
+
+\vspace{0.3cm}
+\textbf{Vorteile des modernen Ansatzes:}
+\begin{itemize}
+    \item Algorithmen können veröffentlicht und von Experten getestet werden
+    \item Sicherheit beruht nur auf geheimen Schlüsseln
+    \item Standardalgorithmen weltweit verwendet
+    \item Bei Schlüsselkompromittierung nur Schlüssel wechseln (nicht ganzes System)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Klassische vs. Moderne Kryptographie}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Aspekt} & \textbf{Klassisch} & \textbf{Modern} \\
+\hline
+Sicherheitsbasis & Geheimer Algorithmus & Geheimer Schlüssel \\
+Schlüsselgröße & Klein & Groß (128-4096 Bits) \\
+Grundlage & Einfache Mathematik & Komplexe Mathematik \\
+Knackbarkeit & Musteranalyse & Berechnungshärte \\
+Geschwindigkeit & Schnell (von Hand) & Benötigt Computer \\
+Standardisierung & Schwierig & Weit verbreitet \\
+\hline
+\end{tabular}
+\end{center}
+
+% IMAGE SUGGESTION: Visual comparison diagram
+\end{frame}
+
+\begin{frame}{Berechnungssicherheit}
+\textbf{Moderne Kryptographie beruht auf Berechnungshärte}
+
+\vspace{0.3cm}
+\textbf{Beispiel: 128-Bit-Schlüssel}
+\begin{itemize}
+    \item $2^{128} \approx 3,4 \times 10^{38}$ mögliche Werte
+    \item 1 Billion Schlüssel pro Sekunde testen
+    \item Würde $\approx 10^{21}$ Jahre dauern
+    \item \emph{Weit länger als das Alter des Universums!}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Kernaussage:}
+Knacken ist theoretisch möglich, aber praktisch undurchführbar
+\end{frame}
+
+\begin{frame}{Drei Säulen der modernen Kryptographie}
+\begin{enumerate}
+    \item<1-> \textbf{Symmetrische Verschlüsselung}
+    \begin{itemize}
+        \item Gleicher Schlüssel für Ver-/Entschlüsselung
+        \item Sehr schnell
+        \item Beispiele: AES, ChaCha20
+    \end{itemize}
+
+    \item<2-> \textbf{Asymmetrische Verschlüsselung}
+    \begin{itemize}
+        \item Verschiedene Schlüssel (öffentlich/privat)
+        \item Löst Schlüsselverteilung
+        \item Beispiele: RSA, ECC
+    \end{itemize}
+
+    \item<3-> \textbf{Kryptographische Hashfunktionen}
+    \begin{itemize}
+        \item Einwegfunktionen
+        \item Feste Ausgabegröße
+        \item Beispiele: SHA-256, SHA-3
+    \end{itemize}
+\end{enumerate}
+
+% IMAGE SUGGESTION: Diagram showing relationship between the three pillars
+\end{frame}
+
+% =====================================================
+\section{Symmetrische Verschlüsselung}
+% =====================================================
+
+\begin{frame}{Überblick Symmetrische Verschlüsselung}
+\textbf{Gleicher Schlüssel für beide Operationen}\pause
+
+\vspace{0.3cm}
+\textbf{Vorteile:}
+\begin{itemize}
+    \item Sehr schnell
+    \item Starke Sicherheit mit kurzen Schlüsseln (256 Bits)
+    \item Geringe Rechenanforderungen
+\end{itemize}
+\pause
+\vspace{0.3cm}
+\textbf{Nachteile:}
+\begin{itemize}
+    \item Schlüsselverteilungsproblem
+    \item Schlüsselmanagement ($n$ Personen = $\frac{n(n-1)}{2}$ Schlüssel)
+    \item Schlüsselkompromittierung betrifft alle Nachrichten
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing Alice and Bob with shared key
+\end{frame}
+
+\begin{frame}{Blockchiffren vs. Stromchiffren}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Blockchiffren}
+\begin{itemize}
+    \item Feste Blockgröße (128 Bits)
+    \item Beispiele: AES, DES
+    \item Brauchen Padding
+    \item Benötigen Betriebsmodus
+\end{itemize}
+\pause
+
+\column{0.5\textwidth}
+\textbf{Stromchiffren}
+\begin{itemize}
+    \item Bit für Bit oder Byte für Byte
+    \item Beispiele: ChaCha20, RC4
+    \item Kein Padding nötig
+    \item Gut für Streaming-Daten
+\end{itemize}
+\end{columns}
+
+\vspace{0.5cm}
+% IMAGE SUGGESTION: Visual comparison of block vs stream cipher operation
+\end{frame}
+
+\begin{frame}{Betriebsmodi für Blockchiffren}
+\textbf{Problem:} Identische Klartextblöcke → identische Geheimtextblöcke
+
+\vspace{0.3cm}
+\textbf{Gängige Modi:}
+\begin{description}
+    \item[ECB] Electronic Codebook - \alert{NICHT SICHER!}
+    \item[CBC] Cipher Block Chaining - jeder Block mit vorherigem XOR-verknüpft
+    \item[CTR] Counter Mode - macht Blockchiffre zur Stromchiffre
+    \item[GCM] Galois/Counter Mode - Verschlüsselung + Authentifizierung
+\end{description}
+
+% IMAGE SUGGESTION: ECB Penguin example showing why ECB is insecure
+\end{frame}
+
+\begin{frame}{AES: Advanced Encryption Standard}
+\textbf{Meistgenutzte symmetrische Verschlüsselung (eingeführt 2001)}
+
+\vspace{0.3cm}
+\textbf{Spezifikationen:}
+\begin{itemize}
+    \item Blockgröße: 128 Bits
+    \item Schlüsselgröße: 128, 192 oder 256 Bits
+    \item Runden: 10, 12 oder 14 (je nach Schlüsselgröße)
+    \item Basiert auf Substitutions-Permutations-Netzwerk
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Überall verwendet:}
+\begin{itemize}
+    \item WLAN (WPA2/WPA3)
+    \item VPNs und TLS/SSL
+    \item Dateiverschlüsselung
+    \item Messaging-Apps
+    \item Regierung TOP SECRET (mit 256-Bit-Schlüsseln)
+\end{itemize}
+
+% IMAGE SUGGESTION: AES encryption round diagram
+\end{frame}
+
+\begin{frame}{AES-Sicherheit}
+\textbf{AES-256 hat $2^{256}$ mögliche Schlüssel}
+
+\vspace{0.3cm}
+Bei 1 Billion Billionen Schlüsseln pro Sekunde testen:
+\[
+\frac{2^{256}}{10^{24}} \approx 3,7 \times 10^{51} \text{ Sekunden} \approx 10^{44} \text{ Jahre}
+\]
+
+\vspace{0.3cm}
+\begin{alertblock}{Kernaussage}
+Verdopplung der Schlüssellänge verdoppelt nicht die Sicherheit - sie \emph{quadriert} sie!
+
+$2^{256} = (2^{128})^2$ bedeutet 256-Bit ist $(2^{128})$ mal sicherer als 128-Bit
+\end{alertblock}
+\end{frame}
+
+% =====================================================
+\section{Asymmetrische Verschlüsselung}
+% =====================================================
+
+\begin{frame}{Das Schlüsselverteilungsproblem}
+\textbf{Herausforderung bei symmetrischer Verschlüsselung:}
+
+\begin{itemize}
+    \item Alice und Bob brauchen gemeinsamen geheimen Schlüssel
+    \item Haben sich nie persönlich getroffen
+    \item Jeder über Internet gesendete Schlüssel könnte abgefangen werden
+    \item Kann den Schlüssel nicht verschlüsseln (braucht anderen Schlüssel - unendlicher Regress!)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Dieses Problem plagte die Kryptographie jahrhundertelang...}
+
+% IMAGE SUGGESTION: Diagram showing Alice, Bob, and Eve with intercepted key
+\end{frame}
+
+\begin{frame}{Die revolutionäre Idee}
+\textbf{Public-Key-Kryptographie (Diffie-Hellman, 1976)}
+
+\vspace{0.3cm}
+\textbf{Kernkonzept:}
+\begin{itemize}
+    \item Zwei mathematisch verbundene Schlüssel: \textbf{öffentlich} und \textbf{privat}
+    \item Öffentlicher Schlüssel frei geteilt
+    \item Privater Schlüssel geheim gehalten
+    \item Mit öffentlichem verschlüsselt → mit privatem entschlüsselt
+    \item Berechnungstechnisch unmöglich, privaten aus öffentlichem abzuleiten
+\end{itemize}
+
+\vspace{0.3cm}
+\begin{block}{Briefkasten-Analogie}
+Öffentlicher Schlüssel = Briefkasten (jeder kann Briefe einwerfen)\\
+Privater Schlüssel = Briefkastenschlüssel (nur du kannst öffnen)
+\end{block}
+
+% IMAGE SUGGESTION: Mailbox analogy illustration
+\end{frame}
+
+\begin{frame}{Wie es die Schlüsselverteilung löst}
+\begin{enumerate}
+    \item Bob erzeugt öffentlich-privates Schlüsselpaar
+    \item Bob veröffentlicht öffentlichen Schlüssel
+    \item Alice schlägt Bobs öffentlichen Schlüssel nach
+    \item Alice verschlüsselt Nachricht mit Bobs öffentlichem Schlüssel
+    \item Alice sendet Geheimtext
+    \item Bob entschlüsselt mit seinem privaten Schlüssel
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Keine geheimen Informationen vorher ausgetauscht!}
+
+% IMAGE SUGGESTION: Step-by-step diagram of public key encryption process
+\end{frame}
+
+\begin{frame}{Symmetrisch vs. Asymmetrisch}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Eigenschaft} & \textbf{Symmetrisch} & \textbf{Asymmetrisch} \\
+\hline
+Schlüssel & Gleicher Schlüssel & Öffentlich + Privat \\
+Schlüsselverteilung & Schwierig & Einfach \\
+Geschwindigkeit & Sehr schnell & Viel langsamer \\
+Schlüsselgröße & 128-256 Bits & 2048-4096 Bits \\
+Verwendung & Massenverschlüsselung & Schlüsselaustausch \\
+Beispiele & AES & RSA, ECC \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{In der Praxis:} Kombiniere beide für beste Ergebnisse!
+\end{frame}
+
+\begin{frame}{RSA-Verschlüsselung}
+\textbf{RSA (Rivest-Shamir-Adleman, 1977)}
+
+Basiert auf der Schwierigkeit, große Zahlen zu faktorisieren
+
+\vspace{0.3cm}
+\textbf{Schlüsselerzeugung:}
+\begin{enumerate}
+    \item Wähle zwei große Primzahlen $p$ und $q$
+    \item Berechne $n = p \times q$ (öffentlich)
+    \item Berechne $\phi(n) = (p-1)(q-1)$
+    \item Wähle öffentlichen Exponenten $e$ (üblicherweise 65537)
+    \item Berechne privaten Exponenten $d$
+    \item Öffentlicher Schlüssel: $(n, e)$, Privater Schlüssel: $(n, d)$
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Verschlüsselung:} $\text{Geheimtext} = \text{Nachricht}^e \mod n$
+
+\textbf{Entschlüsselung:} $\text{Nachricht} = \text{Geheimtext}^d \mod n$
+
+% IMAGE SUGGESTION: RSA key generation flowchart
+\end{frame}
+
+\begin{frame}{RSA in der Praxis}
+\textbf{Schlüsselgrößen:}
+\begin{itemize}
+    \item 1024 Bits: \alert{Veraltet} (von Nationalstaaten faktorisiert)
+    \item 2048 Bits: Aktuelles Minimum
+    \item 3072 Bits: Hohe Sicherheit
+    \item 4096 Bits: Sehr hohe Sicherheit (langsamer)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Häufige Verwendungen:}
+\begin{itemize}
+    \item TLS/SSL-Zertifikate (HTTPS)
+    \item E-Mail-Verschlüsselung (PGP/GPG)
+    \item SSH-Schlüssel
+    \item Digitale Signaturen
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Hinweis:} Zu langsam für große Daten - hybride Verschlüsselung nutzen!
+\end{frame}
+
+\begin{frame}{Elliptische-Kurven-Kryptographie (ECC)}
+\textbf{Gleiche Sicherheit wie RSA mit viel kleineren Schlüsseln}
+
+\vspace{0.3cm}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{RSA-Schlüsselgröße} & \textbf{ECC-Schlüsselgröße} \\
+\hline
+1024 Bits & 160 Bits \\
+2048 Bits & 224 Bits \\
+3072 Bits & 256 Bits \\
+15360 Bits & 512 Bits \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Vorteile:}
+\begin{itemize}
+    \item Kleinere Schlüssel, Zertifikate, Signaturen
+    \item Schnellere Operationen
+    \item Weniger Bandbreite und Speicher
+\end{itemize}
+
+% IMAGE SUGGESTION: Elliptic curve graph
+\end{frame}
+
+\begin{frame}{ECC-Anwendungen}
+\textbf{Wo ECC verwendet wird:}
+\begin{itemize}
+    \item Bitcoin und Kryptowährungs-Wallets
+    \item Moderne TLS/SSL-Zertifikate
+    \item Signal, WhatsApp (Curve25519)
+    \item Apple iMessage
+    \item SSH-Schlüssel
+    \item IoT-Geräte (begrenzte Rechenleistung)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Beliebte Kurven:}
+\begin{itemize}
+    \item P-256, P-384, P-521 (NIST-Standard)
+    \item Curve25519 (modern, sicher)
+    \item Ed25519 (optimiert für Signaturen)
+\end{itemize}
+\end{frame}
+
+% =====================================================
+\section{Kryptographische Hashfunktionen}
+% =====================================================
+
+\begin{frame}[fragile]{Was ist eine Hashfunktion?}
+\textbf{Nimmt beliebige Eingabe → erzeugt Ausgabe fester Größe}
+
+\vspace{0.3cm}
+\begin{exampleblock}{Beispiel: SHA-256}
+\texttt{Eingabe: "Hallo, Welt!"}\\
+\texttt{Hash: dffd6021bb2bd5b0af676290809ec3a5...}
+
+\vspace{0.2cm}
+\texttt{Eingabe: "Hallo, Welt?" (beachte das ?)}\\
+\texttt{Hash: a0e0d1d23f58c99b8a73fdecd1ba0d8f...}
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{Beachte:}
+\begin{itemize}
+    \item Gleiche Ausgabelänge (256 Bits)
+    \item Winzige Änderung → völlig anderer Hash
+    \item Sieht zufällig aus
+\end{itemize}
+
+% IMAGE SUGGESTION: Visual diagram of hash function with avalanche effect
+\end{frame}
+
+\begin{frame}{Eigenschaften kryptographischer Hashes}
+\begin{enumerate}
+    \item \textbf{Deterministisch:} Gleiche Eingabe → gleicher Hash
+    \item \textbf{Schnell zu berechnen}
+    \item \textbf{Urbildresistenz:} Schwer, Eingabe aus Hash zu finden
+    \item \textbf{Zweite-Urbild-Resistenz:} Schwer, andere Eingabe mit gleichem Hash zu finden
+    \item \textbf{Kollisionsresistenz:} Schwer, zwei beliebige Eingaben mit gleichem Hash zu finden
+    \item \textbf{Lawineneffekt:} Kleine Änderung → drastisch anderer Hash
+    \item \textbf{Feste Ausgabegröße}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Gängige Hashfunktionen}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithmus} & \textbf{Ausgabegröße} & \textbf{Status} \\
+\hline
+MD5 & 128 Bits & \alert{Gebrochen} \\
+SHA-1 & 160 Bits & \alert{Veraltet} \\
+SHA-256 & 256 Bits & \textcolor{green}{Sicher} \\
+SHA-512 & 512 Bits & \textcolor{green}{Sicher} \\
+SHA-3 & Variabel & \textcolor{green}{Sicher} \\
+BLAKE2/3 & Variabel & \textcolor{green}{Sicher} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\begin{alertblock}{Wichtig}
+Niemals MD5 oder SHA-1 für Sicherheitszwecke verwenden!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Anwendungen von Hashfunktionen}
+\textbf{1. Datenintegrität / Prüfsummen}
+\begin{itemize}
+    \item Datei-Downloads verifizieren
+    \item Korruption oder Manipulation erkennen
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{2. Passwortspeicherung}
+\begin{itemize}
+    \item Niemals Klartext-Passwörter speichern!
+    \item Hash des Passworts speichern
+    \item Salt hinzufügen gegen Rainbow-Tables
+    \item Spezialisierte Funktionen nutzen: Argon2, bcrypt
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{3. Digitale Signaturen}
+\begin{itemize}
+    \item Dokument hashen, dann Hash signieren
+\end{itemize}
+
+% IMAGE SUGGESTION: Diagram showing password hashing with salt
+\end{frame}
+
+\begin{frame}[fragile]{Passwort-Hashing mit Salt}
+\textbf{Salt = zufälliger String, der vor dem Hashen hinzugefügt wird}
+
+\vspace{0.3cm}
+\begin{exampleblock}{Beispiel}
+Benutzer 1: "passwort123" + Salt "a8f9e2" → Hash 1\\
+Benutzer 2: "passwort123" + Salt "x3k8m1" → Hash 2
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{In Datenbank gespeichert:}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Benutzer} & \textbf{Salt} & \textbf{Hash} \\
+\hline
+alice & a8f9e2 & 3f7a8c9d... \\
+bob & x3k8m1 & 9e2b5f1c... \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Verhindert:}
+\begin{itemize}
+    \item Rainbow-Table-Angriffe
+    \item Identifizierung von Benutzern mit gleichem Passwort
+    \item Parallele Angriffe
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Blockchain und Kryptowährungen}
+\textbf{Hashfunktionen sind fundamental für Blockchain:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Block-Hashing:} Jeder Block enthält Hash des vorherigen (erzeugt Kette)
+    \item \textbf{Proof of Work:} Finde Nonce, bei der Block-Hash mit Nullen beginnt
+    \item \textbf{Adressen:} Bitcoin-Adressen sind Hashes öffentlicher Schlüssel
+    \item \textbf{Merkle-Bäume:} Effiziente Transaktionsverifizierung
+\end{itemize}
+
+% IMAGE SUGGESTION: Blockchain diagram showing hash links between blocks
+\end{frame}
+
+% =====================================================
+\section{Digitale Signaturen}
+% =====================================================
+
+\begin{frame}{Digitale Signaturen}
+\textbf{Elektronisches Äquivalent der handschriftlichen Unterschrift}
+
+\vspace{0.3cm}
+\textbf{Bietet:}
+\begin{itemize}
+    \item \textbf{Authentifizierung:} Beweist, wer die Nachricht gesendet hat
+    \item \textbf{Integrität:} Beweist, dass Nachricht nicht verändert wurde
+    \item \textbf{Nichtabstreitbarkeit:} Absender kann Senden nicht leugnen
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Wie es funktioniert:}
+\begin{enumerate}
+    \item Nachricht hashen
+    \item Hash mit \textbf{privatem Schlüssel} verschlüsseln (Signatur)
+    \item Nachricht + Signatur senden
+    \item Empfänger entschlüsselt Signatur mit \textbf{öffentlichem Schlüssel}
+    \item Mit Hash der empfangenen Nachricht vergleichen
+\end{enumerate}
+
+% IMAGE SUGGESTION: Digital signature process diagram
+\end{frame}
+
+\begin{frame}{Verschlüsselung vs. Signieren}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Eigenschaft} & \textbf{Verschlüsselung} & \textbf{Signieren} \\
+\hline
+Sperren mit & Öffentlichem Schlüssel & Privatem Schlüssel \\
+Entsperren mit & Privatem Schlüssel & Öffentlichem Schlüssel \\
+Zweck & Vertraulichkeit & Authentifizierung \\
+Wer kann es? & Jeder & Nur Schlüsselbesitzer \\
+Wer kann verifizieren? & Nur Schlüsselbesitzer & Jeder \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Merke:}
+\begin{itemize}
+    \item \textbf{Verschlüsselung:} Öffentlich sperren, privat entsperren (Geheimhaltung)
+    \item \textbf{Signieren:} Privat sperren, öffentlich entsperren (Authentizität)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Public-Key-Infrastruktur (PKI)}
+\textbf{Problem:} Woher weißt du, dass ein öffentlicher Schlüssel dem gehört, der er behauptet?
+
+\vspace{0.3cm}
+\textbf{Lösung: Digitale Zertifikate}
+
+\vspace{0.3cm}
+\textbf{Zertifikat enthält:}
+\begin{itemize}
+    \item Öffentlichen Schlüssel
+    \item Identität des Besitzers
+    \item Gültigkeitszeitraum
+    \item Digitale Signatur der Zertifizierungsstelle (CA)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Vertrauenskette:}
+Website → Zwischen-CA → Root-CA (im Browser vorinstalliert)
+
+% IMAGE SUGGESTION: PKI certificate chain diagram
+\end{frame}
+
+\begin{frame}{Wie HTTPS funktioniert}
+\textbf{Wenn du \texttt{https://www.example.com} besuchst:}
+
+\begin{enumerate}
+    \item Server sendet Zertifikat (mit öffentlichem Schlüssel)
+    \item Browser verifiziert:
+    \begin{itemize}
+        \item Zertifikat von vertrauenswürdiger CA signiert
+        \item Nicht abgelaufen
+        \item Stimmt mit Domainnamen überein
+        \item Nicht widerrufen
+    \end{itemize}
+    \item Browser und Server führen Schlüsselaustausch durch
+    \item Etablieren symmetrischen Verschlüsselungsschlüssel
+    \item Alle Daten mit Sitzungsschlüssel verschlüsselt
+    \item Grünes Schloss erscheint!
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Bietet:} Vertraulichkeit + Authentifizierung + Integrität
+
+% IMAGE SUGGESTION: HTTPS handshake diagram
+\end{frame}
+
+% =====================================================
+\section{Moderne Anwendungen}
+% =====================================================
+
+\begin{frame}{Ende-zu-Ende-Verschlüsselung (E2EE)}
+\textbf{Nur Sender und Empfänger können Nachrichten lesen}
+
+Nicht einmal der Dienstanbieter!
+
+\vspace{0.3cm}
+\textbf{Beispiele:}
+\begin{itemize}
+    \item Signal
+    \item WhatsApp
+    \item iMessage
+    \item ProtonMail
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Im Gegensatz zu:}
+\begin{itemize}
+    \item Normale E-Mail: Anbieter kann lesen
+    \item SMS: Mobilfunkanbieter kann lesen
+    \item Social-Media-DMs: Plattform kann lesen
+\end{itemize}
+
+% IMAGE SUGGESTION: E2EE vs non-E2EE comparison diagram
+\end{frame}
+
+\begin{frame}{Passwort-Manager}
+\textbf{Speichern alle Passwörter sicher verschlüsselt}
+
+\vspace{0.3cm}
+\textbf{Wie sie funktionieren:}
+\begin{itemize}
+    \item Master-Passwort leitet Verschlüsselungsschlüssel ab
+    \item Alle Passwörter mit AES-256 verschlüsselt
+    \item Nur du kennst das Master-Passwort
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Warum einen nutzen:}
+\begin{itemize}
+    \item Einzigartiges starkes Passwort für jede Seite
+    \item Schutz vor Phishing
+    \item Schutz vor Keyloggern
+    \item Keine Notwendigkeit, Passwörter zu merken
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Beispiele:} 1Password, Bitwarden, KeePass
+\end{frame}
+
+\begin{frame}{VPNs (Virtuelle Private Netzwerke)}
+\textbf{Erstellen verschlüsselte Tunnel für Internetverkehr}
+
+\vspace{0.3cm}
+\textbf{Was VPNs tun:}
+\begin{itemize}
+    \item Verschlüsseln Verkehr zwischen dir und VPN-Server
+    \item Verbergen deine IP-Adresse
+    \item Umgehen geografische Beschränkungen
+    \item Schützen in öffentlichen WLANs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Was VPNs nicht tun:}
+\begin{itemize}
+    \item Dich komplett anonym machen
+    \item Vor Malware schützen
+    \item Daten nach dem VPN-Server verschlüsseln
+\end{itemize}
+
+% IMAGE SUGGESTION: VPN tunnel diagram
+\end{frame}
+
+% =====================================================
+\section{Bedrohungen und Zukunft}
+% =====================================================
+
+\begin{frame}{Häufige Angriffe}
+\begin{description}
+    \item[Brute Force] Jeden möglichen Schlüssel ausprobieren
+    \item[Wörterbuchangriff] Häufige Passwörter ausprobieren
+    \item[Rainbow Tables] Vorberechnete Passwort-Hashes
+    \item[Man-in-the-Middle] Kommunikation abfangen
+    \item[Seitenkanalangriffe] Geheimnisse über Timing, Stromverbrauch extrahieren
+    \item[Implementierungsfehler] Heartbleed, POODLE usw.
+\end{description}
+
+\vspace{0.3cm}
+\textbf{Verteidigung:} Große Schlüssel, Salting, Authentifizierung, konstante Zeitalgorithmen, Updates
+\end{frame}
+
+\begin{frame}{Die Quantencomputer-Bedrohung}
+\textbf{Quantencomputer könnten aktuelle Public-Key-Krypto brechen}
+
+\vspace{0.3cm}
+\textbf{Shors Algorithmus (1994):}
+\begin{itemize}
+    \item Kann große Zahlen effizient faktorisieren
+    \item Bricht: RSA, Diffie-Hellman, ECC
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Symmetrische Verschlüsselung weniger betroffen:}
+\begin{itemize}
+    \item Grovers Algorithmus nur quadratische Beschleunigung
+    \item Verdopplung der Schlüsselgröße stellt Sicherheit wieder her
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Zeitrahmen:} 10-30+ Jahre bis die Bedrohung real ist
+
+\textbf{Lösung:} Post-Quanten-Kryptographie (PQC)
+
+% IMAGE SUGGESTION: Timeline showing quantum computing development
+\end{frame}
+
+\begin{frame}{Post-Quanten-Kryptographie}
+\textbf{NIST standardisierte quantenresistente Algorithmen:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{CRYSTALS-Kyber} (Verschlüsselung)
+    \item \textbf{CRYSTALS-Dilithium} (Signaturen)
+    \item \textbf{FALCON} (Signaturen)
+    \item \textbf{SPHINCS+} (Signaturen)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Basieren auf Problemen, die Quantencomputer nicht lösen können:}
+\begin{itemize}
+    \item Gitterprobleme
+    \item Hash-basierte Schemata
+    \item Multivariate Polynome
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Social Engineering}
+\begin{alertblock}{Merke}
+``Das schwächste Glied ist oft der Mensch, nicht die Kryptographie.''
+\end{alertblock}
+
+\vspace{0.3cm}
+\textbf{Häufige Taktiken:}
+\begin{itemize}
+    \item Phishing-E-Mails
+    \item Vorwand (Identitätsdiebstahl)
+    \item Ködern (infizierte USB-Sticks)
+    \item Tailgating (physischer Zugang)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Verteidigung:}
+\begin{itemize}
+    \item Sicherheitsbewusstseinsschulungen
+    \item Zwei-Faktor-Authentifizierung
+    \item Prinzip der minimalen Rechte
+\end{itemize}
+
+% IMAGE SUGGESTION: Phishing example or social engineering attack diagram
+\end{frame}
+
+% =====================================================
+\section{Best Practices}
+% =====================================================
+
+\begin{frame}{Best Practices für Benutzer}
+\begin{enumerate}
+    \item Verwende starke, einzigartige Passwörter (12+ Zeichen)
+    \item Verwende einen Passwort-Manager
+    \item Aktiviere Zwei-Faktor-Authentifizierung (2FA)
+    \item Halte Software aktuell
+    \item Nutze HTTPS (achte auf das Schloss)
+    \item Sei vorsichtig bei Phishing
+    \item Nutze Ende-zu-Ende-verschlüsselte Messenger
+    \item Verschlüssele sensible Daten (Festplattenverschlüsselung)
+    \item Nutze VPN in öffentlichen WLANs
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Best Practices für Entwickler}
+\begin{enumerate}
+    \item \textbf{Entwickle keine eigene Krypto!}
+    \item Nutze etablierte Bibliotheken (NaCl, OpenSSL)
+    \item Nutze moderne Algorithmen (AES-256, SHA-256, Argon2)
+    \item Speichere niemals Klartext-Passwörter
+    \item Nutze sichere Zufallszahlengeneratoren
+    \item Implementiere Ratenbegrenzung
+    \item Nutze TLS 1.3 mit starken Chiffren
+    \item Halte Abhängigkeiten aktuell
+    \item Führe Sicherheitsaudits durch
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Häufige Fehler vermeiden}
+\begin{itemize}
+    \item Veraltete Algorithmen verwenden (MD5, SHA-1, DES)
+    \item Passwörter im Klartext speichern
+    \item Schlüssel, IVs oder Nonces wiederverwenden
+    \item ECB-Modus verwenden
+    \item Eigene Krypto implementieren
+    \item Benutzereingaben vertrauen
+    \item Timing-Angriffe ignorieren
+    \item Schlüssel im Quellcode hartcodieren
+    \item Schwache Zufallsgeneratoren verwenden
+\end{itemize}
+\end{frame}
+
+% =====================================================
+\section{Fazit}
+% =====================================================
+
+\begin{frame}{Wichtige Erkenntnisse}
+\begin{enumerate}
+    \item \textbf{Kryptographie ist essenziell} für unser digitales Leben
+    \item \textbf{Sicherheit ist schwer} - kleine Fehler = große Konsequenzen
+    \item \textbf{Nutze etablierte Tools} - implementiere keine eigenen
+    \item \textbf{Verteidigung in der Tiefe} - Krypto ist notwendig, aber nicht ausreichend
+    \item \textbf{Bleib informiert} - Bedrohungen entwickeln sich ständig
+    \item \textbf{Der menschliche Faktor zählt} - stärkste Krypto kann Phishing nicht stoppen
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Die Reise}
+\textbf{Von antiken Chiffren zu modernen Systemen:}
+
+\begin{itemize}
+    \item Klassisch: Cäsar, Vigenère, One-Time-Pad
+    \item Symmetrisch: AES, ChaCha20
+    \item Asymmetrisch: RSA, ECC, Diffie-Hellman
+    \item Hashfunktionen: SHA-256, Argon2
+    \item Anwendungen: HTTPS, E2EE, Blockchain
+    \item Zukunft: Post-Quanten-Kryptographie
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Kryptographie entwickelt sich weiter, um neuen Herausforderungen zu begegnen!}
+\end{frame}
+
+\begin{frame}{Weitere Ressourcen}
+\textbf{Bücher:}
+\begin{itemize}
+    \item \emph{The Code Book} von Simon Singh
+    \item \emph{Applied Cryptography} von Bruce Schneier
+    \item \emph{Cryptography Engineering} von Ferguson et al.
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Online:}
+\begin{itemize}
+    \item cryptohack.org - Lernen durch Herausforderungen
+    \item cryptopals.com - Praktische Übungen
+    \item cryptii.com - Mit Chiffren experimentieren
+    \item Coursera: Stanford Kryptographie-Kurs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge Vielen Dank!
+
+\vspace{1cm}
+\large Fragen?
+
+\vspace{1cm}
+\normalsize
+\textit{``Mit großer Macht kommt große Verantwortung.''}
+
+\vspace{0.5cm}
+Nutze Kryptographie, um Privatsphäre und Sicherheit zu schützen, nicht um Schaden anzurichten.
+\end{center}
+\end{frame}
+
+\end{document}

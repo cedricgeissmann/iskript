@@ -1,0 +1,1106 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[ngerman]{babel}
+\usepackage{xcolor}
+\def\farbe{blue}
+
+\usepackage{dclecture}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{verbatim}
+
+%%% Fancy Header and Footer
+\usepackage{fancyhdr}
+\renewcommand{\headrule}{\vbox to 0pt{\hbox to\headwidth{\color{\farbe}\rule{\headwidth}{1pt}}\vss}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Informatik - Kryptographie Übungen}
+\fancyfoot[C]{\thepage}
+
+\title{Kryptographie\\Übungsaufgaben}
+\author{Informatik Kurs}
+\date{}
+
+\begin{document}
+
+% \maketitle
+
+% \section*{Anleitung}
+% Dieses Übungsset deckt alle wichtigen Themen des Kryptographie-Kurses ab. Arbeiten Sie die Übungen durch, um dein Verständnis zu testen. Lösungen sind am Ende des Dokuments vorhanden, aber versuchen Sie zunächst, die Aufgaben selbst zu lösen!
+
+% \tableofcontents
+% \newpage
+
+% =====================================================
+\section{Einführung und Grundbegriffe}
+% =====================================================
+
+\begin{ex}
+Definieren Sie die folgenden Begriffe in eigenen Worten:
+\begin{enumerate}[label=\alph*)]
+    \item Klartext (Plaintext)
+    \item Geheimtext (Ciphertext)
+    \item Verschlüsselung (Encryption)
+    \item Schlüsselraum (Keyspace)
+    \item Kryptoanalyse (Cryptanalysis)
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Was sind die vier wichtigsten Sicherheitseigenschaften, die Kryptographie bietet? Gib eine kurze Erklärung zu jeder.
+\end{ex}
+
+\begin{ex}
+Alice sagt: „Ich habe alle meine Dateien mit dem stärksten Verschlüsselungsalgorithmus verschlüsselt, also sind meine Daten jetzt vollständig sicher."
+
+Erklären Sie mindestens drei Gründe, warum Alices Daten trotz starker Verschlüsselung immer noch gefährdet sein könnten.
+\end{ex}
+
+\begin{ex}
+Erklären Sie den Unterschied zwischen Steganographie und Kryptographie. Geben Sie jeweils ein Beispiel.
+\end{ex}
+
+% =====================================================
+\section{Klassische Kryptographie}
+% =====================================================
+
+\subsection{Caesar-Chiffre}
+
+\begin{ex}
+Verschlüsseln Sie die Nachricht \texttt{CRYPTOGRAPHY IS FUN} mit einer Caesar-Chiffre mit Verschiebung $k = 7$.
+\end{ex}
+
+\begin{ex}
+Entziffern Sie die folgende Nachricht, die mit einer Caesar-Chiffre verschlüsselt wurde:
+
+\texttt{WKLV LV D VHFUHW PHVVDJH}
+
+Hinweis: Probieren Sie verschiedene Verschiebungswerte aus oder verwenden Sie eine Häufigkeitsanalyse.
+\end{ex}
+
+\begin{ex}
+Erklären Sie, warum die Caesar-Chiffre einen Schlüsselraum von nur 25 (nicht 26) hat. Warum macht dies sie unsicher?
+\end{ex}
+
+\begin{ex}
+Bob schlägt vor: „Anstatt Verschiebung 3 zu verwenden, werde ich Verschiebung 283 verwenden. Das macht es viel sicherer!"
+
+Liegt Bob richtig? Erklären Sie warum oder warum nicht.
+\end{ex}
+
+\subsection{Substitutionschiffren}
+
+\begin{ex}
+Was ist die Grösse des Schlüsselraums einer monoalphabetischen Substitutionschiffre? Drücken Sie Ihre Antwort in Fakultätsnotation und ungefährem Dezimalwert aus.
+\end{ex}
+
+\begin{ex}
+Trotz eines riesigen Schlüsselraums sind monoalphabetische Substitutionschiffren immer noch anfällig für Häufigkeitsanalyse. Erkläre, wie Häufigkeitsanalyse funktioniert und warum sie gegen diese Chiffren effektiv ist.
+\end{ex}
+
+\begin{ex}
+Der folgende Geheimtext wurde mit einer monoalphabetischen Substitutionschiffre verschlüsselt:
+
+\texttt{GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT}
+
+Verwende Häufigkeitsanalyse, um ihn zu entschlüsseln. (Hinweis: Der häufigste Buchstabe im Geheimtext repräsentiert wahrscheinlich E oder T)
+\end{ex}
+
+\begin{ex}
+Die Atbasch-Chiffre bildet A$\leftrightarrow$Z, B$\leftrightarrow$Y, C$\leftrightarrow$X, usw. ab.
+
+\begin{enumerate}[label=\alph*)]
+    \item Verschlüssele \texttt{HELLO WORLD} mit Atbasch
+    \item Was ist besonders an der Atbasch-Chiffre im Vergleich zu anderen Substitutionschiffren?
+    \item Was ist der Schlüsselraum von Atbasch?
+\end{enumerate}
+\end{ex}
+
+\subsection{Transpositionschiffren}
+
+\begin{ex}
+Verschlüssele die Nachricht \texttt{MEET AT NOON} mit einer Rail-Fence-Chiffre mit 3 Schienen.
+\end{ex}
+
+\begin{ex}
+Die folgende Nachricht wurde mit einer Rail-Fence-Chiffre mit 4 Schienen verschlüsselt:
+
+\texttt{CAORHHPTISGPY}
+
+Entschlüsseln Sie sie.
+\end{ex}
+
+\begin{ex}
+Verschlüsseln Sie \texttt{HELLO WORLD} mit spaltenweiser Transposition und dem Schlüsselwort \texttt{KEYS}:
+\begin{enumerate}[label=\alph*)]
+    \item Schreiben Sie die Nachricht zeilenweise unter das Schlüsselwort
+    \item Nummerieren Sie die Spalten basierend auf der alphabetischen Reihenfolge des Schlüsselworts
+    \item Lesen Sie die Spalten in Reihenfolge
+\end{enumerate}
+\end{ex}
+
+\subsection{Vigenère-Chiffre}
+
+\begin{ex}
+Verschlüsseln Sie die Nachricht \texttt{ATTACK AT DAWN} mit der Vigenère-Chiffre und dem Schlüsselwort \texttt{CRYPTO}.
+\end{ex}
+
+\begin{ex}
+Entschlüsseln Sie den folgenden Vigenère-Geheimtext mit dem Schlüsselwort \texttt{KEY}:
+
+\texttt{RIJVS UYVJN}
+\end{ex}
+
+\begin{ex}
+Erklären Sie, warum die Vigenère-Chiffre sicherer ist als eine Caesar-Chiffre. Was macht sie schwerer zu brechen?
+\end{ex}
+
+\begin{ex}
+Beschreiben Sie die Kasiski-Untersuchungsmethode zum Brechen einer Vigenère-Chiffre. Was hilft sie zu bestimmen?
+\end{ex}
+
+\begin{ex}
+Alice verschlüsselt zwei verschiedene Nachrichten mit demselben Vigenère-Schlüsselwort. Sie bemerkt, dass beide Geheimtexte die Sequenz \texttt{XQF} an Positionen haben, die 15 Zeichen auseinander liegen. Was sagt Ihnen das über die Schlüsselwortlänge?
+\end{ex}
+
+\subsection{One-Time Pad}
+
+\begin{ex}
+Verschlüsseln Sie die Nachricht \texttt{HELLO} (dargestellt als Zahlen: H=7, E=4, L=11, L=11, O=14) mit dem One-Time Pad mit Schlüssel: 23, 8, 15, 19, 2.
+
+Verwende Modulo-26-Arithmetik (A=0, B=1, ..., Z=25).
+\end{ex}
+
+\begin{ex}
+Warum wird das One-Time Pad als „perfekt geheim" angesehen? Erklären Sie, was das bedeutet.
+\end{ex}
+
+\begin{ex}
+Listen und erklären Sie die vier kritischen Anforderungen, die notwendig sind, damit ein One-Time Pad sicher ist.
+\end{ex}
+
+\begin{ex}
+Während des Kalten Krieges hat die sowjetische Spionageabwehr einige ihrer One-Time Pad-Schlüssel wiederverwendet. Erklären Sie, warum dies ein katastrophales Sicherheitsversagen war und was es der NSA ermöglichte zu tun (VENONA-Projekt).
+\end{ex}
+
+\begin{ex}
+Ein Unternehmen schlägt vor, One-Time Pads zu verwenden, um alle ihre E-Mail-Kommunikationen zu verschlüsseln. Erklären Sie, warum dies unpraktisch ist, obwohl es theoretisch unknackbar wäre.
+\end{ex}
+
+% =====================================================
+\section{Prinzipien der modernen Kryptographie}
+% =====================================================
+
+\begin{ex}
+Formulieren Sie Kerckhoffs' Prinzip und erklären Sie, warum es für die moderne Kryptographie wichtig ist.
+\end{ex}
+
+\begin{ex}
+Vergleichen Sie klassische und moderne Kryptographie in folgenden Aspekten:
+\begin{enumerate}[label=\alph*)]
+    \item Was bietet Sicherheit (geheimer Algorithmus vs. geheimer Schlüssel)
+    \item Typische Schlüsselgrössen
+    \item Methode des Brechens (Musteranalyse vs. rechnerische Härte)
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Erklären Sie, was „rechnerische Sicherheit" bedeutet. Wie unterscheidet sie sich von der „perfekten Geheimhaltung" des One-Time Pads?
+\end{ex}
+
+\begin{ex}
+Ein 128-Bit-Schlüssel hat $2^{128}$ mögliche Werte. Wenn Sie 1 Billion ($10^{12}$) Schlüssel pro Sekunde testen könnten, wie lange würde es ungefähr dauern, alle Schlüssel auszuprobieren? Geben Sie Ihre Antwort in Jahren und vergleichen Sie sie mit dem Alter des Universums (etwa $10^{10}$ Jahre).
+\end{ex}
+
+% =====================================================
+\section{Symmetrische Verschlüsselung}
+% =====================================================
+
+\begin{ex}
+Was ist symmetrische Verschlüsselung? Was sind ihre Hauptvorteile und -nachteile?
+\end{ex}
+
+\begin{ex}
+Alice möchte sicher mit 10 Freunden kommunizieren, indem sie symmetrische Verschlüsselung verwendet. Wenn jedes Paar einen eindeutigen gemeinsamen Schlüssel benötigt, wie viele Schlüssel müssen insgesamt verwaltet werden? (Verwende die Formel für die Anzahl eindeutiger Paare von $n$ Personen)
+\end{ex}
+
+\begin{ex}
+Erklären Sie den Unterschied zwischen Blockchiffren und Stromchiffren. Gib ein Beispiel für jede.
+\end{ex}
+
+\begin{ex}
+Warum sollte man niemals den ECB-Modus (Electronic Codebook) mit einer Blockchiffre verwenden? Welche Informationen gibt er preis?
+\end{ex}
+
+\subsection{AES}
+
+\begin{ex}
+Beantworte folgende Fragen zu AES:
+\begin{enumerate}[label=\alph*)]
+    \item Wofür steht AES?
+    \item Wann wurde es als Standard übernommen?
+    \item Welche Blockgrösse verwendet AES?
+    \item Welche Schlüsselgrössen sind für AES verfügbar?
+    \item Was hat AES ersetzt?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Erklären Sie, warum ein 256-Bit-Schlüssel nicht einfach „doppelt so sicher" ist wie ein 128-Bit-Schlüssel. Wie viel sicherer ist er tatsächlich?
+\end{ex}
+
+\begin{ex}
+Listen Sie mindestens 5 reale Anwendungen auf, wo AES verwendet wird.
+\end{ex}
+
+\begin{ex}
+Was ist ein Initialisierungsvektor (IV) und warum wird er für die meisten Verschlüsselungsmodi benötigt? Was passiert, wenn man einen IV wiederverwendet?
+\end{ex}
+
+\begin{ex}
+Was ist AEAD (Authenticated Encryption with Associated Data)? Welche Sicherheitseigenschaften bietet es über die blosse Vertraulichkeit hinaus? Geben Sie ein Beispiel für einen AEAD-Modus.
+\end{ex}
+
+\begin{ex}
+Warum sollte man niemals ein Passwort direkt als Verschlüsselungsschlüssel verwenden? Was sollte man stattdessen verwenden?
+\end{ex}
+
+% =====================================================
+\section{Asymmetrische Verschlüsselung}
+% =====================================================
+
+\begin{ex}
+Erkläre das „Schlüsselverteilungsproblem", mit dem symmetrische Verschlüsselung konfrontiert ist. Wie löst asymmetrische Verschlüsselung dieses Problem?
+\end{ex}
+
+\begin{ex}
+In der asymmetrischen Kryptographie:
+\begin{enumerate}[label=\alph*)]
+    \item Welcher Schlüssel wird zur Verschlüsselung verwendet?
+    \item Welcher Schlüssel wird zur Entschlüsselung verwendet?
+    \item Welcher Schlüssel wird geheim gehalten?
+    \item Welcher Schlüssel wird öffentlich geteilt?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Beschreiben Sie die ``Briefkasten-Analogie'' für Public-Key-Kryptographie. Wie veranschaulicht sie das Konzept?
+\end{ex}
+
+\begin{ex}
+Was ist eine „Einwegfunktion mit Falltür"? Geben Sie ein Beispiel im Zusammenhang mit RSA.
+\end{ex}
+
+\subsection{RSA}
+
+\begin{ex}
+Beantworte folgende Fragen zu RSA:
+\begin{enumerate}[label=\alph*)]
+    \item Wofür steht RSA?
+    \item Wann wurde es erfunden?
+    \item Welches mathematische Problem liefert seine Sicherheit?
+    \item Was ist die aktuell empfohlene Mindestschlüsselgrösse?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Beschreiben Sie in vereinfachten Begriffen die drei Hauptschritte der RSA-Schlüsselerzeugung.
+\end{ex}
+
+\begin{ex}
+Alice möchte eine 5 MB grosse Videodatei an Bob senden, indem sie RSA mit einem 2048-Bit-Schlüssel verwendet. Warum ist das eine schlechte Idee? Was sollte sie stattdessen tun?
+\end{ex}
+
+\begin{ex}
+Vergleiche symmetrische und asymmetrische Verschlüsselung hinsichtlich:
+\begin{enumerate}[label=\alph*)]
+    \item Geschwindigkeit
+    \item Schlüsselgrösse für gleichwertige Sicherheit
+    \item Typische Anwendungsfälle
+\end{enumerate}
+\end{ex}
+
+\subsection{Elliptische-Kurven-Kryptographie}
+
+\begin{ex}
+Was ist der Hauptvorteil von ECC im Vergleich zu RSA?
+\end{ex}
+
+\begin{ex}
+Füllen Sie die Tabelle aus, die äquivalente Sicherheitsniveaus zeigt:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{RSA-Schlüsselgrösse} & \textbf{ECC-Schlüsselgrösse} \\
+\hline
+1024 Bits & ??? \\
+2048 Bits & ??? \\
+3072 Bits & 256 Bits \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\begin{ex}
+Listen Sie mindestens 4 Anwendungen oder Systeme auf, die ECC verwenden.
+\end{ex}
+
+\subsection{Diffie-Hellman}
+
+\begin{ex}
+Erklären Sie die ``Farbmischungs''-Analogie für den Diffie-Hellman-Schlüsselaustausch.
+\end{ex}
+
+\begin{ex}
+Was ist der Hauptunterschied zwischen Diffie-Hellman und RSA in Bezug auf das, was sie erreichen?
+\end{ex}
+
+\begin{ex}
+Was ist „Forward Secrecy" (oder „Perfect Forward Secrecy") und warum ist es wichtig für sichere Kommunikation wie TLS?
+\end{ex}
+
+% =====================================================
+\section{Kryptographische Hash-Funktionen}
+% =====================================================
+
+\begin{ex}
+Was ist eine kryptographische Hash-Funktion? Was macht sie?
+\end{ex}
+
+\begin{ex}
+Listen und erklären Sie kurz die 7 Schlüsseleigenschaften, die eine kryptographische Hash-Funktion haben sollte.
+\end{ex}
+
+\begin{ex}
+Was ist der „Lawineneffekt"? Warum ist er wichtig für Hash-Funktionen?
+\end{ex}
+
+\begin{ex}
+Warum existieren mathematisch Kollisionen für Hash-Funktionen?
+\end{ex}
+
+\begin{ex}
+Vervollständigen Sie die folgende Tabelle:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithmus} & \textbf{Ausgabegrösse} & \textbf{Status} \\
+\hline
+MD5 & ??? & ??? \\
+SHA-1 & 160 Bits & ??? \\
+SHA-256 & ??? & Sicher \\
+SHA-512 & ??? & Sicher \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\subsection{Anwendungen von Hash-Funktionen}
+
+\begin{ex}
+Sie laden eine Datei \texttt{ubuntu.iso} und ihren SHA-256-Hash von einer Website über HTTP (nicht HTTPS) herunter. Nachdem Sie sie heruntergeladen haben, berechnen Sie den Hash und er stimmt überein. Ist es garantiert, dass die Datei sicher und authentisch ist? Erklären Sie.
+\end{ex}
+
+\begin{ex}
+Warum sollten Passwörter niemals im Klartext in einer Datenbank gespeichert werden? Was sollte stattdessen gespeichert werden?
+\end{ex}
+
+\begin{ex}
+Was ist ein „Salt" im Kontext des Passwort-Hashings? Warum ist es wichtig, obwohl es im Klartext neben dem Hash gespeichert wird?
+\end{ex}
+
+\begin{ex}
+Alices Datenbank zeigt:
+\begin{verbatim}
+Benutzer: alice | Salt: abc123 | Hash (MD5): 1A2B3C...
+Benutzer: bob   | Salt: xyz789 | Hash (MD5): 4D5E6F...
+\end{verbatim}
+
+Identifizieren Sie mindestens zwei Sicherheitsprobleme mit diesem Passwort-Speicheransatz.
+\end{ex}
+
+\begin{ex}
+Warum sind spezialisierte Passwort-Hashing-Funktionen wie Argon2 oder bcrypt besser als nur SHA-256 für die Passwortspeicherung zu verwenden?
+\end{ex}
+
+\begin{ex}
+Erkläre, wie Hash-Funktionen in der Blockchain-Technologie verwendet werden. Nennen Sie mindestens zwei spezifische Anwendungen.
+\end{ex}
+
+\begin{ex}
+Warum können Sie keine Hash-Funktion verwenden, um eine 1 GB grosse Videodatei direkt mit RSA zu signieren? Wie lösen Hash-Funktionen dieses Problem?
+\end{ex}
+
+% =====================================================
+\section{Digitale Signaturen und PKI}
+% =====================================================
+
+\begin{ex}
+Welche drei Sicherheitseigenschaften bieten digitale Signaturen?
+\end{ex}
+
+\begin{ex}
+Beschreiben Sie den Prozess der Erstellung und Überprüfung einer digitalen Signatur. Welche Schlüssel werden bei jedem Schritt verwendet?
+\end{ex}
+
+\begin{ex}
+Vervollständigen Sie den Vergleich:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Eigenschaft} & \textbf{Verschlüsselung} & \textbf{Signierung} \\
+\hline
+Sperren mit & ??? & ??? \\
+Entsperren mit & ??? & ??? \\
+Zweck & Vertraulichkeit & ??? \\
+Wer kann es tun? & ??? & Nur Schlüsselbesitzer \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+\begin{ex}
+Was ist ein digitales Zertifikat? Welche Informationen enthält es?
+\end{ex}
+
+\begin{ex}
+Was ist eine Zertifizierungsstelle (CA)? Welche Rolle spielt sie in der PKI?
+\end{ex}
+
+\begin{ex}
+Erkläre die „Vertrauenskette" in der PKI. Wie verifiziert dein Browser, dass das Zertifikat einer Website gültig ist?
+\end{ex}
+
+\begin{ex}
+Beschreiben Sie die Schritte des TLS-Handshakes, die eine sichere Verbindung herstellen, wenn Sie \texttt{https://www.example.com} besuchen.
+\end{ex}
+
+\begin{ex}
+Welche drei Sicherheitseigenschaften bietet HTTPS?
+\end{ex}
+
+% =====================================================
+\section{Moderne Anwendungen}
+% =====================================================
+
+\begin{ex}
+Was bedeutet „Ende-zu-Ende-Verschlüsselung" (E2EE)? Geben Sie drei Beispiele für Messaging-Apps, die sie verwenden.
+\end{ex}
+
+\begin{ex}
+Erkläre den Unterschied zwischen:
+\begin{enumerate}[label=\alph*)]
+    \item E2EE-Messaging (wie Signal)
+    \item Normale E-Mail
+    \item HTTPS-geschütztes Web-Messaging
+\end{enumerate}
+Wer kann deine Nachrichten in jedem Fall lesen?
+\end{ex}
+
+\begin{ex}
+Wie funktionieren Passwort-Manager? Warum sind sie sicherer, als überall dasselbe Passwort zu verwenden oder Passwörter auf Papier zu schreiben?
+\end{ex}
+
+\begin{ex}
+Was machen VPNs und was machen sie nicht? Listen Sie mindestens 3 Dinge für jede Kategorie auf.
+\end{ex}
+
+\begin{ex}
+Erklären Sie, wie Bitcoin Kryptographie verwendet. Erwähnen Sie mindestens drei spezifische kryptographische Techniken oder Konzepte.
+\end{ex}
+
+% =====================================================
+\section{Bedrohungen und Sicherheit}
+% =====================================================
+
+\begin{ex}
+Ordnen Sie jeden Angriff seiner Beschreibung zu:
+
+\begin{enumerate}[label=\alph*)]
+    \item Brute Force
+    \item Wörterbuchangriff
+    \item Rainbow-Tabelle
+    \item Man-in-the-Middle
+    \item Seitenkanalangriff
+\end{enumerate}
+
+\begin{enumerate}[label=\Roman*)]
+    \item Jeden möglichen Schlüssel ausprobieren
+    \item Kommunikation abfangen und modifizieren
+    \item Vorberechnete Passwort-Hashes
+    \item Häufige Passwörter aus einer Liste ausprobieren
+    \item Geheimnisse aus Timing oder Stromverbrauch extrahieren
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Was ist die Quantencomputer-Bedrohung für die Kryptographie? Welche Arten von Kryptographie sind am meisten gefährdet?
+\end{ex}
+
+\begin{ex}
+Was ist Shors Algorithmus und warum ist er bedeutend für die Kryptographie?
+\end{ex}
+
+\begin{ex}
+Wie beeinflusst die Quantenbedrohung symmetrische Verschlüsselung anders als asymmetrische Verschlüsselung?
+\end{ex}
+
+\begin{ex}
+Was ist Post-Quanten-Kryptographie (PQC)? Nennen Sie mindestens zwei PQC-Algorithmen, die NIST standardisiert hat.
+\end{ex}
+
+\begin{ex}
+Was ist Social Engineering? Geben Sie drei Beispiele für Social-Engineering Angriffe.
+\end{ex}
+
+\begin{ex}
+Erklären Sie den Satz: „Sicherheit ist nur so stark wie das schwächste Glied." Geben Sie ein Beispiel, wo starke Kryptographie aufgrund eines schwachen Glieds versagt.
+\end{ex}
+
+% =====================================================
+\section{Best Practices}
+% =====================================================
+
+\begin{ex}
+Listen Sie mindestens 5 Best Practices, die normale Benutzer befolgen sollten, um online sicher zu bleiben.
+\end{ex}
+
+\begin{ex}
+Was ist Zwei-Faktor-Authentifizierung (2FA)? Warum ist sie wichtig, auch wenn Sie ein starkes Passwort haben?
+\end{ex}
+
+\begin{ex}
+Warum ist der Rat „Roll nicht deine eigene Krypto" so wichtig für Entwickler?
+\end{ex}
+
+\begin{ex}
+Was sind die aktuell empfohlenen Algorithmen für:
+\begin{enumerate}[label=\alph*)]
+    \item Symmetrische Verschlüsselung
+    \item Asymmetrische Verschlüsselung
+    \item Hashing
+    \item Passwort-Hashing
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Geben Sie mindestens 5 häufige kryptographische Fehler an, die Entwickler vermeiden sollten.
+\end{ex}
+
+% =====================================================
+\section{Umfassende Probleme}
+% =====================================================
+
+\begin{ex}
+Sie entwerfen eine sichere Messaging-Anwendung.
+
+\begin{enumerate}[label=\alph*)]
+    \item Welche Art von Verschlüsselung würden Sie für die eigentlichen Nachrichten verwenden und warum?
+    \item Wie würden Sie Verschlüsselungsschlüssel zwischen Benutzern austauschen?
+    \item Wie würden Sie die Nachrichtenintegrität sicherstellen?
+    \item Wie würden Sie Benutzer authentifizieren?
+    \item Würden Sie E2EE verwenden? Warum oder warum nicht?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Ein Unternehmen speichert Kundendaten verschlüsselt mit AES-256. Ein Angreifer stiehlt die verschlüsselte Datenbank. Erklären Sie für jedes Szenario, ob der Angreifer die Daten entschlüsseln kann:
+
+\begin{enumerate}[label=\alph*)]
+    \item Der Verschlüsselungsschlüssel wurde in derselben Datenbank im Klartext gespeichert
+    \item Der Schlüssel wurde vom Passwort „password123" abgeleitet
+    \item Der Schlüssel wurde zufällig generiert und in einem separaten, sicheren Schlüsselverwaltungssystem gespeichert
+    \item Der Angreifer stahl auch ein Backup von vor 2 Jahren, das mit demselben Schlüssel verschlüsselt wurde
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Sie implementieren ein Online-Banking. Entwerfen Sie ein Sicherheitssystem, das folgende Methoden verwendet:
+\begin{itemize}
+    \item Symmetrische Verschlüsselung (geben Sie an wo und warum)
+    \item Asymmetrische Verschlüsselung (geben Sie an wo und warum)
+    \item Hash-Funktionen (geben Sie an wo und warum)
+    \item Digitale Signaturen (geben Sie an wo und warum)
+\end{itemize}
+\end{ex}
+
+\begin{ex}
+Alice erhält eine E-Mail, die angeblich von ihrer Bank stammt und sie auffordert, auf einen Link zu klicken und ihr Passwort einzugeben. Der Link beginnt mit \texttt{https://}, daher denkt Alice, es sei sicher.
+
+\begin{enumerate}[label=\alph*)]
+    \item Was für eine Art von Angriff ist das?
+    \item Warum schützt HTTPS Alice in diesem Fall nicht?
+    \item Was sollte Alice tun?
+    \item Wie könnte Kryptographie helfen, diesen Angriff zu verhindern?
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Vergleiche und kontrastiere:
+\begin{enumerate}[label=\alph*)]
+    \item Caesar-Chiffre vs. AES
+    \item One-Time Pad vs. AES
+    \item RSA vs. Elliptische-Kurven-Kryptographie
+    \item MD5 vs. SHA-256
+\end{enumerate}
+
+Diskutieren Sie für jedes Paar Sicherheit, praktische Verwendbarkeit und wann (wenn überhaupt) jedes verwendet werden sollte.
+\end{ex}
+
+\newpage
+% =====================================================
+\section*{Lösungen}
+% =====================================================
+
+\subsection*{Abschnitt 1: Einführung und Grundkonzepte}
+
+\textbf{Aufgabe 1.1:}
+\begin{enumerate}[label=\alph*)]
+    \item Klartext: Die ursprüngliche, lesbare Nachricht vor der Verschlüsselung
+    \item Geheimtext: Die verschlüsselte, unlesbare Version einer Nachricht
+    \item Verschlüsselung: Der Prozess der Umwandlung von Klartext in Geheimtext unter Verwendung einer Chiffre und eines Schlüssels
+    \item Schlüsselraum: Die Menge aller möglichen Schlüssel, die mit einer bestimmten Chiffre verwendet werden können
+    \item Kryptoanalyse: Das Studium und die Praxis des Brechens kryptographischer Systeme
+\end{enumerate}
+
+\textbf{Aufgabe 1.2:}
+Die vier Hauptsicherheitseigenschaften sind:
+\begin{itemize}
+    \item \textbf{Vertraulichkeit:} Nur autorisierte Parteien können die Informationen lesen
+    \item \textbf{Integrität:} Daten können nicht ohne Erkennung modifiziert werden
+    \item \textbf{Authentifizierung:} Die Identität des Absenders verifizieren
+    \item \textbf{Nicht-Abstreitbarkeit:} Der Absender kann das Senden einer Nachricht nicht leugnen
+\end{itemize}
+
+\textbf{Aufgabe 1.3:}
+Alices Daten könnten immer noch gefährdet sein, weil:
+\begin{itemize}
+    \item Schwaches Passwort oder Schlüsselverwaltung (Schlüssel unsicher gespeichert)
+    \item Malware auf ihrem Gerät könnte den Schlüssel oder Daten vor der Verschlüsselung stehlen
+    \item Social-Engineering-Angriffe könnten sie dazu verleiten, den Schlüssel preiszugeben
+    \item Physischer Zugang zu ihrem entsperrten Gerät
+    \item Implementierungsfehler in der Verschlüsselungssoftware
+    \item Seitenkanalangriffe
+    \item Nicht verschlüsselte Backup-Kopien
+\end{itemize}
+
+\textbf{Aufgabe 1.4:}
+\textbf{Steganographie} verbirgt die Existenz einer Nachricht (z.B. unsichtbare Tinte, in Bildern versteckte Daten). \textbf{Kryptographie} macht eine Nachricht unlesbar, selbst wenn sie entdeckt wird (z.B. Verschlüsselung). Beispiel: Eine Nachricht in Zitronensaft schreiben (Steganographie) vs. eine Caesar-Chiffre verwenden (Kryptographie).
+
+\subsection*{Abschnitt 2: Klassische Kryptographie}
+
+\textbf{Aufgabe 2.1:}
+Mit Verschiebung $k=7$: \texttt{JYFWAVNYHWOF PZ MBU}
+
+\textbf{Aufgabe 2.2:}
+Verschiebung von 3 wurde verwendet. Entschlüsselte Nachricht: \texttt{THIS IS A SECRET MESSAGE}
+
+\textbf{Aufgabe 2.3:}
+Es gibt nur 25 mögliche Verschiebungen, weil Verschiebung 0 die Nachricht unverändert lässt (keine Verschlüsselung) und Verschiebung 26 zum Original zurückkehrt (gleich wie Verschiebung 0). Dies macht sie trivial brechbar, indem man alle 25 Möglichkeiten ausprobiert.
+
+\textbf{Aufgabe 2.4:}
+Bob liegt falsch. Da das Alphabet nur 26 Buchstaben hat, ist Verschiebung 283 äquivalent zu Verschiebung $283 \mod 26 = 23$. Die Sicherheit ist dieselbe wie bei Verschiebung 23.
+
+\textbf{Aufgabe 2.5:}
+$26! \approx 4 \times 10^{26}$ mögliche Permutationen des Alphabets.
+
+\textbf{Aufgabe 2.6:}
+Häufigkeitsanalyse nutzt die Tatsache aus, dass bestimmte Buchstaben in jeder Sprache häufiger vorkommen. Durch Zählen der Buchstabenhäufigkeiten im Geheimtext und Abgleich mit erwarteten Häufigkeiten in der Sprache (z.B. E ist im Deutschen am häufigsten), kann man die Substitutionsabbildung ableiten. Häufige Muster wie „DER" helfen auch, die Möglichkeiten einzugrenzen.
+
+\textbf{Aufgabe 2.7:}
+Dies ist eine ROT13-Chiffre (Verschiebung 13). Entschlüsselt: \texttt{THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG}
+
+\textbf{Aufgabe 2.8:}
+\begin{enumerate}[label=\alph*)]
+    \item \texttt{SVOOL DLIOW}
+    \item Atbasch ist seine eigene Inverse - zweimal verschlüsseln ergibt die Originalnachricht
+    \item Schlüsselraum ist 1 (nur eine mögliche Abbildung)
+\end{enumerate}
+
+\textbf{Aufgabe 2.9:}
+Mit 3 Schienen:
+\begin{verbatim}
+M . . . A . . . O .
+. E . T . T . O . N
+. . E . . . N . .
+\end{verbatim}
+Geheimtext: \texttt{MAO ETT ONE EN} oder \texttt{MAOETTONEEN}
+
+\textbf{Aufgabe 2.10:}
+Lesen im Zickzackmuster mit 4 Schienen: \texttt{CRYPTOGRAPHY}
+
+\textbf{Aufgabe 2.11:}
+\begin{enumerate}[label=\alph*)]
+    \item
+\begin{verbatim}
+K E Y S
+H E L L
+O W O R
+L D X X  (Auffüllung)
+\end{verbatim}
+    \item Alphabetische Reihenfolge: E(2), K(1), S(4), Y(3)
+    \item Spalten 1-2-3-4 lesen: \texttt{HOL EEWLDO LOXR XX} oder \texttt{HOLEEWLDOLOXRXX}
+\end{enumerate}
+
+\textbf{Aufgabe 2.12:}
+Mit Schlüsselwort CRYPTO wiederholt:
+\begin{verbatim}
+Klartext:   A T T A C K A T D A W N
+Schlüssel:  C R Y P T O C R Y P T O
+Geheimtext: C K R P V Y C K B P P B
+\end{verbatim}
+
+\textbf{Aufgabe 2.13:}
+Mit Schlüsselwort KEY: \texttt{HELLO WORLD}
+
+\textbf{Aufgabe 2.14:}
+Vigenère verwendet verschiedene Caesar-Verschiebungen an verschiedenen Positionen basierend auf einem Schlüsselwort. Dies bedeutet, dass derselbe Klartextbuchstabe je nach Position zu verschiedenen Geheimtextbuchstaben verschlüsselt wird, wodurch einfache Häufigkeitsanalyse vereitelt wird. Es hat einen viel grösseren Schlüsselraum ($26^n$ für Schlüsselwortlänge $n$).
+
+\textbf{Aufgabe 2.15:}
+Die Kasiski-Untersuchung sucht nach wiederholten Sequenzen im Geheimtext. Die Abstände zwischen Wiederholungen teilen wahrscheinlich Faktoren mit der Schlüsselwortlänge. Dies hilft, die Schlüsselwortlänge zu bestimmen, danach kann jede Position separat mit Häufigkeitsanalyse angegriffen werden.
+
+\textbf{Aufgabe 2.16:}
+Die Schlüsselwortlänge ist wahrscheinlich ein Faktor von 15 (d.h. 1, 3, 5 oder 15). Am wahrscheinlichsten 3, 5 oder 15.
+
+\textbf{Aufgabe 2.17:}
+\begin{verbatim}
+Nachricht: H  E  L  L  O
+           7  4 11 11 14
+Schlüssel: 23  8 15 19  2
+Summe:     30 12 26 30 16 (mod 26)
+            4 12  0  4 16
+Ergebnis:   E  M  A  E  Q
+\end{verbatim}
+
+\textbf{Aufgabe 2.18:}
+Perfekte Geheimhaltung bedeutet, dass der Geheimtext absolut keine Informationen über den Klartext liefert. Ohne den Schlüssel sind alle möglichen Klartexte derselben Länge gleich wahrscheinlich. Selbst mit unbegrenzter Rechenleistung kann man es nicht brechen.
+
+\textbf{Aufgabe 2.19:}
+\begin{enumerate}
+    \item Schlüssel muss mindestens so lang wie die Nachricht sein
+    \item Schlüssel muss wirklich zufällig sein (nicht pseudozufällig)
+    \item Schlüssel darf niemals wiederverwendet werden (auch nicht teilweise)
+    \item Schlüssel muss vollständig geheim gehalten und nach Gebrauch vernichtet werden
+\end{enumerate}
+
+\textbf{Aufgabe 2.20:}
+Wenn Schlüssel wiederverwendet werden, können Angreifer das XOR zweier Geheimtexte berechnen, um das XOR der beiden Klartexte zu erhalten, wodurch die perfekte Geheimhaltung vollständig gebrochen wird. Das VENONA-Projekt nutzte dies aus, um sowjetische Geheimdienstnachrichten zu entschlüsseln und Spione zu identifizieren.
+
+\textbf{Aufgabe 2.21:}
+Unpraktisch, weil: (1) Schlüssel muss so lang sein wie alle E-Mails zusammen, (2) Sichere Schlüsselverteilung ist extrem schwierig, (3) Schlüsselspeicherung und -verwaltung ist umständlich, (4) Echte Zufallszahlengenerierung in grossem Massstab ist schwer, (5) Jede Wiederverwendung bricht die Sicherheit katastrophal.
+
+\subsection*{Abschnitt 3: Prinzipien der modernen Kryptographie}
+
+\textbf{Aufgabe 3.1:}
+Kerckhoffs' Prinzip besagt, dass ein Kryptosystem sicher sein sollte, selbst wenn alles ausser dem Schlüssel öffentlich bekannt ist. Dies ist wichtig, weil es ermöglicht, dass Algorithmen öffentlich von Experten getestet, für weit verbreitete Verwendung standardisiert werden und nur Schlüssel (nicht ganze Systeme) geändert werden müssen, wenn sie kompromittiert werden.
+
+\textbf{Aufgabe 3.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Klassisch: geheimer Algorithmus; Modern: nur geheimer Schlüssel
+    \item Klassisch: klein (oft < 26); Modern: gross (128-4096 Bits)
+    \item Klassisch: Musteranalyse; Modern: rechnerische Härte
+\end{enumerate}
+
+\textbf{Aufgabe 3.3:}
+Rechnerische Sicherheit bedeutet, dass das Brechen der Chiffre theoretisch möglich, aber mit aktuellen Rechenressourcen praktisch unmöglich ist. Im Gegensatz zu perfekter Geheimhaltung (One-Time Pad) beruht sie auf rechnerischen Einschränkungen statt auf informationstheoretischen Garantien.
+
+\textbf{Aufgabe 3.4:}
+$2^{128} \div 10^{12} = 2^{128} \div 10^{12} \approx 3,4 \times 10^{26}$ Sekunden $\approx 1,1 \times 10^{19}$ Jahre. Dies ist etwa 1 Milliarde Mal das Alter des Universums!
+
+\subsection*{Abschnitt 4: Symmetrische Verschlüsselung}
+
+\textbf{Aufgabe 4.1:}
+Symmetrische Verschlüsselung verwendet denselben Schlüssel für Verschlüsselung und Entschlüsselung. \textbf{Vorteile:} Sehr schnell, starke Sicherheit mit kurzen Schlüsseln, geringe Rechenkosten. \textbf{Nachteile:} Schlüsselverteilungsproblem, schwierige Schlüsselverwaltung, Schlüsselkompromittierung betrifft alle Nachrichten.
+
+\textbf{Aufgabe 4.2:}
+$\frac{n(n-1)}{2} = \frac{10 \times 9}{2} = 45$ Schlüssel
+
+\textbf{Aufgabe 4.3:}
+\textbf{Blockchiffren} verschlüsseln Daten in Blöcken fester Grösse (z.B. AES verschlüsselt 128-Bit-Blöcke). \textbf{Stromchiffren} verschlüsseln Bit für Bit oder Byte für Byte (z.B. ChaCha20). Blockchiffren-Beispiel: AES. Stromchiffren-Beispiel: ChaCha20.
+
+\textbf{Aufgabe 4.4:}
+ECB-Modus verschlüsselt identische Klartextblöcke zu identischen Geheimtextblöcken und offenbart so Muster in den Daten. Berühmtes Beispiel: „ECB-Pinguin", wo die Verschlüsselung eines Bildes im ECB-Modus immer noch die Umrisse zeigt.
+
+\textbf{Aufgabe 4.5:}
+\begin{enumerate}[label=\alph*)]
+    \item Advanced Encryption Standard
+    \item 2001
+    \item 128 Bits (immer)
+    \item 128, 192 oder 256 Bits
+    \item Nichts! AES ist immer noch der aktuelle Standard
+\end{enumerate}
+
+\textbf{Aufgabe 4.6:}
+Ein 256-Bit-Schlüssel hat $2^{256}$ Möglichkeiten, während ein 128-Bit-Schlüssel $2^{128}$ Möglichkeiten hat. Da $2^{256} = (2^{128})^2$, ist ein 256-Bit-Schlüssel $2^{128}$ Mal sicherer (ungefähr $10^{38}$ Mal), nicht doppelt.
+
+\textbf{Aufgabe 4.7:}
+WiFi (WPA2/WPA3), VPNs, TLS/SSL (HTTPS), Dateiverschlüsselung, Messaging-Apps (Signal, WhatsApp), Festplattenverschlüsselung, Bankensysteme.
+
+\textbf{Aufgabe 4.8:}
+Ein IV (Initialisierungsvektor) ist ein zufälliger Wert, der als Eingabe für Verschlüsselungsmodi verwendet wird, um sicherzustellen, dass die Verschlüsselung derselben Nachricht zweimal verschiedene Geheimtexte erzeugt. Die Wiederverwendung eines IV kann die Sicherheit vollständig brechen und möglicherweise Informationen über den Klartext preisgeben.
+
+\textbf{Aufgabe 4.9:}
+AEAD bietet Verschlüsselung (Vertraulichkeit) plus Authentifizierung und Integritätsprüfung in einer Operation. Beispiele: AES-GCM, ChaCha20-Poly1305. Es stellt sicher, dass Daten nicht manipuliert wurden und verifiziert den Absender.
+
+\textbf{Aufgabe 4.10:}
+Passwörter sind zu kurz (geringe Entropie), nicht gleichmässig verteilt und möglicherweise schwach. Stattdessen verwende eine Schlüsselableitungsfunktion (KDF) wie PBKDF2, Argon2 oder scrypt, um einen richtigen Schlüssel aus dem Passwort mit Salt und mehreren Iterationen abzuleiten.
+
+\subsection*{Abschnitt 5: Asymmetrische Verschlüsselung}
+
+\textbf{Aufgabe 5.1:}
+Das Schlüsselverteilungsproblem: Wie können zwei Parteien, die sich nie getroffen haben, einen geheimen Schlüssel sicher teilen, wenn alle Kommunikation abgefangen werden kann? Asymmetrische Verschlüsselung löst dies durch Verwendung öffentlicher Schlüssel, die frei geteilt werden können - Alice verschlüsselt mit Bobs öffentlichem Schlüssel, und nur Bobs privater Schlüssel kann entschlüsseln.
+
+\textbf{Aufgabe 5.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Öffentlicher Schlüssel
+    \item Privater Schlüssel
+    \item Privater Schlüssel
+    \item Öffentlicher Schlüssel
+\end{enumerate}
+
+\textbf{Aufgabe 5.3:}
+Öffentlicher Schlüssel = Briefkasten, in den jeder Briefe einwerfen kann. Privater Schlüssel = Schlüssel zum Öffnen des Briefkastens. Jeder kann dir sichere Nachrichten senden (Briefe in Briefkasten einwerfen), aber nur du kannst sie lesen (mit deinem Schlüssel öffnen).
+
+\textbf{Aufgabe 5.4:}
+Eine Einwegfunktion ist leicht zu berechnen, aber schwer umzukehren (z.B. Multiplikation grosser Primzahlen ist einfach, aber Faktorisierung des Produkts ist schwer). Die Falltür ist eine geheime Information, die das Umkehren einfach macht (z.B. das Kennen eines Primfaktors macht das Finden des anderen einfach). In RSA ist der private Schlüssel die Falltür.
+
+\textbf{Aufgabe 5.5:}
+\begin{enumerate}[label=\alph*)]
+    \item Rivest-Shamir-Adleman (Namen der Erfinder)
+    \item 1977
+    \item Faktorisierung grosser Zahlen
+    \item 2048 Bits
+\end{enumerate}
+
+\textbf{Aufgabe 5.6:}
+(1) Wähle zwei grosse Primzahlen $p$ und $q$; (2) Berechne $n = p \times q$ und $\phi(n)$; (3) Wähle öffentlichen Exponenten $e$ und berechne privaten Exponenten $d$.
+
+\textbf{Aufgabe 5.7:}
+Schlechte Idee, weil: (1) RSA kann nur Daten kleiner als die Schlüsselgrösse verschlüsseln (2048 Bits = 256 Bytes), (2) RSA ist extrem langsam für grosse Daten. Stattdessen: Zufälligen AES-Schlüssel generieren, Video mit AES verschlüsseln (schnell), AES-Schlüssel mit RSA verschlüsseln (klein), beides senden.
+
+\textbf{Aufgabe 5.8:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetrisch ist tausendmal schneller
+    \item Asymmetrisch benötigt viel grössere Schlüssel (2048 Bits RSA vs. 256 Bits AES)
+    \item Symmetrisch: Massendatenverschlüsselung; Asymmetrisch: Schlüsselaustausch, digitale Signaturen
+\end{enumerate}
+
+\textbf{Aufgabe 5.9:}
+ECC bietet äquivalente Sicherheit mit viel kleineren Schlüsseln (z.B. 256-Bit ECC $\approx$ 3072-Bit RSA), was es schneller macht und weniger Bandbreite/Speicher erfordert.
+
+\textbf{Aufgabe 5.10:}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+1024 Bits & 160 Bits \\
+2048 Bits & 224 Bits \\
+3072 Bits & 256 Bits \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Aufgabe 5.11:}
+Bitcoin/Kryptowährungen, modernes TLS/SSL, Signal/WhatsApp, Apple iMessage, SSH-Schlüssel, IoT-Geräte.
+
+\textbf{Aufgabe 5.12:}
+Alice und Bob einigen sich auf eine öffentliche Farbe (gelb). Jeder wählt eine geheime Farbe (Alice: rot, Bob: blau). Sie mischen ihr Geheimnis mit öffentlich und tauschen aus (Alice sendet orange, Bob sendet grün). Jeder mischt sein Geheimnis mit erhaltener Farbe, um dieselbe endgültige Mischung zu erhalten. Eva sieht nur gelb, orange, grün, kann aber die endgültige geteilte Farbe nicht bestimmen.
+
+\textbf{Aufgabe 5.13:}
+Diffie-Hellman etabliert einen gemeinsamen geheimen Schlüssel zwischen zwei Parteien. RSA verschlüsselt Nachrichten oder erstellt digitale Signaturen. DH ist für Schlüsselvereinbarung, RSA ist für Verschlüsselung/Signierung.
+
+\textbf{Aufgabe 5.14:}
+Forward Secrecy bedeutet, dass wenn Langzeitschlüssel kompromittiert werden, vergangene Sitzungsschlüssel sicher bleiben. Dies wird durch Verwendung ephemerer (temporärer) Schlüssel für jede Sitzung erreicht. Wichtig, weil es vergangene Kommunikationen schützt, selbst wenn der Server später gehackt wird.
+
+\subsection*{Abschnitt 6: Kryptographische Hash-Funktionen}
+
+\textbf{Aufgabe 6.1:}
+Eine Funktion, die jede Eingabe nimmt und eine Ausgabe fester Grösse erzeugt (Hash/Digest). Sie ist Einweg (schwer umzukehren) und kollisionsresistent.
+
+\textbf{Aufgabe 6.2:}
+(1) Deterministisch, (2) Schnell zu berechnen, (3) Urbildresistent (Einweg), (4) Zweites Urbildresistent, (5) Kollisionsresistent, (6) Lawineneffekt, (7) Ausgabegrösse fest.
+
+\textbf{Aufgabe 6.3:}
+Eine kleine Änderung in der Eingabe (sogar 1 Bit) erzeugt einen drastisch anderen Hash (ungefähr 50% der Bits flippen). Wichtig für Sicherheit (ähnliche Eingaben sollten keine ähnlichen Hashes haben) und Integritätsprüfung (jede Korruption ändert Hash vollständig).
+
+\textbf{Aufgabe 6.4:}
+Nach dem Schubfachprinzip: unendlich viele mögliche Eingaben, endlich viele mögliche Ausgaben bedeutet, dass Kollisionen existieren müssen. Sie zu finden sollte jedoch rechnerisch unmöglich sein.
+
+\textbf{Aufgabe 6.5:}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+MD5 & 128 Bits & Gebrochen \\
+SHA-1 & 160 Bits & Veraltet \\
+SHA-256 & 256 Bits & Sicher \\
+SHA-512 & 512 Bits & Sicher \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Aufgabe 6.6:}
+Nein! Während übereinstimmender Hash beweist, dass die Datei während der Übertragung nicht beschädigt wurde, garantiert es keine Sicherheit, weil: (1) Website könnte kompromittiert sein und bösartige Datei + passenden Hash liefern, (2) HTTP erlaubt Man-in-the-Middle, beide Datei und Hash zu ersetzen, (3) Datei könnte absichtlich bösartig, aber korrekt gehasht sein. Brauche HTTPS oder digitale Signatur für echte Sicherheit.
+
+\textbf{Aufgabe 6.7:}
+Klartext-Passwörter erlauben sofortige Kompromittierung aller Konten, wenn Datenbank gestohlen wird. Stattdessen speichere den Hash des Passworts. Wenn Benutzer sich anmeldet, hashe eingegebenes Passwort und vergleiche Hashes.
+
+\textbf{Aufgabe 6.8:}
+Eine zufällige Zeichenkette, die vor dem Hashen zum Passwort hinzugefügt wird. Wichtig, weil es verhindert: (1) Rainbow-Tabellen-Angriffe, (2) Identifizierung von Benutzern mit gleichem Passwort, (3) Parallele Angriffe auf mehrere Passwörter. Obwohl im Klartext gespeichert, zwingt es Angreifer, Hashes individuell zu berechnen.
+
+\textbf{Aufgabe 6.9:}
+Probleme: (1) Verwendung von MD5, das gebrochen und zu schnell ist (ermöglicht Brute-Force), (2) Sollte spezialisierte Passwort-Hash-Funktion wie Argon2 oder bcrypt verwenden, die absichtlich langsam und speicherintensiv ist.
+
+\textbf{Aufgabe 6.10:}
+Sie sind absichtlich langsam (vereiteln Brute-Force), speicherintensiv (widerstehen spezialisierter Hardware) und speziell für Passwortsicherheit mit eingebautem Salting entworfen. SHA-256 ist zu schnell und nicht für Passwörter konzipiert.
+
+\textbf{Aufgabe 6.11:}
+(1) Jeder Block enthält Hash des vorherigen Blocks (erstellt die Kette), (2) Proof of Work erfordert Finden eines Hash mit bestimmten Eigenschaften, (3) Transaktionsadressen sind Hashes von öffentlichen Schlüsseln, (4) Merkle-Bäume für effiziente Verifikation.
+
+\textbf{Aufgabe 6.12:}
+RSA ist zu langsam, um grosse Dateien direkt zu signieren. Lösung: Hashe die Datei (schnell), signiere den kleinen Hash mit RSA (schnell), jeder kann verifizieren, indem er die Datei hasht und Signatur prüft.
+
+\subsection*{Abschnitt 7: Digitale Signaturen und PKI}
+
+\textbf{Aufgabe 7.1:}
+Authentifizierung (beweist, wer es gesendet hat), Integrität (beweist, nicht modifiziert), Nicht-Abstreitbarkeit (Absender kann Senden nicht leugnen).
+
+\textbf{Aufgabe 7.2:}
+\textbf{Erstellen:} Hashe Nachricht, verschlüssele Hash mit privatem Schlüssel (Signatur), sende Nachricht + Signatur. \textbf{Verifizieren:} Hashe empfangene Nachricht, entschlüssele Signatur mit öffentlichem Schlüssel, vergleiche Hashes.
+
+\textbf{Aufgabe 7.3:}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Sperren mit & Öffentlicher Schlüssel & Privater Schlüssel \\
+Entsperren mit & Privater Schlüssel & Öffentlicher Schlüssel \\
+Zweck & Vertraulichkeit & Authentifizierung \\
+Wer kann es tun? & Jeder & Nur Schlüsselbesitzer \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Aufgabe 7.4:}
+Ein digitaler Ausweis für einen öffentlichen Schlüssel, enthaltend: öffentlicher Schlüssel, Identität des Besitzers, Gültigkeitszeitraum, digitale Signatur der CA.
+
+\textbf{Aufgabe 7.5:}
+Eine vertrauenswürdige dritte Partei, die Identitäten verifiziert und Zertifikate ausstellt, indem sie sie mit dem privaten Schlüssel der CA signiert. Fungiert als Vermittler für Vertrauen.
+
+\textbf{Aufgabe 7.6:}
+Website-Zertifikat → signiert von Zwischen-CA → signiert von Root-CA (im Browser vorinstalliert). Browser verifiziert: gültige Signatur, nicht abgelaufen, passt zur Domain, nicht widerrufen.
+
+\textbf{Aufgabe 7.7:}
+(1) Server sendet Zertifikat, (2) Browser verifiziert Zertifikat, (3) Führe Diffie-Hellman-Schlüsselaustausch durch, (4) Etabliere symmetrischen Sitzungsschlüssel, (5) Verschlüssele alle Daten mit Sitzungsschlüssel.
+
+\textbf{Aufgabe 7.8:}
+Vertraulichkeit (verschlüsselt), Authentifizierung (verifizierte Server-Identität), Integrität (Daten können nicht manipuliert werden).
+
+\subsection*{Abschnitt 8: Moderne Anwendungen}
+
+\textbf{Aufgabe 8.1:}
+Nur Absender und Empfänger können Nachrichten lesen - nicht einmal der Dienstanbieter. Beispiele: Signal, WhatsApp, iMessage, ProtonMail.
+
+\textbf{Aufgabe 8.2:}
+\begin{enumerate}[label=\alph*)]
+    \item E2EE: Nur Absender und Empfänger können lesen
+    \item Normale E-Mail: E-Mail-Anbieter kann lesen
+    \item HTTPS-Web-Messaging: Plattform kann lesen (nur während Übertragung verschlüsselt)
+\end{enumerate}
+
+\textbf{Aufgabe 8.3:}
+Master-Passwort → leitet Verschlüsselungsschlüssel ab → alle Passwörter mit AES-256 verschlüsselt. Sicherer, weil: eindeutige starke Passwörter für jede Site, schützt vor Phishing (Auto-Fill nur auf korrekter Domain), schützt vor Keyloggern, verschlüsselte Speicherung.
+
+\textbf{Aufgabe 8.4:}
+\textbf{Tun:} Verkehr zum VPN-Server verschlüsseln, IP-Adresse verbergen, Geo-Beschränkungen umgehen, auf öffentlichem WLAN schützen. \textbf{Nicht tun:} Dich anonym machen, vor Malware schützen, nach VPN-Server verschlüsseln, Aktivität vor VPN-Anbieter verbergen.
+
+\textbf{Aufgabe 8.5:}
+(1) Public-Private-Key-Paare (Wallets), (2) Digitale Signaturen (Transaktionen signieren), (3) Hash-Funktionen (Proof of Work, Block-Verkettung, Adressen), (4) Merkle-Bäume (Transaktionsverifikation).
+
+\subsection*{Abschnitt 9: Bedrohungen und Sicherheit}
+
+\textbf{Aufgabe 9.1:}
+a-I, b-IV, c-III, d-II, e-V
+
+\textbf{Aufgabe 9.2:}
+Quantencomputer könnten aktuelle Public-Key-Kryptographie (RSA, ECC, Diffie-Hellman) brechen, indem sie schwere Probleme wie Faktorisierung und diskreten Logarithmus effizient lösen.
+
+\textbf{Aufgabe 9.3:}
+Ein Quantenalgorithmus, der grosse Zahlen faktorisieren und diskrete Logarithmusprobleme effizient lösen kann. Bedeutend, weil er RSA, Diffie-Hellman und ECC bricht.
+
+\textbf{Aufgabe 9.4:}
+Symmetrische Verschlüsselung weniger betroffen - Grovers Algorithmus bietet nur quadratische Beschleunigung (muss Schlüsselgrösse verdoppeln). Asymmetrische Verschlüsselung stark betroffen - Shors Algorithmus bricht sie vollständig.
+
+\textbf{Aufgabe 9.5:}
+Kryptographische Algorithmen, die gegen Quantencomputer resistent sind, basierend auf Problemen, die Quantencomputer nicht effizient lösen können (Gitterprobleme, hashbasiert usw.). Beispiele: CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON, SPHINCS+.
+
+\textbf{Aufgabe 9.6:}
+Menschen manipulieren, um sensible Informationen preiszugeben oder Handlungen durchzuführen, die Sicherheit kompromittieren. Beispiele: Phishing-E-Mails, Pretexting (Identitätsvortäuschung), Baiting (infizierte USB-Sticks), Tailgating (physischer Zugang).
+
+\textbf{Aufgabe 9.7:}
+Sicherheit versagt am schwächsten Punkt. Beispiel: Starke Verschlüsselung nutzlos, wenn Passwort „password123" ist, oder wenn Benutzer Passwort über Phishing preisgibt, oder wenn Malware Schlüssel aus Speicher stiehlt.
+
+\subsection*{Abschnitt 10: Best Practices}
+
+\textbf{Aufgabe 10.1:}
+(1) Starke eindeutige Passwörter mit Passwort-Manager, (2) 2FA aktivieren, (3) Software aktualisiert halten, (4) HTTPS verwenden, (5) Vor Phishing warnen, (6) E2EE-Messaging verwenden, (7) Sensible Daten verschlüsseln, (8) VPN auf öffentlichem WLAN.
+
+\textbf{Aufgabe 10.2:}
+Zusätzlicher Authentifizierungsfaktor über Passwort hinaus (etwas das du hast/bist, nicht nur etwas das du weisst). Wichtig, weil selbst wenn Passwort kompromittiert ist, Angreifer immer noch nicht auf Konto zugreifen kann.
+
+\textbf{Aufgabe 10.3:}
+Kryptographie ist extrem komplex und subtile Fehler können Sicherheit katastrophal brechen. Verwende gut getestete Bibliotheken von Experten erstellt. Eigene Implementierung hat fast garantiert Schwachstellen.
+
+\textbf{Aufgabe 10.4:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetrisch: AES-256-GCM, ChaCha20-Poly1305
+    \item Asymmetrisch: RSA-2048+, Curve25519, Ed25519
+    \item Hashing: SHA-256, SHA-3, BLAKE2
+    \item Passwort-Hashing: Argon2, bcrypt, scrypt
+\end{enumerate}
+
+\textbf{Aufgabe 10.5:}
+Veraltete Algorithmen verwenden (MD5, SHA-1, DES), Klartext-Passwörter speichern, Schlüssel/IVs/Nonces wiederverwenden, ECB-Modus verwenden, eigene Krypto implementieren, Benutzereingaben vertrauen, Schlüssel hardcodieren, schwache Zufallsgeneratoren verwenden, Krypto-Fehler nicht richtig behandeln.
+
+\subsection*{Abschnitt 11: Umfassende Probleme}
+
+\textbf{Aufgabe 11.1:}
+\begin{enumerate}[label=\alph*)]
+    \item Symmetrisch (AES-256-GCM) für Geschwindigkeit und Effizienz
+    \item Asymmetrisch (X25519 Diffie-Hellman) für Schlüsselaustausch
+    \item AEAD-Modus (GCM) oder separates MAC für Integrität
+    \item Digitale Signaturen mit privaten Benutzerschlüsseln
+    \item Ja, E2EE damit Anbieter Nachrichten nicht lesen kann
+\end{enumerate}
+
+\textbf{Aufgabe 11.2:}
+\begin{enumerate}[label=\alph*)]
+    \item Ja - Schlüssel sofort verfügbar
+    \item Wahrscheinlich - schwaches Passwort leicht per Brute-Force zu knacken
+    \item Nein - Schlüssel richtig gesichert
+    \item Besorgniserregend - Schlüsselwiederverwendung über Zeit reduziert Sicherheit, hilft Angreifer aber nicht direkt
+\end{enumerate}
+
+\textbf{Aufgabe 11.3:}
+\textbf{Symmetrisch:} Kontodaten verschlüsseln, Sitzungsverschlüsselung (schnell). \textbf{Asymmetrisch:} TLS-Handshake, Server/Benutzer authentifizieren (Schlüsselverteilung lösen). \textbf{Hash:} Passwort-Hashes speichern (Argon2), Transaktionsintegrität (SHA-256). \textbf{Signaturen:} Transaktionen signieren (Nicht-Abstreitbarkeit), Authentizität verifizieren.
+
+\textbf{Aufgabe 11.4:}
+\begin{enumerate}[label=\alph*)]
+    \item Phishing-Angriff
+    \item HTTPS verschlüsselt nur Verbindung zur Site, die Alice besucht - wenn diese Site gefälscht/bösartig ist, hilft HTTPS nicht
+    \item Absender verifizieren, URL sorgfältig prüfen, Bank direkt über offizielle Kanäle kontaktieren, niemals Links in E-Mails klicken
+    \item Digitale Signaturen von Bank, Certificate Pinning, Hardware-Token (2FA)
+\end{enumerate}
+
+\textbf{Aufgabe 11.5:}
+\textbf{Caesar vs AES:} Caesar hat winzigen Schlüsselraum (25), leicht gebrochen, nur historisch. AES hat riesigen Schlüsselraum ($2^{256}$), rechnerisch sicher, überall verwendet. Beide symmetrisch, aber völlig unterschiedliche Sicherheitsniveaus.
+
+\textbf{OTP vs AES:} OTP hat perfekte Geheimhaltung (informationstheoretisch sicher), aber unpraktisch (Schlüssel = Nachrichtenlänge, kann nicht wiederverwendet werden). AES hat rechnerische Sicherheit, aber praktisch (kurze Schlüssel, wiederverwendbar). OTP nur für höchste Sicherheit, geringe Volumenkommunikation verwenden; AES für alles andere.
+
+\textbf{RSA vs ECC:} Beide asymmetrisch. ECC bietet gleiche Sicherheit mit viel kleineren Schlüsseln (256-Bit ECC $\approx$ 3072-Bit RSA), schneller, weniger Bandbreite. RSA ausgereifter, breiter analysiert. Trend bewegt sich zu ECC.
+
+\textbf{MD5 vs SHA-256:} MD5 gebrochen (Kollisionen leicht gefunden), 128-Bit-Ausgabe, veraltet. SHA-256 sicher, 256-Bit-Ausgabe, aktueller Standard. Niemals MD5 für Sicherheit verwenden; immer SHA-256 oder besser.
+
+\end{document}

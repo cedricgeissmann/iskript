@@ -1,0 +1,656 @@
+\documentclass[handout]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage[ngerman]{babel}
+
+\title{Von klassischer zu moderner Kryptographie}
+\subtitle{Einführung in die Public-Key-Kryptographie}
+\author{Informatik}
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Die heutige Reise}
+\tableofcontents
+\end{frame}
+
+\section{Rückblick: Klassische Chiffren}
+
+\begin{frame}{Was wir bisher gelernt haben}
+\begin{block}{Klassische Chiffren}
+\begin{itemize}
+    \item Caesar-Chiffre (Verschiebungschiffre)
+    \item Vigenère-Chiffre (polyalphabetische Substitution)
+    \item Transpositionschiffren
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Frage}
+Was haben all diese Chiffren gemeinsam?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Kritische Analyse: Caesar-Chiffre}
+\begin{example}
+Verschlüssele ``HALLO'' mit Verschiebung 7:
+\[
+\text{HALLO} \rightarrow \text{OHSSV}
+\]
+\end{example}
+
+\pause
+
+\begin{alertblock}{Schwachstelle}
+Wenn ein Angreifer den Verschiebungswert kennt (oder alle 26 Möglichkeiten durchprobiert), ist die Chiffre vollständig gebrochen!
+\end{alertblock}
+
+\pause
+
+\begin{block}{Wichtige Erkenntnis}
+Die Sicherheit hängt davon ab, die \textbf{Methode} geheim zu halten, nicht nur den Schlüssel.
+\end{block}
+\end{frame}
+
+\begin{frame}{Die Vigenère-Chiffre}
+\begin{block}{Einst als ``unknackbar'' bezeichnet}
+Die Vigenère-Chiffre galt jahrhundertelang als unknackbar.
+\end{block}
+
+\pause
+
+\begin{alertblock}{Aber sie wurde geknackt!}
+\begin{itemize}
+    \item Häufigkeitsanalyse
+    \item Kasiski-Untersuchung
+    \item Schlüssellänge finden, dann als mehrere Caesar-Chiffren behandeln
+\end{itemize}
+\end{alertblock}
+
+\pause
+
+\begin{block}{Das Muster}
+Alle klassischen Chiffren können mit genügend Geheimtext und Rechenaufwand gebrochen werden.
+\end{block}
+\end{frame}
+
+\begin{frame}{Die zwei grundlegenden Probleme}
+\begin{enumerate}
+    \item \textbf{Sicherheit durch Geheimhaltung}
+    \begin{itemize}
+        \item Klassische Chiffren verlassen sich darauf, die Methode geheim zu halten
+        \item Sobald die Methode bekannt ist, ist die Sicherheit gefährdet
+    \end{itemize}
+
+    \pause
+
+    \item \textbf{Das Schlüsselverteilungsproblem}
+    \begin{itemize}
+        \item Wie können zwei Personen, die sich nie getroffen haben, einen geheimen Schlüssel austauschen?
+        \item Wenn sie sich persönlich treffen, großartig! Aber was ist mit Fernkommunikation?
+        \item Man kann den Schlüssel nicht über einen unsicheren Kanal senden...
+    \end{itemize}
+\end{enumerate}
+
+\pause
+
+\begin{alertblock}{Frage}
+Wie können wir diese Probleme lösen?
+\end{alertblock}
+\end{frame}
+
+\section{Kerckhoffs' Prinzip}
+
+\begin{frame}{Auftritt: Kerckhoffs' Prinzip}
+\begin{block}{Auguste Kerckhoffs (1883)}
+\begin{quote}
+\textit{``Ein Kryptosystem sollte sicher sein, auch wenn alles über das System, außer dem Schlüssel, öffentlich bekannt ist.''}
+\end{quote}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Moment... Was?}
+Wie kann ein System sicher sein, wenn jeder weiß, wie es funktioniert?
+\end{alertblock}
+
+\pause
+
+\begin{block}{Die revolutionäre Idee}
+Die Sicherheit sollte \textbf{nur} von der Geheimhaltung des Schlüssels abhängen, nicht vom Algorithmus!
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum Kerckhoffs' Prinzip wichtig ist}
+\begin{block}{Vorteile öffentlicher Algorithmen}
+\begin{itemize}
+    \item Können von Experten weltweit untersucht und getestet werden
+    \item Schwachstellen können gefunden und behoben werden
+    \item Keine Notwendigkeit, Methoden geheim zu halten (in der Praxis unmöglich)
+    \item Vertrauen durch Transparenz
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Moderne Realität}
+Alle moderne Verschlüsselung (HTTPS, Banking, Messaging) verwendet öffentlich bekannte Algorithmen!
+\end{exampleblock}
+
+\pause
+
+\begin{alertblock}{Aber wie?}
+Die Antwort liegt in der \textbf{Mathematik}...
+\end{alertblock}
+\end{frame}
+
+\section{Einwegfunktionen}
+
+\begin{frame}{Die Grundlage: Einwegfunktionen}
+\begin{definition}
+Eine \textbf{Einwegfunktion} ist eine Funktion, die:
+\begin{itemize}
+    \item In einer Richtung leicht zu berechnen ist
+    \item Extrem schwierig (praktisch unmöglich) umzukehren ist
+\end{itemize}
+\end{definition}
+
+\pause
+
+\begin{example}[Alltägliche Analogie]
+\textbf{Farben mischen:}
+\begin{itemize}
+    \item \textcolor{green!60!black}{Einfach:} Gelb + Blau mischen = Grün
+    \item \textcolor{red!60!black}{Schwer:} Bei Grün die genauen Gelb- und Blauanteile finden
+\end{itemize}
+\end{example}
+\end{frame}
+
+\begin{frame}{Mathematische Einwegfunktionen}
+\begin{block}{Beispiel 1: Modulare Exponentiation}
+\[
+f(x) = g^x \bmod p
+\]
+wobei $g$ eine Basis und $p$ eine große Primzahl ist.
+\end{block}
+
+\pause
+
+\begin{example}
+Sei $g = 3$, $p = 17$, $x = 5$
+
+\textbf{Vorwärts (Einfach):}
+\[
+3^5 \bmod 17 = 243 \bmod 17 = 5
+\]
+
+\pause
+
+\textbf{Rückwärts (Schwer):}
+
+Gegeben $g = 3$, $p = 17$, Ergebnis $= 5$, finde $x$ sodass $3^x \bmod 17 = 5$
+
+Das ist das \textbf{diskrete Logarithmusproblem}!
+\end{example}
+\end{frame}
+
+\begin{frame}{Ein weiteres Beispiel: Primfaktorzerlegung}
+\begin{block}{Multiplikation vs. Faktorisierung}
+\textbf{Einfache Richtung:}
+\[
+53 \times 79 = 4187
+\]
+
+\pause
+
+\textbf{Schwere Richtung:}
+
+Gegeben 4187, finde die zwei Primfaktoren.
+
+\pause
+
+Mit kleinen Zahlen: durch Ausprobieren möglich
+
+Mit 400-stelligen Zahlen: würde Milliarden Jahre dauern!
+\end{block}
+
+\pause
+
+\begin{exampleblock}{In der Praxis verwendet}
+Diese Eigenschaft ist die Grundlage der RSA-Verschlüsselung!
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Warum Einwegfunktionen wichtig sind}
+\begin{block}{Die zentrale Erkenntnis}
+Wenn wir Kryptographie auf Einwegfunktionen aufbauen:
+\begin{itemize}
+    \item Kann der Algorithmus öffentlich sein (jeder kennt $g^x \bmod p$)
+    \item Aber die Umkehrung ohne das Geheimnis ist unmöglich
+    \item Sicherheit kommt von rechnerischer Schwierigkeit, nicht von Geheimhaltung
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Das ändert alles}
+Einwegfunktionen ermöglichen es uns, Systeme zu erstellen, die Kerckhoffs' Prinzip erfüllen!
+\end{alertblock}
+\end{frame}
+
+\section{Diffie-Hellman-Schlüsselaustausch}
+
+\begin{frame}{Der revolutionäre Durchbruch (1976)}
+\begin{block}{Whitfield Diffie \& Martin Hellman}
+Lösten das Schlüsselverteilungsproblem mit einer verblüffenden Idee:
+
+\vspace{0.3cm}
+
+\textit{Zwei Personen können ein gemeinsames Geheimnis über einen öffentlichen Kanal erstellen, ohne das Geheimnis selbst jemals zu übertragen!}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Denken Sie darüber nach}
+Alice und Bob können sich auf einen geheimen Schlüssel einigen, während Eve alles mithört, was sie sagen!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Die Farbmisch-Analogie}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    % Public color
+    \draw[fill=yellow!80] (0,3) circle (0.4cm);
+    \node at (0,2.3) {\small Öffentlich: Gelb};
+
+    \pause
+
+    % Alice's secret
+    \draw[fill=red!80] (-3,1.5) circle (0.3cm);
+    \node at (-3,0.9) {\small Alices Geheimnis: Rot};
+
+    % Bob's secret
+    \draw[fill=blue!80] (3,1.5) circle (0.3cm);
+    \node at (3,0.9) {\small Bobs Geheimnis: Blau};
+
+    \pause
+
+    % Alice mixes
+    \draw[fill=orange!80] (-3,0) circle (0.4cm);
+    \node at (-3,-0.7) {\small Alice: Orange};
+    \draw[->,thick] (-3,1.2) -- (-3,0.5);
+
+    % Bob mixes
+    \draw[fill=green!60!blue!80] (3,0) circle (0.4cm);
+    \node at (3,-0.7) {\small Bob: Grün};
+    \draw[->,thick] (3,1.2) -- (3,0.5);
+
+    \pause
+
+    % Exchange
+    \draw[->,very thick,red] (-2.7,-0.3) to[bend left=20] (2.7,-0.3);
+    \draw[->,very thick,blue] (2.7,0.3) to[bend left=20] (-2.7,0.3);
+    \node at (0,-0.8) {\small \textbf{Öffentlicher Austausch}};
+
+    \pause
+
+    % Final mix
+    \draw[fill=brown!70] (-3,-2) circle (0.4cm);
+    \node at (-3,-2.7) {\small Alices Endfarbe};
+    \draw[->,thick] (-3,-0.5) -- (-3,-1.5);
+
+    \draw[fill=brown!70] (3,-2) circle (0.4cm);
+    \node at (3,-2.7) {\small Bobs Endfarbe};
+    \draw[->,thick] (3,-0.5) -- (3,-1.5);
+
+    \pause
+
+    \node at (0,-3.2) {\textbf{Gleiche Farbe!}};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Das mathematische Protokoll}
+\begin{block}{Öffentliche Parameter (allen bekannt)}
+\begin{itemize}
+    \item $p$ = eine große Primzahl
+    \item $g$ = ein Generator (eine Zahl zwischen 1 und $p-1$)
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{block}{Das Protokoll}
+\begin{enumerate}
+    \item Alice wählt Geheimnis $a$, berechnet $A = g^a \bmod p$, sendet $A$ an Bob
+    \item Bob wählt Geheimnis $b$, berechnet $B = g^b \bmod p$, sendet $B$ an Alice
+    \item Alice berechnet: $s = B^a \bmod p = (g^b)^a \bmod p = g^{ab} \bmod p$
+    \item Bob berechnet: $s = A^b \bmod p = (g^a)^b \bmod p = g^{ab} \bmod p$
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Ergebnis}
+Beide haben das gleiche gemeinsame Geheimnis $s = g^{ab} \bmod p$!
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Warum ist das sicher?}
+\begin{block}{Was Eve (die Lauscherin) weiß:}
+\begin{itemize}
+    \item $p$ (öffentliche Primzahl)
+    \item $g$ (öffentlicher Generator)
+    \item $A = g^a \bmod p$ (abgefangen)
+    \item $B = g^b \bmod p$ (abgefangen)
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Was Eve braucht, um das Geheimnis zu finden:}
+Sie muss lösen: $g^a \bmod p = A$ um $a$ zu finden (oder das Äquivalent für $b$)
+
+Das ist das \textbf{diskrete Logarithmusproblem}!
+\end{alertblock}
+
+\pause
+
+\begin{block}{Mit großen Zahlen}
+Mit 2048-Bit-Primzahlen würde dies länger als das Alter des Universums dauern!
+\end{block}
+\end{frame}
+
+\section{Durchgerechnetes Beispiel}
+
+\begin{frame}{Vollständiges Beispiel: Einrichtung}
+\begin{block}{Öffentliche Parameter}
+\begin{align*}
+p &= 23 \quad \text{(Primzahl)} \\
+g &= 5 \quad \text{(Generator)}
+\end{align*}
+\end{block}
+
+\pause
+
+\begin{block}{Alices Zug}
+Alice wählt Geheimnis: $a = 6$
+
+Alice berechnet:
+\[
+A = g^a \bmod p = 5^6 \bmod 23
+\]
+
+\pause
+
+\[
+A = 15625 \bmod 23 = 8
+\]
+
+\textbf{Alice sendet $A = 8$ an Bob (öffentlich)}
+\end{block}
+\end{frame}
+
+\begin{frame}{Vollständiges Beispiel: Bobs Zug}
+\begin{block}{Bobs Zug}
+Bob wählt Geheimnis: $b = 15$
+
+Bob berechnet:
+\[
+B = g^b \bmod p = 5^{15} \bmod 23
+\]
+
+\pause
+
+\[
+B = 30517578125 \bmod 23 = 19
+\]
+
+\textbf{Bob sendet $B = 19$ an Alice (öffentlich)}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Bisheriger Stand}
+Öffentlich bekannt: $p = 23$, $g = 5$, $A = 8$, $B = 19$
+
+Geheimnisse: Alice kennt $a = 6$, Bob kennt $b = 15$
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Vollständiges Beispiel: Berechnung des gemeinsamen Geheimnisses}
+\begin{block}{Alice berechnet}
+\[
+s_A = B^a \bmod p = 19^6 \bmod 23
+\]
+
+\pause
+
+\[
+s_A = 47045881 \bmod 23 = 2
+\]
+\end{block}
+
+\pause
+
+\begin{block}{Bob berechnet}
+\[
+s_B = A^b \bmod p = 8^{15} \bmod 23
+\]
+
+\pause
+
+\[
+s_B = 35184372088832 \bmod 23 = 2
+\]
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Erfolg!}
+Sowohl Alice als auch Bob haben das gleiche gemeinsame Geheimnis berechnet: $s = 2$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Was ist mit Eve?}
+\begin{block}{Eves Informationen}
+\begin{itemize}
+    \item $p = 23$
+    \item $g = 5$
+    \item $A = 8$
+    \item $B = 19$
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Eves Herausforderung}
+Um das Geheimnis $s = g^{ab} \bmod 23 = 2$ zu finden, muss sie lösen:
+\[
+5^a \bmod 23 = 8 \quad \text{oder} \quad 5^b \bmod 23 = 19
+\]
+\end{alertblock}
+
+\pause
+
+\begin{block}{Realitätscheck}
+\begin{itemize}
+    \item Mit $p = 23$: Eve kann alle 22 Möglichkeiten durchprobieren (einfach)
+    \item Mit 2048-Bit $p$: Eve würde Milliarden Jahre brauchen!
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Verifikation: Schritt für Schritt}
+\begin{block}{Überprüfen wir Alices Berechnung}
+\begin{align*}
+s_A &= B^a \bmod p \\
+    &= 19^6 \bmod 23 \\
+    &= (19^2)^3 \bmod 23 \\
+    &= 361^3 \bmod 23 \\
+    &= (361 \bmod 23)^3 \bmod 23 \\
+    &= 16^3 \bmod 23 \\
+    &= 4096 \bmod 23 \\
+    &= 2
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Die Magie enthüllt}
+\begin{block}{Warum es funktioniert}
+\begin{align*}
+s_A &= B^a \bmod p = (g^b)^a \bmod p = g^{ab} \bmod p \\
+s_B &= A^b \bmod p = (g^a)^b \bmod p = g^{ab} \bmod p
+\end{align*}
+
+Beide berechnen $g^{ab} \bmod p$ auf unterschiedlichen Wegen!
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Der Durchbruch}
+\begin{itemize}
+    \item Alice und Bob haben das Geheimnis nie ausgetauscht
+    \item Jeder nutzte seine privaten Informationen mit dem öffentlichen Wert des anderen
+    \item Eve kann $g^{ab}$ nicht berechnen, ohne $a$ oder $b$ zu kennen
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Übungsaufgabe}
+\begin{block}{Sie sind dran!}
+Gegeben: $p = 11$, $g = 2$
+
+Alices Geheimnis: $a = 3$
+
+Bobs Geheimnis: $b = 7$
+
+\vspace{0.5cm}
+
+Berechnen Sie:
+\begin{enumerate}
+    \item $A$ (Alices öffentlicher Wert)
+    \item $B$ (Bobs öffentlicher Wert)
+    \item $s$ (das gemeinsame Geheimnis)
+\end{enumerate}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Hinweis}
+Denken Sie daran, bei jedem Schritt den Modulo zu nehmen, um die Zahlen handhabbar zu halten!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Übungsaufgabe: Lösung}
+\begin{block}{Berechnungen}
+\begin{align*}
+A &= g^a \bmod p = 2^3 \bmod 11 = 8 \bmod 11 = 8 \\
+B &= g^b \bmod p = 2^7 \bmod 11 = 128 \bmod 11 = 7 \\
+\end{align*}
+
+\pause
+
+\begin{align*}
+s_{\text{Alice}} &= B^a \bmod p = 7^3 \bmod 11 = 343 \bmod 11 = 2 \\
+s_{\text{Bob}} &= A^b \bmod p = 8^7 \bmod 11 = 2097152 \bmod 11 = 2
+\end{align*}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Antwort}
+Gemeinsames Geheimnis: $s = 2$
+\end{exampleblock}
+\end{frame}
+
+\section{Zusammenfassung}
+
+\begin{frame}{Was wir heute gelernt haben}
+\begin{enumerate}
+    \item \textbf{Klassische Chiffren} haben grundlegende Schwächen
+    \begin{itemize}
+        \item Sicherheit durch Geheimhaltung
+        \item Schlüsselverteilungsproblem
+    \end{itemize}
+
+    \pause
+
+    \item \textbf{Kerckhoffs' Prinzip}: Sicherheit sollte nur vom Schlüssel abhängen
+
+    \pause
+
+    \item \textbf{Einwegfunktionen}: Vorwärts einfach, rückwärts schwer
+    \begin{itemize}
+        \item Modulare Exponentiation
+        \item Primfaktorzerlegung
+    \end{itemize}
+
+    \pause
+
+    \item \textbf{Diffie-Hellman}: Zwei Parteien können ein gemeinsames Geheimnis über einen öffentlichen Kanal erstellen!
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Das große Ganze}
+\begin{block}{Von klassisch zu modern}
+\begin{itemize}
+    \item \textbf{Klassisch}: Die Methode geheim halten
+    \item \textbf{Modern}: Nur den Schlüssel geheim halten
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{block}{Die Revolution}
+Mathematische Einwegfunktionen ermöglichen es uns:
+\begin{itemize}
+    \item Öffentliche Algorithmen zu verwenden
+    \item Das Schlüsselverteilungsproblem zu lösen
+    \item Sicherheit durch Berechnung statt Geheimhaltung zu erreichen
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{exampleblock}{Auswirkungen in der realen Welt}
+Jedes Mal, wenn Sie ``https://'' in Ihrem Browser sehen, nutzen Sie diese Prinzipien!
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Ausblick}
+\begin{block}{Was kommt als Nächstes?}
+\begin{itemize}
+    \item RSA-Verschlüsselung (ein weiteres Public-Key-System)
+    \item Digitale Signaturen
+    \item Hybride Kryptosysteme
+    \item Bedrohungen durch Quantencomputer
+\end{itemize}
+\end{block}
+
+\pause
+
+\begin{alertblock}{Denken Sie daran}
+Moderne Kryptographie basiert auf soliden mathematischen Grundlagen, die Sicherheit durch Transparenz ermöglichen!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+{\Huge Fragen?}
+
+\vspace{1cm}
+
+\large
+Denken Sie daran: Das gemeinsame Geheimnis wird nie übertragen!
+\end{center}
+\end{frame}
+
+\end{document}

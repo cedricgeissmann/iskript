@@ -1,0 +1,28 @@
+\frametitle{Password Hashing with Salt}
+\textbf{Salt = random string added before hashing}
+
+\vspace{0.3cm}
+\begin{exampleblock}{Example}
+User 1: "password123" + Salt "a8f9e2" → Hash 1\\
+User 2: "password123" + Salt "x3k8m1" → Hash 2
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{Stored in database:}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{User} & \textbf{Salt} & \textbf{Hash} \\
+\hline
+alice & a8f9e2 & 3f7a8c9d... \\
+bob & x3k8m1 & 9e2b5f1c... \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Prevents:}
+\begin{itemize}
+    \item Rainbow table attacks
+    \item Identifying users with same password
+    \item Parallel attacks
+\end{itemize}
